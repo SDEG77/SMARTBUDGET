@@ -1,0 +1,577 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+     font-family: 'Poppins', sans-serif;
+ }
+
+ body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.container {
+    display: flex;
+    height: 100vh;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.header {
+    font-family: 'Poppins';
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0;
+    color: #053A3D;
+  }
+ 
+  .sidebar {
+    width: 15%;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    margin: 1% 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+.menu-sidebar {
+display: flex; /* Enable flexbox layout */
+flex-direction: column; /* Stack children vertically */
+height: 100%; /* Make sure it takes full height */
+padding: 7px;
+border-radius: 10px;
+box-sizing: border-box;
+}
+
+.menu-sidebar > ul {
+flex: 1; /* Allow the menu to take available space */
+padding: 0;
+margin: 0;
+list-style-type: none;
+margin-top: 40px;
+}
+
+.menu-sidebar h4 {
+margin: 0;
+padding: 10px 0;
+color: white;
+}
+
+.menu-sidebar a {
+display: flex;
+align-items: center;
+padding: 0px;
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.menu-sidebar a:hover {
+    background-color: #e7e3e355;
+    border-radius: 10px;
+    }
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px; /* Adjust padding as needed */
+    margin: 3px;
+    }
+    
+.sidebarli .icon,
+.sidebar li img,
+.sidebar li i {
+font-size: 24px;
+color: white;
+width: 30px;
+height: 20px;
+margin-right: 10px;
+}
+
+.sidebarli img {
+object-fit: contain;
+}
+
+.sidebar li .label {
+font-size: 16px;
+color: white;
+}
+
+.sidebar li.active {
+background-color: #f2f2f28a; /* Active background color */
+width: 100%;
+border-radius: 10px;
+}
+
+.down-sidebar {
+margin-top: auto; /* Push down-sidebar to the bottom */
+}
+
+.down-sidebar a {
+display: flex;
+align-items: center;
+padding: 10px 0; /* Adjust padding as needed */
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-left: 10%;
+}
+
+
+.profile-sidebar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+ }
+
+.main-content {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px 7em;
+    overflow-y: auto;
+    height: 95%;
+    border-radius: 10px;
+    background-color: #f0f0f0; 
+    margin: 1% 1% 1% 1%;
+}
+
+/* Budget Stats */
+.budget-stats h3{
+    color: white;
+    font-size: 30px;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.budget-stats p{
+    font-size: 15px;
+    margin-top: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.budget-stats {
+margin-top: 20px;
+    display: flex;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    height: 13%;
+}
+.budget-stats div {
+    flex: 1;
+    width: 40%;
+    margin: auto;
+    position: relative;
+    color: white;
+    align-items: center;
+    
+    overflow: hidden;
+}
+.budget-stats div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #fff; /* The color for the dividing line */
+}
+.budget-allocation {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height:75%;
+    gap: 20px; /* Add spacing between chart and table */
+    margin-top: 20px;
+}
+
+.chart-container {
+    width: 50%; /* 40% of the total width */
+height: 85%;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px; /* Add some space below */
+ 
+
+}
+.chart-title{
+    font-size: 20px;
+    color: #053A3D;
+    font-weight: bold;
+}
+
+
+.chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    height: 100%;
+}
+
+.chart img {
+    width: 100%; /* Ensure the image scales to fit container */
+    max-width: 350px; /* Restrict the maximum width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Allocation Container (60% of width) */
+.allocation-container {
+    width: 60%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#budget-table {
+    width: 100%; /* Make table take up full width */
+    margin: 10px 0;
+    border-collapse: collapse;
+}
+
+#budget-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #053A3D;
+    font: 13px;
+    text-align: center;
+}
+
+#update-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Align button to the right */
+}
+#update-button:hover {
+    background-color: #3b5b63;
+}
+
+#add-income-form {
+    display: flex;
+   
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Wrap fields on smaller screens */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 22%; /* Adjust width of each input */
+}
+/* Label styling */
+.form-group label {
+    display: none; /* Hide the label for compact design */
+}
+#add-income-form input, 
+#add-income-form select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Button styling */
+button[type="submit"] {
+    background-color: #45db82;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Align the button at the end */
+}
+
+
+.head{
+    color: #053A3D;;
+}
+
+table {
+    width: 100%; /* Table takes full width of its parent container */
+    max-width: 100%; /* Prevents the table from exceeding the container's width */
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    border-collapse: collapse; /* Optional: To ensure borders are neatly aligned */
+    overflow-x: auto; /* Allows horizontal scrolling within the table if content exceeds width */
+}
+
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: left;
+    background-color: white; /* Ensure all cells have a white background */
+    border: none; /* Remove cell borders */
+}
+.table tbody{
+    margin-top: 20px;
+}
+.table th {
+    font-weight: bold; /* Highlight the table headers */
+    color: #053A3D; /* Change text color to black for contrast */
+}
+
+.table td {
+    color: #053A3D; /* Maintain black text color for clarity */
+    justify-items: center;
+}
+.tables {
+
+      width: 95%; /* Full width of the parent container */
+    max-width: 100%; /* Prevents overflow of the container */
+    padding: 0px; /* Optional: Add padding for spacing */
+    margin: 0 auto; /* Center the container */
+}
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+}
+
+.reset-button {
+    background-color: white;
+    width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: space-between; /* Distributes space between items */
+}
+
+.reset-button p {
+    margin: 0;
+    display: inline-block;
+}
+
+.btn-reset {
+    background-color: #ff6b6b; /* Red shade */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 20px; /* Space between text and button */
+}
+
+.btn-reset:hover {
+    background-color: #e05656;
+}
+@media (max-width: 1200px) {
+ 
+    .main-content {
+        width: 80%;
+        padding: 5%;
+    }
+}
+@media (max-width: 768px) {
+    .sidebar {
+        width: 20%;
+    }
+
+    .main-content {
+        width: 80%;
+        padding: 10px;
+    }
+    .chart-container {
+        width: 100%;
+        height: 90%;
+
+        flex-direction: column;
+        margin-bottom: 0.8em;
+    }
+
+    .allocation-container {
+        width: 100%;
+    }
+    
+    .head{
+        font-size: 10px;
+    }
+       
+    .budget-stats,#budget-table {
+        padding: 8px;
+        font-size: 12px;
+        overflow: hidden;
+    }
+
+   
+    .header, .chart-title {
+        height: auto;
+        font-size: 20px;
+    }
+    #add-income-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-group {
+        width: 100%; /* Full width for form fields on smaller screens */
+    }
+
+    #add-income-form input, 
+    #add-income-form select {
+        width: 100%; /* Full width inputs */
+    }
+
+    /* Reduce padding for smaller screens */
+    button[type="submit"] {
+        padding: 10px 5px;
+        font-size: 14px;
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .table th, 
+    .table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+    .button-container {
+       
+        align-items: flex-start; /* Align items to the start */
+        font-size: 8px;
+        flex-wrap: nowrap; /* Ensures items do not wrap to the next line */
+    }
+
+    .btn-reset {
+        margin-left: 0; /* Remove left margin on small screens */
+        margin-top: 10px; /* Add top margin for separation */
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 25%;
+    }
+
+    .main-content {
+        width: 80%;
+        padding: 10px;
+    }
+    .chart-container {
+        width: 100%;
+        height: 90%;
+        flex-direction: column;
+        margin-bottom: 0.8em;
+    }
+.head{
+    font-size: 10px;
+}
+    .allocation-container,#budget-table {
+        width: 100%;
+margin-top: 20px;
+    }
+tbody{
+    justify-items: center;
+}
+    .budget-stats {
+        padding: 8px;
+        font-size: 12px;
+        overflow: hidden;
+        height: 5%;
+        object-fit: cover;
+        }
+        .budget-stats h3{
+            font-size: 15px;
+        }
+        .budget-stats p{
+            font-size: 10px;
+        }
+    #budget-table {
+        padding: 8px;
+        font-size: 12px;
+        overflow: hidden;
+    }
+    .budget-allocation, #budget-table {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        
+    }
+    .header, .chart-title {
+        height: auto;
+        font-size: 20px;
+    }
+    #update-button {
+        width: 30%; /* Adjust the button width for smaller screens */
+        margin: 20px auto; /* Center button */
+        font-size: 10px;
+    }
+
+    #add-income-form label {
+        font-size: 14px;
+    }
+
+    #add-income-form input, 
+    #add-income-form select {
+        font-size: 12px;
+    }
+
+    button[type="submit"] {
+        padding: 8px 5px;
+        font-size: 12px;
+    }
+
+    .table th, 
+    .table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+    .button-container {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the start */
+        font-size: 10px;
+        flex-wrap: nowrap; /* Ensures items do not wrap to the next line */
+        display: flex;
+    }
+
+    .btn-reset {
+        margin-left: 0; /* Remove left margin on small screens */
+        margin-top: 10px; /* Add top margin for separation */
+        font-size: 8px;
+    }
+
+}

@@ -1,0 +1,746 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+     font-family: 'Poppins', sans-serif;
+ }
+
+body {
+    font-family: 'Poppins', sans-serif;
+margin: 0;
+padding: 0;
+background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+background-attachment: fixed; /* Make the gradient fixed */
+background-size: cover; /* Ensure the background covers the area */
+display: flex;
+height: 100vh;
+} 
+
+h4{
+    color: white;
+}
+.sidebar {
+    width: 15%;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    margin: 1% 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: space-between;
+}
+
+
+.menu-sidebar {
+display: flex; /* Enable flexbox layout */
+flex-direction: column; /* Stack children vertically */
+height: 100%; /* Make sure it takes full height */
+padding: 7px;
+border-radius: 10px;
+box-sizing: border-box;
+}
+
+.menu-sidebar > ul {
+flex: 1; /* Allow the menu to take available space */
+padding: 0;
+margin: 0;
+list-style-type: none;
+margin-top: 40px;
+}
+
+.menu-sidebar h4 {
+margin: 0;
+padding: 10px 0;
+color: white;
+}
+
+.menu-sidebar a {
+display: flex;
+align-items: center;
+padding: 0px;
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.menu-sidebar a:hover {
+background-color: #e7e3e355;
+border-radius: 10px;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px; /* Adjust padding as needed */
+    margin: 3px;
+    }
+    
+
+.sidebarli .icon,
+.sidebar li img,
+.sidebar li i {
+font-size: 24px;
+color: white;
+width: 30px;
+height: 20px;
+margin-right: 10px;
+}
+
+.sidebarli img {
+object-fit: contain;
+}
+
+.sidebar li .label {
+font-size: 16px;
+color: white;
+}
+
+.sidebar li.active {
+background-color: #f2f2f28a; /* Active background color */
+width: 100%;
+border-radius: 10px;
+}
+
+.down-sidebar {
+margin-top: auto; /* Push down-sidebar to the bottom */
+}
+
+.down-sidebar a {
+display: flex;
+align-items: center;
+padding: 10px 0; /* Adjust padding as needed */
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-left: 10%;
+}
+.profile-sidebar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+ }
+
+
+.profile-sidebar {
+    background-color: #e6f7ff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    margin-left: 8%;
+}
+
+.track-sidebar {
+    background-color: #e6f7ff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    margin-left: 8%;
+}
+.container {
+    display: flex;
+    height: 100vh;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+.main-content {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 2em;
+    overflow-y: auto;
+    height: 95%;
+    border-radius: 10px;
+    background-color: #f0f0f0; 
+    margin: 1% 1% 1% 1%;
+}
+/* Container for both summary and chart */
+.tracker-container {
+    display: flex;
+    justify-content: center;
+    width: 98%;
+    padding: 10px; /* Reduce padding */
+}
+
+/* Overview section for the summaries and chart */
+.tracker-overview {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    height: 100%;
+   
+}
+
+/* Summaries (expenses, income, balance) */
+.tracker-summaries {
+    display: flex;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    border-radius: 10px;
+    width: 70%;
+    height: 90%;
+
+    
+}
+/* Individual summary boxes with border */
+.tracker-summary {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Prevent content from spilling out */
+}
+
+
+.tracker-summary h2 {
+    font-size: 30px;
+    color: white;
+ margin-bottom: 0;
+}
+
+.tracker-summary p {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+/* Add vertical dividing lines between the tracker summary boxes */
+.tracker-summary:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px;
+    background-color: white; /* Same dark green color as the header */
+}
+
+/* Chart container */
+.tracker-chart-container {
+    flex: 1; /* Allow it to take up remaining space */
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    height: 90%;
+}
+.tracker-chart-container {
+object-fit: cover;
+margin-bottom: 15px;
+width: 100%;
+}
+/* Chart image */
+.tracker-chart {
+    max-width: 100%;
+}
+/* Container for tabs and action buttons */
+.tracker-tabs {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between; /* Space out tabs and action buttons */
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+/* Tabs container to ensure horizontal alignment */
+.tracker-tabs > div {
+    display: flex;
+    gap: 10px; /* Space between tabs */
+}
+
+/* Tabs styling */
+.tracker-tabs button {
+    background-color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Active tab styling */
+.tracker-tabs button.active {
+    background-color: #053a3d;
+    color: white;
+    font-size: 15px;
+}
+
+/* Styling for action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+/* Action buttons styling */
+.action-buttons button {
+    background-color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s;
+}
+
+.action-buttons button.add {
+    background-color: #053a3d;
+    color: white;
+}
+
+.action-buttons button.export {
+    background-color: #053a3d;
+    color: white;
+}
+
+.transactions-section h4 {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse; /* Ensures there's no space between borders */
+    font-size: 14px;
+    
+}
+
+td, th {
+    padding: 10px;
+    text-align: left;
+    border: none; /* Removes borders to make the table look plain */
+    color: #053A3D;
+}
+.tracker-table{
+    background-color: #ffff;
+    border-radius: 20px;
+}
+.transactions-table td, .transactions-table th {
+    border: none; /* No border for a plain appearance */
+    padding: 10px 5px;
+    font-weight: normal;
+}
+table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.transactions-table td strong {
+    font-weight: bold;
+    color: #333;
+}
+button {
+    background-color: transparent; /* No background color */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    outline: none; /* Remove default outline */
+    padding: 5px; /* Add padding for better click area */
+    margin-right: 10px; /* Space to the right of the button */
+}
+/* Icon inside the button */
+button i {
+    font-size: 20px; /* Icon size */
+    color: red; /* Icon color */
+    width: 30px; /* Fixed width */
+    height: 20px; /* Fixed height */
+   
+}
+
+
+
+
+
+/* Common Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+}
+/* Add / Edit Record Modal Styles */
+.record-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Default to 90% of the viewport width for smaller screens */
+    max-width: 500px; /* Set a maximum width so it doesn't stretch too far */
+    margin: 0 auto; /* Center the modal horizontally */
+}
+
+.record-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.record-modal .modal-header h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.record-modal .modal-header .close {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.record-modal .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between form fields */
+    padding: 20px;
+}
+
+
+.record-modal .modal-body label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    display: block;
+    text-align: left;
+}
+
+.record-modal .modal-body input,
+.record-modal .modal-body select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 90%; /* Set full width for all inputs and selects */
+}
+
+.record-modal .modal-body .input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.record-modal .modal-body .input-group div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.record-modal .modal-body .input-group div input,
+.record-modal .modal-body .input-group div select {
+    width: 90%; /* Ensure equal widths for inputs/selects inside input-group */
+}
+
+.record-modal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.record-modal .modal-footer button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.record-modal .modal-footer .clear-btn {
+    background-color: #ccc;
+    margin-top: 10px;
+}
+
+.record-modal .modal-footer .save-btn {
+    background-color: #4db8ff;
+    color: white;
+    margin-top: 10px;
+}
+
+
+/* GREAT! Modal Styles */
+.great-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.great-modal .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.great-modal .modal-header h2 {
+    font-size: 24px;
+    color: #45db82; /* Example color */
+    margin: 0;
+}
+
+.great-modal .modal-content i {
+    font-size: 48px;
+    color: #4CAF50; /* Example color */
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.great-modal .modal-body {
+    text-align: center;
+}
+
+.great-modal .modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.great-modal .modal-footer .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #4db8ff;
+    color: white;
+}
+/* Delete Confirmation Modal Styles */
+.delete-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.delete-modal .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.delete-modal .modal-header h2 {
+    font-size: 24px;
+    color: black; 
+    margin: 0;
+}
+
+.delete-modal .modal-content i {
+    font-size: 48px;
+    color: #724143;/* Red color for delete confirmation */
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.delete-modal .modal-body {
+    text-align: center;
+}
+
+.delete-modal .modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.delete-modal .modal-footer .clear-btn,
+.delete-modal .modal-footer .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-modal .modal-footer .clear-btn {
+    background-color: #2f5f98;
+    color: white;
+}
+
+.delete-modal .modal-footer .save-btn {
+    background-color: #ccc; /* Gray color for cancellation */
+    color: black;
+}
+
+.delete-modal .modal-header .close {
+    font-size: 24px;
+    cursor: pointer;
+    color: #2f5f98; /* Match the close icon color with header */
+}
+
+
+.content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+}
+.header {
+    font-size: 30px;
+    font-weight: bold;
+    color: #053A3D;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+.popup {
+    width: 50%; /* Default width */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.popup h2 {
+margin-top: 0;
+color: #4db8ff;
+font-size: 24px;
+}
+
+.popup p {
+font-size: 16px;
+color: #333;
+}
+
+.popup button {
+background-color: #4db8ff;
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+margin-top: 10px;
+}
+
+.popup button:hover {
+background-color: #66ccff;
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 20%;
+    }
+
+    .main-content {
+        width: 80%;
+    }
+    .tracker-container {
+        height: auto; /* Ensure it adjusts based on content */
+        margin-bottom: 0.8em;
+        font-size: 10px;
+    }
+
+    .tracker-summary h2 {
+        font-size: 10px;
+        color: white;
+     
+    }
+    
+    .tracker-tabs {
+        flex-direction: column; /* Stack vertically on smaller screens */
+       
+    }
+    
+    
+    
+    .tracker-tabs button {
+        width: 100%; /* Full width for each button on small screens */
+        text-align: center; /* Center text */
+        margin: 5px 0; /* Adjust margin for spacing */
+    }
+}
+@media (max-width: 480px) {
+
+    .tracker-container {
+        height: auto; /* Ensure it adjusts based on content */
+        margin-bottom: 0.8em;
+    }
+
+    .tracker-summary {
+        padding: 8px;
+        font-size: 10px;
+        flex-direction: column; /* Stack elements vertically for small screens */
+    align-items: flex-start; /* Align items to the left */
+    }
+.tracker-summary p{
+    font-size: 10px;
+}
+ 
+    .sidebar {
+        width: 25%;
+    }
+
+    .main-content {
+        width: 80%;
+    }
+    .tracker-table tbody {
+        font-size: 8px; /* Further reduce font size */
+        height: auto; /* Let height adjust */
+        flex-direction: column; /* Stack elements vertically for small screens */
+       
+    }
+    .tracker-tabs button,  .tracker-tabs button.active , 
+    .action-buttons button.add,button.export,
+     .filter-buttons button.active {
+        font-size:8px; /* Smallest button font size */
+        padding: 3px 5px; /* Smaller padding */
+        width: 35%; /* Make buttons take full width */
+        margin-bottom: 10px; /* Add space between buttons */
+    }
+
+    .tracker-table,.tracker-tabs {
+        font-size: 8px;
+        height: auto;
+        width: auto;
+        right: 2px;
+        bottom: 2px;
+       
+        border-collapse: collapse; /* Ensures there's no space between borders */
+    }
+
+    .tbody, .tr{
+        flex-direction: column; /* Stack elements vertically for small screens */
+        align-items: flex-start; /* Align items to the left */
+       
+    }
+
+ 
+.record-modal .modal-content {
+    width: 80%; /* Make it take full width for very small devices */
+    padding: 15px; /* Adjust padding for smaller screens */
+}
+button i {
+    font-size: 8px; /* Icon size */
+}
+}

@@ -1,0 +1,376 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+     font-family: 'Poppins', sans-serif;
+ }
+
+body {
+    font-family: 'Poppins', sans-serif;
+margin: 0;
+padding: 0;
+background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+background-attachment: fixed; /* Make the gradient fixed */
+background-size: cover; /* Ensure the background covers the area */
+display: flex;
+height: 100vh;
+} 
+
+/* Sidebar Styles */
+.sidebar {
+  width: 15%;
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  margin: 1% 0 1% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: space-between;
+}
+
+h4 {
+  color: white;
+}
+
+.main-content {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 1em;
+  overflow-y: auto;
+  height: 95%;
+  border-radius: 10px;
+  background-color: #f0f0f0; 
+  margin: 1% 1% 1% 1%;
+}
+.menu-sidebar {
+display: flex; /* Enable flexbox layout */
+flex-direction: column; /* Stack children vertically */
+height: 100%; /* Make sure it takes full height */
+padding: 7px;
+border-radius: 10px;
+box-sizing: border-box;
+  }
+  
+  .menu-sidebar > ul {
+  flex: 1; /* Allow the menu to take available space */
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  }
+  
+  .menu-sidebar h4 {
+  margin: 0;
+  padding: 10px 0;
+  color: white;
+  }
+  
+  .menu-sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  text-decoration: none;
+  color: inherit; /* Ensure color inherits from parent */
+  }
+  
+  .menu-sidebar a:hover {
+  background-color: #e7e3e355;
+  border-radius: 10px;
+  }
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-left: 10%;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  padding: 10px 5px; /* Adjust padding as needed */
+  margin: 3px;
+  }
+  
+  
+  .sidebar li .icon,
+  .sidebar li img,
+  .sidebar li i {
+  font-size: 24px;
+  color: white;
+  width: 30px;
+  height: 20px;
+  margin-right: 10px;
+  }
+  
+  .sidebar li img {
+  object-fit: contain;
+  }
+  
+  .sidebar li .label {
+  font-size: 16px;
+  color: white;
+  }
+  
+  .sidebar li.active {
+  background-color: #f2f2f28a; /* Active background color */
+  width: 100%;
+  border-radius: 10px;
+  }
+  
+  .down-sidebar {
+  margin-top: auto; /* Push down-sidebar to the bottom */
+  }
+  
+  .down-sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 10px 0; /* Adjust padding as needed */
+  text-decoration: none;
+  color: inherit; /* Ensure color inherits from parent */
+  }
+  
+.profile-sidebar-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.profile-sidebar {
+
+  border-radius: 10px;
+  width: 100%;
+  height: 85%;
+margin-top: 0;
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+}
+
+.down-sidebar {
+  margin-top: 90%;
+}
+
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile-picture-wrapper {
+  position: relative;
+  margin-right: 0%;
+  text-align: center;
+  margin-bottom: 30%;
+}
+
+.profile-main {
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  margin-right: 10%;
+}
+
+.profile-picture-wrapper img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile-picture-wrapper input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.profile-picture-wrapper .icon-overlay {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  padding: 10px;
+  pointer-events: none; /* Prevent the icon from blocking clicks */
+}
+
+.profile-picture-wrapper:hover .icon-overlay {
+  display: block;
+}
+
+.profile-sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-sidebar p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  height: 100%;
+  margin-top: 30px;
+  
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  background-color: #f5f5f5;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #0f3b3b;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  flex-basis: 100%;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  flex-basis: 45%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 95%;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-btn,
+.update-btn,
+.save-btn,
+.delete-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.clear-btn {
+  background-color: #0f3b3b;
+  color: white;
+  margin-right: 10px;
+}
+
+.update-btn,
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #FF5C5C;
+  color: white;
+  width: 100%;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 15%;
+    height: 100%;
+  }
+
+  .profile-main {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .profile-sidebar {
+    width:100%;
+   
+  }
+
+
+  .sidebar li .icon {
+    font-size: 20px;
+    padding: 8px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    }
+    .sidebar {
+      width: 15%;
+  }
+
+  .main-content {
+      width: 100%;
+  }
+  .profile-main {
+    width: 100%;
+  }
+
+  .profile-sidebar {
+    width: 100%;
+    margin-top: 10%;
+  }
+
+  .profile-picture-wrapper img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .sidebar a {
+    font-size: 12px;
+  }
+
+  .form-container {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+     font-family: 'Poppins', sans-serif;
+color: #053A3D;
+ }body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Prevents scrolling */
+}
+
+.sidebar {
+    width: 15%;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    margin: 1% 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+.header{
+    font-size: 30px;
+    font-weight: bold;
+}
+.menu-sidebar {
+display: flex; /* Enable flexbox layout */
+flex-direction: column; /* Stack children vertically */
+height: 100%; /* Make sure it takes full height */
+padding: 7px;
+border-radius: 10px;
+box-sizing: border-box;
+}
+
+.menu-sidebar > ul {
+flex: 1; /* Allow the menu to take available space */
+padding: 0;
+margin: 0;
+list-style-type: none;
+margin-top: 40px;
+}
+
+.menu-sidebar h4 {
+margin: 0;
+padding: 10px 0;
+color: white;
+}
+
+.menu-sidebar a {
+display: flex;
+align-items: center;
+padding: 0px;
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.menu-sidebar a:hover {
+    background-color: #e7e3e355;
+    border-radius: 10px;
+    }
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px; /* Adjust padding as needed */
+    margin: 3px;
+    }
+    
+.sidebarli .icon,
+.sidebar li img,
+.sidebar li i {
+font-size: 24px;
+color: white;
+width: 30px;
+height: 20px;
+margin-right: 10px;
+}
+
+.sidebarli img {
+object-fit: contain;
+}
+
+.sidebar li .label {
+font-size: 16px;
+color: white;
+}
+
+.sidebar li.active {
+background-color: #f2f2f28a; /* Active background color */
+width: 100%;
+border-radius: 10px;
+}
+
+.down-sidebar {
+margin-top: auto; /* Push down-sidebar to the bottom */
+}
+
+.down-sidebar a {
+display: flex;
+align-items: center;
+padding: 10px 0; /* Adjust padding as needed */
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-left: 10%;
+}
+
+
+.profile-sidebar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+ }
+/* Main Content Styles */
+
+.main-content {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1em 3em;
+    overflow-y: auto;
+    height: 95%;
+    border-radius: 10px;
+    background-color: #f0f0f0; 
+    margin: 1% 1% 1% 1%;
+}
+.down-sidebar {
+    margin-top: auto; /* Push down-sidebar to the bottom */
+    }
+    
+    .down-sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Adjust padding as needed */
+    text-decoration: none;
+    color: inherit; /* Ensure color inherits from parent */
+    }
+    
+
+/* Team Section */
+.team {
+    margin-top: 60px;
+    margin-left: 50px;
+}
+
+.team-members {
+    display: flex;
+    justify-content: space-between; /* Ensure equal spacing between items */
+    gap: 20px; /* Adjust the spacing between the members */
+    max-width: 90%; /* Ensure full width is utilized */
+    
+}
+
+.team-member {
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    border-radius: 10px;
+    width: 25%; /* Ensure 4 items fit within 100% width */
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 23%; /* Flex-grow and shrink for responsiveness */
+}
+
+.picture{
+    margin-top: 20%;
+}
+.team-member h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.team-member p {
+    font-size: 10px;
+    margin-bottom: 10px;
+    justify-content: left;
+    color: white;
+}
+
+.team-member a {
+    color: #007BFF;
+    text-decoration: none;
+}
+/* Image Container Styling */
+.image-container {
+    position: relative;
+    width: 100%; /* Set the full width for the container */
+    height: 150px; /* Adjust the container height */
+    overflow: visible; /* Allow the image to overflow the container */
+  
+    margin-bottom: 30px; /* Add spacing between containers */
+}
+
+/* Styling for the team images */
+.image-container img {
+    width: 100%; /* Make the image fill the container horizontally */
+    height: 150%; /* Make the image taller than the container */
+    transform: translateY(-30%); /* Shift the image upwards to overflow halfway */
+}
+
+.quote{
+    margin-left: 50%;
+    font-size: 30px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .team-members{
+        width: 30%; /* Adjust to fit two per row on smaller screens */
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+        overflow-x: hidden;
+    }
+    .team-member h3{
+        font-size: 10px;
+    }
+    .team-member img {
+width: 30px;
+height: 30px;
+    }
+    .team{
+        width:  10%;
+    }
+    .team-member {
+       width: 30%;
+}
+}
+@media (max-width: 480px) {
+    .team-member {
+        width: 80%; /* Full width for single-column layout on very small screens */
+       
+    }
+}

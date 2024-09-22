@@ -1,0 +1,497 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+     font-family: 'Poppins', sans-serif;
+ }
+
+body {
+    font-family: 'Poppins', sans-serif;
+margin: 0;
+padding: 0;
+background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+background-attachment: fixed; /* Make the gradient fixed */
+background-size: cover; /* Ensure the background covers the area */
+display: flex;
+height: 100vh;
+} 
+
+h4{
+    color: white;
+}
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    color: #053A3D; 
+  }
+  p{
+    margin-top: -20px;
+  }
+  .sidebar {
+    width: 15%;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    margin: 1% 0 1% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+.menu-sidebar {
+display: flex; /* Enable flexbox layout */
+flex-direction: column; /* Stack children vertically */
+height: 100%; /* Make sure it takes full height */
+padding: 7px;
+border-radius: 10px;
+box-sizing: border-box;
+}
+
+.menu-sidebar > ul {
+flex: 1; /* Allow the menu to take available space */
+padding: 0;
+margin: 0;
+list-style-type: none;
+margin-top: 40px;
+}
+
+.menu-sidebar h4 {
+margin: 0;
+padding: 10px 0;
+color: white;
+}
+
+.menu-sidebar a {
+display: flex;
+align-items: center;
+padding: 0px;
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.menu-sidebar a:hover {
+    background-color: #e7e3e355;
+    border-radius: 10px;
+    }
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px; /* Adjust padding as needed */
+    margin: 3px;
+    }
+    
+.sidebarli .icon,
+.sidebar li img,
+.sidebar li i {
+font-size: 24px;
+color: white;
+width: 30px;
+height: 20px;
+margin-right: 10px;
+}
+
+.sidebarli img {
+object-fit: contain;
+}
+
+.sidebar li .label {
+font-size: 16px;
+color: white;
+}
+
+.sidebar li.active {
+background-color: #f2f2f28a; /* Active background color */
+width: 100%;
+border-radius: 10px;
+}
+
+.down-sidebar {
+margin-top: auto; /* Push down-sidebar to the bottom */
+}
+
+.down-sidebar a {
+display: flex;
+align-items: center;
+padding: 10px 0; /* Adjust padding as needed */
+text-decoration: none;
+color: inherit; /* Ensure color inherits from parent */
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-left: 10%;
+}
+
+
+.profile-sidebar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+ }
+
+ 
+ .main-content {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 2em;
+    overflow-y: auto;
+    height: 95%;
+    border-radius: 10px;
+    background-color: #f0f0f0; 
+    margin: 1% 1% 1% 1%;
+}
+        .filter-buttons {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .filter-buttons button {
+            padding: 10px 20px;
+            background-color: #ffff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+.action-buttons button.add {
+    background-color: #00BF63 ;
+    color: white;
+}
+.action-buttons button.export {
+    background-color: #F1454D  ;
+    color: white;
+}
+.filter-buttons button.active {
+    background-color: #053a3d ;
+    color: white;
+}
+        
+/* Container for all transactions */
+#transactionContainer {
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+ margin-top: 5px;
+    width: 100%;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    color: #053A3D;
+}
+
+.border-radius {
+    border-radius: 8px;
+}
+
+.highlight {
+    background-color: #f9f9f9;
+}
+
+.transactionCheckbox {
+    margin-right: 10px;
+}
+
+.faded {
+    opacity: 0.5; /* Reduce opacity for the faded effect */
+    color: gray; /* Optional: Change text color to gray */
+    pointer-events: none; /* Disable interaction */
+}
+
+/* Styling for delete button */
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red; /* Change color of the icon to red */
+}
+
+.normal {
+    background-color: transparent;
+}
+
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+      /* Common Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Add / Edit Record Modal Styles */
+.record-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.record-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.record-modal .modal-header h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.record-modal .modal-header .close {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.record-modal .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.record-modal .modal-body input,
+.record-modal .modal-body select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.record-modal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.record-modal .modal-footer button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.record-modal .modal-footer .clear-btn {
+    background-color: #ccc;
+}
+
+.record-modal .modal-footer .save-btn {
+    background-color: #4db8ff;
+    color: white;
+}
+
+/* GREAT! Modal Styles */
+.great-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.great-modal .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.great-modal .modal-header h2 {
+    font-size: 24px;
+    color: #4CAF50; /* Example color */
+    margin: 0;
+}
+
+.great-modal .modal-content i {
+    font-size: 48px;
+    color: #4CAF50; /* Example color */
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.great-modal .modal-body {
+    text-align: center;
+}
+
+.great-modal .modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.great-modal .modal-footer .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #4db8ff;
+    color: white;
+}
+/* Delete Confirmation Modal Styles */
+.delete-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.delete-modal .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.delete-modal .modal-header h2 {
+    font-size: 24px;
+    color: black; 
+    margin: 0;
+}
+
+.delete-modal .modal-content i {
+    font-size: 48px;
+    color: #ffcc4d; /* Red color for delete confirmation */
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.delete-modal .modal-body {
+    text-align: center;
+}
+
+.delete-modal .modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.delete-modal .modal-footer .clear-btn,
+.delete-modal .modal-footer .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-modal .modal-footer .clear-btn {
+    background-color: #2f5f98;
+    color: white;
+}
+
+.delete-modal .modal-footer .save-btn {
+    background-color: #ccc; /* Gray color for cancellation */
+    color: black;
+}
+
+.delete-modal .modal-header .close {
+    font-size: 24px;
+    cursor: pointer;
+    color: #2f5f98; /* Match the close icon color with header */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 20%;
+    }
+
+    .main-content {
+        width: 80%;
+    }
+
+    .transaction-item {
+        font-size: 14px; /* Reduce font size */
+        padding: 6px;
+        height: auto; /* Let height adjust based on content */
+    }
+
+    .filter-buttons button, 
+    .action-buttons button {
+        font-size: 12px; /* Adjust button font size */
+        padding: 8px 15px; /* Smaller padding */
+
+    }
+    
+
+    #transactionContainer {
+        font-size: 10px;
+        height: auto;
+        width: auto;
+        right: 5px;
+        bottom: 5px;
+    }
+
+  
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 25%;
+    }
+
+    .main-content {
+        width: 70%;
+    }
+    .transaction-item {
+        font-size: 12px; /* Further reduce font size */
+        padding: 4px;
+        height: auto; /* Let height adjust */
+        flex-direction: column; /* Stack elements vertically for small screens */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .filter-buttons button, 
+    .action-buttons button {
+        font-size:10px; /* Smallest button font size */
+        padding: 3px 5px; /* Smaller padding */
+        width: 30%; /* Make buttons take full width */
+        margin-bottom: 10px; /* Add space between buttons */
+    }
+
+    .transactionContainer {
+        font-size: 8px;
+        height: auto;
+        width: auto;
+        right: 2px;
+        bottom: 2px;
+    }
+
+  
+}
