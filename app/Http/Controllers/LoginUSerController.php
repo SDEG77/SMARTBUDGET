@@ -27,7 +27,7 @@ class LoginUSerController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended(route('account.profile'));
+            return redirect()->intended(route('dashboard'));
         } else {
             return back()->withErrors(['email' => 'Wrong Email!', 'password' => 'Wrong Password!']);
         }

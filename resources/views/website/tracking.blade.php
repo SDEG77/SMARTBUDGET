@@ -23,7 +23,7 @@
                 </li>
             </a>
             <a href="{{ route('tracking') }}">
-                <li class="{{ Request::is('SmartBudget/tracking') ? 'active' : '' }}">
+                <li class="{{ Request::is('SmartBudget/trackings') ? 'active' : '' }}">
                 <i class="fa-solid fa-clock-rotate-left" alt="Track Icon"></i>
                     <span class="label">Tracker</span>
                 </li>
@@ -76,15 +76,15 @@
     <div class="tracker-overview">
         <div class="tracker-summaries">
             <div class="tracker-summary">
-                <h2>P{{$total_expense}}</h2>
+                <h2>₱{{$total_expense}}</h2>
                 <p>Total Expenses</p>
             </div>
             <div class="tracker-summary">
-                <h2>P{{$total_income}}</h2>
+                <h2>₱{{$total_income}}</h2>
                 <p>Total Income</p>
             </div>
             <div class="tracker-summary">
-                <h2>P{{$total_income - $total_expense}}</h2>
+                <h2>₱{{$total_income - $total_expense}}</h2>
                 <p>Total Balance</p>
             </div>
         </div>
@@ -153,7 +153,7 @@
                     <td>{{$track->category}}</td>
                     <td>{{$track->description}}</td>
                     <td style="font-weight: bold; color: {{$track->mode === 'outgoing' ? 'red' : 'green'}}">
-                        {{$track->mode === 'outgoing' ? '-' : '+'}}{{$track->amount}}
+                        {{$track->mode === 'outgoing' ? '-' : '+'}}₱{{$track->amount}}
                     </td> {{--TODO format so that it add commas --}}
                     <td>
                         <form action="{{route('tracking.delete', $track->id)}}" method="POST">

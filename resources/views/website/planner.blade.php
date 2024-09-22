@@ -77,20 +77,42 @@
         <div class="header">Welcome to your Budget Planner</div>
         <div class="budget-stats">
             <div>
-                <h3>350,000.00</h3>
+                <h3>₱{{$total_expected}}</h3>
                 <p>Expected Income</p>
             </div>
             <div>
-                <h3>500,000.00</h3>
+                <h3>
+                    ₱{{$target_income}} OR {{$allocation ? (
+                        $allocation->food
+                        +
+                        $allocation->rent
+                        +
+                        $allocation->transportation
+                        +
+                        $allocation->loan
+                        +
+                        $allocation->shopping
+                        +
+                        $allocation->mobile
+                        +
+                        $allocation->savings
+                        +
+                        $allocation->school
+                        +
+                        $allocation->others
+                    ) : 'none'}} 
+                </h3>
                 <p>Target Income</p>
             </div>
             <div>
-                <h3>150,000.00</h3>
+                <h3>₱{{($target_income - $total_expected) < 0 ? 0 : ($target_income - $total_expected)}}</h3>
                 <p>Budget Variance</p>
             </div>
         </div>
 
-        
+    <form action="{{ route('planner.allocate') }}" method="POST" id="update-form">
+    @csrf
+    @method('POST')
     <div class="budget-allocation">
         <div class="chart-container">
             <p2 class="chart-title">Budget Allocation</p2>
@@ -101,50 +123,56 @@
         </div>
         <div class="allocation-container">
             <!-- Update Button -->
-            <button id="update-button">Update Allocation</button>
+            <button onclick="makeTableEditable(event)" type="button" id="update-button">Update Allocation</button>
             <table id="budget-table">
                 <tbody>
+                    @if ($allocation)                    
                     <tr>
                         <td>Food</td>
-                        <td class="editable">80,000.00</td>              
+                        <td class="editable">{{$allocation->food}}</td>              
                     </tr>
                     <tr>
                         <td>Rent</td>
-                        <td class="editable">40,000.00</td>
+                        <td class="editable">{{$allocation->rent}}</td>
                     </tr>
                     <tr>
                         <td>Transportation</td>
-                        <td class="editable">40,000.00</td>
+                        <td class="editable">{{$allocation->transportation}}</td>
                     </tr>
                     <tr>
                         <td>Debt/Loan</td>
-                        <td class="editable">0.00</td>
+                        <td class="editable">{{$allocation->loan}}</td>
                     </tr>
                     <tr>
                         <td>Shopping</td>
-                        <td class="editable">80,000.00</td>
+                        <td class="editable">{{$allocation->shopping}}</td>
                     </tr>
                     <tr>
                         <td>Mobile</td>
-                        <td class="editable">40,000.00</td>
+                        <td class="editable">{{$allocation->mobile}}</td>
                     </tr>
                     <tr>
                         <td>Savings</td>
-                        <td class="editable">100,000.00</td>
+                        <td class="editable">{{$allocation->savings}}</td>
                     </tr>
                     <tr>
                         <td>School</td>
-                        <td class="editable">100,000.00</td>
+                        <td class="editable">{{$allocation->school}}</td>
 
                     </tr>
                     <tr>
                         <td>Others</td>
-                        <td class="editable">80,000.00</td>
+                        <td class="editable">{{$allocation->others}}</td>
                     </tr>
+
+                    @else
+                        <x-planner-placeholder />
+                    @endif
                 </tbody>
             </table>
         </div>
     </div>
+    </form>
 </div>
 
 <div class="tables">
@@ -152,8 +180,9 @@
 <h3>Expected Income</h3>
 </div> 
         
-<!-- Form for adding income -->
-<form id="add-income-form">
+<form action="{{route('planner.expected')}}" method="POST" id="add-income-form">
+    @csrf
+    
     <div class="form-group">
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required>
@@ -174,29 +203,17 @@
 <div class="table">
         <!-- Expected Income Table -->
         <table>
-            
             </thead>
             <tbody id="income-table-body">
-                <tr>
-                    <td>Aug 13, 2024</td>
-                    <td>Provider</td>
-                    <td>35,000.00</td>
-                </tr>
-                <tr>
-                    <td>Aug 13, 2024</td>
-                    <td>Provider</td>
-                    <td>35,000.00</td>
-                </tr>
-                <tr>
-                    <td>Aug 13, 2024</td>
-                    <td>Grant</td>
-                    <td>30,000.00</td>
-                </tr>
-                <tr>
-                    <td>Aug 13, 2024</td>
-                    <td>Provider</td>
-                    <td>35,000.00</td>
-                </tr>
+                @if ($expecteds->count() > 0)
+                    @foreach ($expecteds as $expected)
+                        <tr>
+                            <td>{{$expected->date}}</td>
+                            <td>{{$expected->source}}</td>
+                            <td>₱{{$expected->amount}}</td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>
@@ -206,7 +223,11 @@
     <div class="reset-button">
         <p>Want to start new? Click the reset button to clear all your entries & re-create new ones.</p>
     </div>
-    <button type="button" class="btn-reset">Reset Planner</button>
+    <form action="{{ route('planner.reset') }}" method="POST" >
+        @csrf
+        @method('GET')
+        <button type="submit" class="btn-reset" onclick="confirm('Are You Sure??') ?  null : event.preventDefault()">Reset Planner</button>
+    </form>
 </div>
 
     </div>
@@ -214,75 +235,34 @@
 </html>
 
 <script>
-    // Handle the form submission
-    document.getElementById('add-income-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-           // Get form data
-        const date = document.getElementById('date').value;
-        const source = document.getElementById('source').value;
-        const amount = document.getElementById('amount').value;
-        
-        // Create a new row for the table
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td>${date}</td>
-            <td>${source}</td>
-            <td>${parseFloat(amount).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-        `;
-        
-        // Append the new row to the table body
-        document.getElementById('income-table-body').appendChild(newRow);
-        
-        // Clear the form fields
-        document.getElementById('add-income-form').reset();
-    });
-
-
+    
 // Function to make table editable
-function makeTableEditable() {
+function makeTableEditable(event) {
+    event.preventDefault();
     // Get all editable cells
     const editableCells = document.querySelectorAll('#budget-table .editable');
-
+    const categories = ['food' ,'rent', 'transportation', 'loan', 'shopping', 'mobile', 'savings', 'school', 'others'];
+    let count = 0;
+    
     // Loop through each cell and replace text with input field
     editableCells.forEach(cell => {
         const currentValue = cell.textContent.trim(); // Get the current value in the cell
         if (!cell.querySelector('input')) {  // Avoid duplicating inputs
-            cell.innerHTML = `<input type="text" value="${currentValue}" />`; // Replace with input field
+            cell.innerHTML = `<input type="number" name="${categories[count]}"  value="${currentValue}" />`; // Replace with input field
         }
+
+        count += 1
     });
 
     // Change the "Update" button to "Save"
     const updateButton = document.getElementById('update-button');
     updateButton.textContent = 'Save';
     updateButton.id = 'save-button';
+    updateButton.setAttribute('type', 'submit');
 
     // Add event listener for saving the edited values
-    document.getElementById('save-button').addEventListener('click', saveUpdatedValues);
-}
-
-// Function to save updated values
-function saveUpdatedValues() {
-    // Get all input fields
-    const inputFields = document.querySelectorAll('#budget-table .editable input');
-
-    // Loop through each input field and update the cell with the new value
-    inputFields.forEach(input => {
-        const updatedValue = input.value.trim(); // Get the value from the input field
-        const parentCell = input.parentElement;
-        parentCell.textContent = updatedValue; // Update the cell with the new value
+    document.getElementById('save-button').addEventListener('click', () => {
+        document.getElementById('update-form').submit();
     });
-
-    // Change the "Save" button back to "Update"
-    const saveButton = document.getElementById('save-button');
-    saveButton.textContent = 'Update';
-    saveButton.id = 'update-button';
-
-    // Re-attach the event listener for updating
-    document.getElementById('update-button').addEventListener('click', makeTableEditable);
 }
-
-// Attach initial event listener to "Update" button
-document.getElementById('update-button').addEventListener('click', makeTableEditable);
-
 </script>

@@ -4,6 +4,9 @@ use App\Http\Controllers\LoginUSerController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\ExpectedIncomesController;
+use App\Http\Controllers\AllocationController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function(){
@@ -30,7 +33,12 @@ Route::middleware('auth')->group(function(){
 
     
     Route::get('SmartBudget/ledger', [WebsiteController::class, 'ledger'])->name('ledger');
+
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
+    Route::post('SmartBudget/planner', [ExpectedIncomesController::class, 'store'])->name('planner.expected');
+    Route::get('SmartBudget/planner/reset', [WebsiteController::class, 'reset_planner'])->name('planner.reset');
+    Route::post('SmartBudget/planner/allocate', [AllocationController::class, 'allocate'])->name('planner.allocate');
+
     Route::get('SmartBudget/about', [WebsiteController::class, 'about'])->name('about');
 
     Route::get('SmartBudget/account/profile', [WebsiteController::class, 'profile'])->name('account.profile');

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Tracking;
+use App\Models\Allocation;
+use App\Models\ExpectedIncome;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -25,7 +28,7 @@ class WebsiteController extends Controller
 
     public function tracking(){
         return view('website.tracking', [
-            'tracks' => Tracking::where('user_id', auth()->user()->id)->get(),
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->get(),
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
@@ -34,7 +37,7 @@ class WebsiteController extends Controller
 
     public function tracking_expenses(){
         return view('website.tracking', [
-            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->orderBy('date', 'desc')->get(),
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
@@ -43,7 +46,7 @@ class WebsiteController extends Controller
 
     public function tracking_incomes(){
         return view('website.tracking', [
-            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->orderBy('date', 'desc')->get(),
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
@@ -54,8 +57,25 @@ class WebsiteController extends Controller
         return view('website.ledger');
     }
     public function planner(){
-        return view('website.planner');
+        return view('website.planner', [
+            'expecteds' => ExpectedIncome::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->get(),
+            'allocation' => Allocation::where('user_id', auth()->user()->id)->first(),
+            'total_expected' => ExpectedIncome::where('user_id', auth()->user()->id)->sum('amount'),
+            'target_income' => User::where('id', auth()->user()->id)->first()->target_income
+        ]);
     }
+
+    public function reset_planner(User $user, ExpectedIncome $expectedIncome, Allocation $allocation){
+        $user->where('id', auth()->user()->id)->update([
+            'target_income' => 0,
+        ]);
+
+        $expectedIncome->where('user_id', auth()->user()->id)->delete();
+        $allocation->where('user_id', auth()->user()->id)->delete();
+
+        return to_route('planner');
+    }
+
     public function about(){
         return view('website.about');
     }
