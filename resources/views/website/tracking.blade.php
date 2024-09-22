@@ -16,46 +16,50 @@
         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
         <ul>
             <h4>Menu</h4>
-            <a href="{{ url('dashboard') }}">
-                <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}">
+                <li class="{{ Request::is('SmartBudget/dashboard') ? 'active' : '' }}">
                 <i class="fa-solid fa-house" alt="Home Icon"></i>
                     <span class="label">Home</span>
                 </li>
             </a>
-            <a href="{{ url('tracking') }}">
-                <li class="{{ Request::is('tracking') ? 'active' : '' }}">
+            <a href="{{ route('tracking') }}">
+                <li class="{{ Request::is('SmartBudget/tracking') ? 'active' : '' }}">
                 <i class="fa-solid fa-clock-rotate-left" alt="Track Icon"></i>
                     <span class="label">Tracker</span>
                 </li>
             </a>
-            <a href="{{ url('ledger') }}">
-                <li class="{{ Request::is('ledger') ? 'active' : '' }}">
+            <a href="{{ route('ledger') }}">
+                <li class="{{ Request::is('SmartBudget/ledger') ? 'active' : '' }}">
                 <i class="fa-regular fa-star" alt="Ledger Icon"></i>
                     <span class="label">Ledger</span>
                 </li>
             </a>
-            <a href="{{ url('planner') }}">
-                <li class="{{ Request::is('planner') ? 'active' : '' }}">
+            <a href="{{ route('planner') }}">
+                <li class="{{ Request::is('SmartBudget/planner') ? 'active' : '' }}">
                 <i class="fa-solid fa-calendar-days" alt="Planner Icon"></i>
                     <span class="label">Planner</span>
                 </li>
             </a>
-            <a href="{{ url('about') }}">
-                <li class="{{ Request::is('about') ? 'active' : '' }}">
+            <a href="{{ route('about') }}">
+                <li class="{{ Request::is('SmartBudget/about') ? 'active' : '' }}">
                 <i class="fa-solid fa-circle-info" alt="About Icon"></i>
                     <span class="label">About</span>
                 </li>
             </a>
         </ul>
         <div class="down-sidebar">
-            <a href="{{ url('welcome') }}">
-                <li class="{{ Request::is('welcome') ? 'active' : '' }}">
-                <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
+            <form action="{{route('account.logout')}}" method="POST">
+                @csrf
+                <button type="submit" onclick="e.preventDefault(); this.closest('form').submit()">
+                    <li class="{{ Request::is('SmartBudget/welcome') ? 'active' : '' }}">
+                    <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
                     <span class="label">Log out</span>
-                </li>
-            </a>
-            <a href="{{ url('profile') }}">
-                <li class="{{ Request::is('profile') ? 'active' : '' }}">
+                    </li>
+                </button>
+            </form>
+
+            <a href="{{ route('account.profile') }}">
+                <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
                     <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
                     <span class="label">Profile</span>
                 </li>
@@ -95,9 +99,9 @@
 
 <div class="tracker-tabs">
     <div>
-        <button onclick="filterTable('all')" class="active">All Transactions</button>
-        <button onclick="filterTable('expenses')">Expenses</button>
-        <button onclick="filterTable('income')">Income</button>
+        <button {{--onclick="filterTable('all')"--}} class="active">All Transactions</button>
+        <button {{--onclick="filterTable('expenses')"--}}>Expenses</button>
+        <button {{--onclick="filterTable('income')"--}}>Income</button>
     </div>
     <div class="action-buttons">
         <button class="export">Export</button>
@@ -105,8 +109,6 @@
 
     </div>
 </div>
-
-      
 
 
 <table class="tracker-table" id="trackerTable">
@@ -219,8 +221,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="clear-btn" onclick="clearForm()">Clear</button>
-            <button class="save-btn" onclick="saveRecord()">Save</button>
+            <button class="clear-btn" >Clear</button>
+            <button class="save-btn">Save</button>
         </div>
     </div>
 </div>
@@ -257,116 +259,10 @@
         </div>
     </div>
 </div>
+</body>
+</html>
 
-<script>
- // Save the record (either expense or income)
- function saveRecord() {
-    const itemName = document.getElementById('itemName').value;
-    const mode = document.getElementById('mode').value;
-    const category = document.getElementById('category').value;
-    const date = document.getElementById('date').value;
-    const amount = document.getElementById('amount').value;
-
-    if (!itemName || !mode || !category || !date || !amount) {
-        alert('Please fill in all fields.');
-        return;
-    }
-
-    // Add the new record to the transactions array
-    transactions.push({ type: mode, category, itemName, date, amount });
-
-    // Refresh the table with the new data
-    refreshTable();
-
-    // Close the modal and show the 'GREAT!' modal
-    closeModal();
-    openGreatModal();
-}
-
-
-function openModal() {
-    document.getElementById('recordModal').style.display = 'flex';  // Make sure it's displayed as a flex container
-}
-
-function closeModal() {
-    document.getElementById('recordModal').style.display = 'none';  // Hide the modal
-}
-
-// Refresh the table with all transactions
-function refreshTable() {
-    const tbody = document.querySelector('#trackerTable tbody');
-    tbody.innerHTML = ''; // Clear the existing rows
-
-    // Add 'Today', 'Yesterday', 'Oldest Dates' group headers if necessary
-    let todayAdded = false, yesterdayAdded = false, oldestAdded = false;
-
-    // Sort transactions by date (from newest to oldest)
-    transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    transactions.forEach(transaction => {
-        const row = document.createElement('tr');
-        row.setAttribute('data-type', transaction.type);
-
-        // Add section headers based on the date of the transaction
-        if (isToday(transaction.date) && !todayAdded) {
-            const todayRow = document.createElement('tr');
-            todayRow.innerHTML = `<td colspan="6"><strong>Today - ${new Date().toLocaleDateString()}</strong></td>`;
-            tbody.appendChild(todayRow);
-            todayAdded = true;
-        }
-
-        if (isYesterday(transaction.date) && !yesterdayAdded) {
-            const yesterdayRow = document.createElement('tr');
-            yesterdayRow.innerHTML = `<td colspan="6"><strong>Yesterday - ${new Date(new Date().setDate(new Date().getDate() - 1)).toLocaleDateString()}</strong></td>`;
-            tbody.appendChild(yesterdayRow);
-            yesterdayAdded = true;
-        }
-
-        if (!isToday(transaction.date) && !isYesterday(transaction.date) && !oldestAdded) {
-            const oldestRow = document.createElement('tr');
-            oldestRow.innerHTML = `<td colspan="6"><strong>Oldest Dates</strong></td>`;
-            tbody.appendChild(oldestRow);
-            oldestAdded = true;
-        }
-
-        // Append transaction rows
-        row.innerHTML = `
-            <td>${transaction.type === 'cash' ? 'Outflow' : 'Inflow'}</td>
-            <td>${transaction.category}</td>
-            <td>${transaction.itemName}</td>
-            <td>${transaction.amount}</td>
-            <td><button onclick="openDeleteModal()"><i class="fa fa-trash"></i></button></td>
-        `;
-
-        tbody.appendChild(row);
-    });
-
-    // Update the table based on the current filter
-    const activeFilter = document.querySelector('.tracker-tabs button.active').textContent.toLowerCase();
-    filterTable(activeFilter);
-}
-
-// Filter table for all, expenses, or income
-function filterTable(type) {
-    const rows = document.querySelectorAll('#trackerTable tbody tr');
-
-    rows.forEach(row => {
-        const rowType = row.getAttribute('data-type');
-        if (type === 'all' || rowType === type) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-
-    // Update active button state
-    const buttons = document.querySelectorAll('.tracker-tabs button');
-    buttons.forEach(button => button.classList.remove('active'));
-    document.querySelector(`.tracker-tabs button[onclick="filterTable('${type}')"]`).classList.add('active');
-}
-let transactions = []; // Array to hold the transaction records
-    let deleteIndex = null; // Index of the record to be deleted
-
+<script>    
     // Open the 'Add Record' Modal
     function openModal() {
         document.getElementById('recordModal').style.display = 'flex';
@@ -387,64 +283,6 @@ let transactions = []; // Array to hold the transaction records
         document.getElementById('greatModal').style.display = 'none';
     }
 
-    // Clear the 'Add Record' Form
-    function clearForm() {
-        document.getElementById('itemName').value = '';
-        document.getElementById('mode').value = 'cash';
-        document.getElementById('category').value = 'food';
-        document.getElementById('date').value = '';
-        document.getElementById('amount').value = '';
-    }
-
-    // Save the record and update the table
-    function saveRecord() {
-        let itemName = document.getElementById('itemName').value;
-        let mode = document.getElementById('mode').value;
-        let category = document.getElementById('category').value;
-        let date = document.getElementById('date').value;
-        let amount = document.getElementById('amount').value;
-
-        if (itemName && date && amount) {
-            transactions.push({ itemName, mode, category, date, amount });
-            refreshTable();
-            closeModal();
-            openGreatModal();
-        } else {
-            alert('Please fill out all fields.');
-        }
-    }
-
-    // Refresh the transactions table
-    function refreshTable() {
-        let table = document.getElementById('trackerTable').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
-
-        transactions.forEach((transaction, index) => {
-            let row = table.insertRow();
-            row.insertCell().innerText = transaction.date;
-            row.insertCell().innerText = transaction.itemName;
-            row.insertCell().innerText = transaction.category;
-            row.insertCell().innerText = transaction.amount;
-            row.insertCell().innerText = transaction.mode;
-            let deleteCell = row.insertCell();
-            deleteCell.innerHTML = `<button onclick="setDeleteIndex(${index})">Delete</button>`;
-        });
-    }
-
-    // Set the index of the record to be deleted
-    function setDeleteIndex(index) {
-        deleteIndex = index;
-        openDeleteModal();
-    }
-
-    // Delete a record from the transactions array
-    function deleteRecord() {
-        if (deleteIndex !== null) {
-            transactions.splice(deleteIndex, 1);
-            refreshTable();
-            closeDeleteModal();
-        }
-    }
 
     // Open the 'Delete Confirmation' Modal
     function openDeleteModal() {
@@ -461,9 +299,4 @@ let transactions = []; // Array to hold the transaction records
         deleteRecord();
         closeDeleteModal();
     }
-
-
-    </script>
-</body>
-
-</html>
+</script>

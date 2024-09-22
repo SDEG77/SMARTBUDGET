@@ -12,53 +12,54 @@
 </head>
 <body>
     <div class="container">
-
-
         <div class="side-nav">
             <div class="menu-sidebar">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
                 <ul>
                     <h4>Menu</h4>
-                    <a href="{{ url('dashboard') }}">
-                        <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}">
+                        <li class="{{ Request::is('SmartBudget/dashboard') ? 'active' : '' }}">
                         <i class="fa-solid fa-house" alt="Home Icon"></i>
                             <span class="label">Home</span>
                         </li>
                     </a>
-                    <a href="{{ url('tracking') }}">
-                        <li class="{{ Request::is('tracking') ? 'active' : '' }}">
+                    <a href="{{ route('tracking') }}">
+                        <li class="{{ Request::is('SmartBudget/tracking') ? 'active' : '' }}">
                         <i class="fa-solid fa-clock-rotate-left" alt="Track Icon"></i>
                             <span class="label">Tracker</span>
                         </li>
                     </a>
-                    <a href="{{ url('ledger') }}">
-                        <li class="{{ Request::is('ledger') ? 'active' : '' }}">
+                    <a href="{{ route('ledger') }}">
+                        <li class="{{ Request::is('SmartBudget/ledger') ? 'active' : '' }}">
                         <i class="fa-regular fa-star" alt="Ledger Icon"></i>
                             <span class="label">Ledger</span>
                         </li>
                     </a>
-                    <a href="{{ url('planner') }}">
-                        <li class="{{ Request::is('planner') ? 'active' : '' }}">
+                    <a href="{{ route('planner') }}">
+                        <li class="{{ Request::is('SmartBudget/planner') ? 'active' : '' }}">
                         <i class="fa-solid fa-calendar-days" alt="Planner Icon"></i>
                             <span class="label">Planner</span>
                         </li>
                     </a>
-                    <a href="{{ url('about') }}">
-                        <li class="{{ Request::is('about') ? 'active' : '' }}">
+                    <a href="{{ route('about') }}">
+                        <li class="{{ Request::is('SmartBudget/about') ? 'active' : '' }}">
                         <i class="fa-solid fa-circle-info" alt="About Icon"></i>
                             <span class="label">About</span>
                         </li>
                     </a>
                 </ul>
                 <div class="down-sidebar">
-                <a href="{{ url('welcome') }}">
-                <li class="{{ Request::is('welcome') ? 'active' : '' }}">
-                <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
-                    <span class="label">Log out</span>
-                </li>
-            </a>
-                    <a href="{{ url('profile') }}">
-                        <li class="{{ Request::is('profile') ? 'active' : '' }}">
+                    <form action="{{route('account.logout')}}" method="POST">
+                        @csrf
+                        <button type="submit" onclick="e.preventDefault(); this.closest('form').submit()">
+                            <li class="{{ Request::is('SmartBudget/welcome') ? 'active' : '' }}">
+                            <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
+                            <span class="label">Log out</span>
+                            </li>
+                        </button>
+                    </form>
+                    <a href="{{ route('account.profile') }}">
+                        <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
                             <img src="{{asset('images/user.png')}}" alt="Profile Picture" class="profile-sidebar-img">
                             <span class="label">Profile</span>
                         </li>
@@ -262,10 +263,12 @@
             </div>
         </div>
     </div>
-    <script>
+</body>
+</html>
 
-        var ctxLine = document.getElementById('lineChart').getContext('2d');
-var lineChart = new Chart(ctxLine, {
+<script>
+    var ctxLine = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctxLine, {
     type: 'line',
     data: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -301,7 +304,7 @@ var lineChart = new Chart(ctxLine, {
             }
         }
     }
-});
+    });
 
 
         var ctxBudget = document.getElementById('budgetChart').getContext('2d');
@@ -313,8 +316,8 @@ var lineChart = new Chart(ctxLine, {
                     label: 'Expenses',
                     data: [80000, 40000, 40000, 80000, 40000, 80000, 40000, 80000, 80000],
                     backgroundColor: [
-                      '#4C6F4C', '#3E5E3E', '#2F4E2F', '#1F3D1F', '#1A341A',
-'#1E5A1E', '#2B6F2B', '#275B27', '#1E4A1E'
+                    '#4C6F4C', '#3E5E3E', '#2F4E2F', '#1F3D1F', '#1A341A',
+    '#1E5A1E', '#2B6F2B', '#275B27', '#1E4A1E'
 
                     ]
                 }]
@@ -367,6 +370,4 @@ var lineChart = new Chart(ctxLine, {
                 }
             }
         });
-    </script>
-</body>
-</html>
+</script>

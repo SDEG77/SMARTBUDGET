@@ -17,4 +17,22 @@ class WebsiteController extends Controller
     public function profile(){
         return view('website.account.profile');
     }
+
+    public function dashboard(){
+        return view('website.dashboard');
+    }
+
+    public function tracking(){
+        return view('website.tracking');
+    }
+    
+    public function ledger(){
+        return view('website.ledger');
+    }
+    public function planner(){
+        return view('website.planner');
+    }
+    public function about(){
+        return view('website.about');
+    }
 }

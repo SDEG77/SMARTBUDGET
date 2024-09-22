@@ -14,12 +14,6 @@ class LoginUSerController extends Controller
         return view('auth.login');
     }
 
-    public function forgot(){
-        return view('auth.forgot');
-    }
-    public function createPass(){
-        return view('auth.createPass');
-    }
     public function store(Request $request){
         $validate = $request->validate([
             'email' => 'required|min:8|email',
@@ -61,5 +55,12 @@ class LoginUSerController extends Controller
         // }
 
         return to_route('account.profile');
+    }
+
+    public function forgot(){
+        return view('auth.forgot');
+    }
+    public function createPass(){
+        return view('auth.createPass');
     }
 }

@@ -20,18 +20,17 @@ body{
   margin: 0;
   font-family: 'Poppins', sans-serif;
   color: #053A3D;
- 
 }
   
 .buttons {
     position: fixed; /* Fixed position for floating effect */
     top:30%;
-   margin-left: 30px;
+    margin-left: 30px;
     z-index: 10; /* Ensure it stays on top */
     gap:10%;
     background-color: ;
-   justify-content: space-between;
-   display: flex;
+    justify-content: space-between;
+    display: flex;
 
 }
 
@@ -51,7 +50,6 @@ body{
     text-decoration: none;
     font-size: 20px;
     border:1px solid black;
-    
 }
 .header{
   font-size: 40px;
@@ -67,29 +65,19 @@ body{
 </style>
 
 <body>
-
-
-
     <div class="main-content">
       <div class="header">Master Your Money,Achieve Your Goals</div>
-      <div class="text">Welcome to SmartBudget, the ultimate tool for students to take charge of their finances. 
+      <div class="text">
+        Welcome to SmartBudget, the ultimate tool for students to take charge of their finances. 
         Our platform is designed to help you manage your budget effortlessly, track your expenses, and save for what matters most. 
-        From textbooks to weekend plans, SmartBudget makes it easy to balance your budget and reach your financial goals. </div>
-     
+      From textbooks to weekend plans, SmartBudget makes it easy to balance your budget and reach your financial goals. </div>
+
       <div class="pic">
-      
-      <div class="buttons">
-      <a href="{{ route('login') }}"class="login-button">LOGIN</a>
-            <a href="{{route('register')}}" class="register-button">REGISTER</a>
-                
-            </div>
+        <div class="buttons">
+            <a href="{{ route('login') }}"class="login-button">LOGIN</a>
+            <a href="{{ route('register') }}" class="register-button">REGISTER</a>
+        </div>
       </div>
-      
-      
     </div>
-
-        
-     
 </body>
-
 </html>

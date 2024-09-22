@@ -14,58 +14,62 @@
 
 <body>
     <div class="container">
-<div class="sidebar">
-    <div class="menu-sidebar">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
-        <ul>
-            <h4>Menu</h4>
-            <a href="{{ url('dashboard') }}">
-                <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-                <i class="fa-solid fa-house" alt="Home Icon"></i>
-                    <span class="label">Home</span>
-                </li>
-            </a>
-            <a href="{{ url('tracking') }}">
-                <li class="{{ Request::is('tracking') ? 'active' : '' }}">
-                <i class="fa-solid fa-clock-rotate-left" alt="Track Icon"></i>
-                    <span class="label">Tracker</span>
-                </li>
-            </a>
-            <a href="{{ url('ledger') }}">
-                <li class="{{ Request::is('ledger') ? 'active' : '' }}">
-                <i class="fa-regular fa-star" alt="Ledger Icon"></i>
-                    <span class="label">Ledger</span>
-                </li>
-            </a>
-            <a href="{{ url('planner') }}">
-                <li class="{{ Request::is('planner') ? 'active' : '' }}">
-                <i class="fa-solid fa-calendar-days" alt="Planner Icon"></i>
-                    <span class="label">Planner</span>
-                </li>
-            </a>
-            <a href="{{ url('about') }}">
-                <li class="{{ Request::is('about') ? 'active' : '' }}">
-                <i class="fa-solid fa-circle-info" alt="About Icon"></i>
-                    <span class="label">About</span>
-                </li>
-            </a>
-        </ul>
-        <div class="down-sidebar">
-            <a href="{{ url('welcome') }}">
-                <li class="{{ Request::is('welcome') ? 'active' : '' }}">
-                <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
-                    <span class="label">Log out</span>
-                </li>
-            </a>
-            <a href="{{ url('profile') }}">
-                <li class="{{ Request::is('profile') ? 'active' : '' }}">
-                    <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
-                    <span class="label">Profile</span>
-                </li>
-            </a>
+    <div class="sidebar">
+        <div class="menu-sidebar">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
+            <ul>
+                <h4>Menu</h4>
+                <a href="{{ route('dashboard') }}">
+                    <li class="{{ Request::is('SmartBudget/dashboard') ? 'active' : '' }}">
+                    <i class="fa-solid fa-house" alt="Home Icon"></i>
+                        <span class="label">Home</span>
+                    </li>
+                </a>
+                <a href="{{ route('tracking') }}">
+                    <li class="{{ Request::is('SmartBudget/tracking') ? 'active' : '' }}">
+                    <i class="fa-solid fa-clock-rotate-left" alt="Track Icon"></i>
+                        <span class="label">Tracker</span>
+                    </li>
+                </a>
+                <a href="{{ route('ledger') }}">
+                    <li class="{{ Request::is('SmartBudget/ledger') ? 'active' : '' }}">
+                    <i class="fa-regular fa-star" alt="Ledger Icon"></i>
+                        <span class="label">Ledger</span>
+                    </li>
+                </a>
+                <a href="{{ route('planner') }}">
+                    <li class="{{ Request::is('SmartBudget/planner') ? 'active' : '' }}">
+                    <i class="fa-solid fa-calendar-days" alt="Planner Icon"></i>
+                        <span class="label">Planner</span>
+                    </li>
+                </a>
+                <a href="{{ route('about') }}">
+                    <li class="{{ Request::is('SmartBudget/about') ? 'active' : '' }}">
+                    <i class="fa-solid fa-circle-info" alt="About Icon"></i>
+                        <span class="label">About</span>
+                    </li>
+                </a>
+            </ul>
+            <div class="down-sidebar">
+                <form action="{{route('account.logout')}}" method="POST">
+                    @csrf
+                    <button type="submit" onclick="e.preventDefault(); this.closest('form').submit()">
+                        <li class="{{ Request::is('SmartBudget/welcome') ? 'active' : '' }}">
+                        <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
+                        <span class="label">Log out</span>
+                        </li>
+                    </button>
+                </form>
+                
+                <a href="{{ route('account.profile') }}">
+                    <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
+                        <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
+                        <span class="label">Profile</span>
+                    </li>
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
 
     <div class="main-content">
@@ -87,62 +91,60 @@
         </div>
 
         
-        <div class="budget-allocation">
-            <div class="chart-container">
+    <div class="budget-allocation">
+        <div class="chart-container">
             <p2 class="chart-title">Budget Allocation</p2>
             <div class="chart">
                 <!-- Pie chart goes here -->
                 <img src="{{ asset('images/chart2.png') }}" alt="chart">
             </div>
-            </div>
+        </div>
+        <div class="allocation-container">
+            <!-- Update Button -->
+            <button id="update-button">Update Allocation</button>
+            <table id="budget-table">
+                <tbody>
+                    <tr>
+                        <td>Food</td>
+                        <td class="editable">80,000.00</td>              
+                    </tr>
+                    <tr>
+                        <td>Rent</td>
+                        <td class="editable">40,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Transportation</td>
+                        <td class="editable">40,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Debt/Loan</td>
+                        <td class="editable">0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Shopping</td>
+                        <td class="editable">80,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td class="editable">40,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Savings</td>
+                        <td class="editable">100,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>School</td>
+                        <td class="editable">100,000.00</td>
 
-            <div class="allocation-container">
-  <!-- Update Button -->
-    <button id="update-button">Update Allocation</button>
-    <table id="budget-table">
-        
-        <tbody>
-            <tr>
-                <td>Food</td>
-                <td class="editable">80,000.00</td>              
-            </tr>
-            <tr>
-                <td>Rent</td>
-                <td class="editable">40,000.00</td>
-            </tr>
-            <tr>
-                <td>Transportation</td>
-                <td class="editable">40,000.00</td>
-            </tr>
-            <tr>
-                <td>Debt/Loan</td>
-                <td class="editable">0.00</td>
-            </tr>
-            <tr>
-                <td>Shopping</td>
-                <td class="editable">80,000.00</td>
-            </tr>
-            <tr>
-                <td>Mobile</td>
-                <td class="editable">40,000.00</td>
-            </tr>
-            <tr>
-                <td>Savings</td>
-                <td class="editable">100,000.00</td>
-            </tr>
-            <tr>
-                <td>School</td>
-                <td class="editable">100,000.00</td>
-
-            </tr>
-            <tr>
-                <td>Others</td>
-                <td class="editable">80,000.00</td>
-            </tr>
-        </tbody>
-    </table>
+                    </tr>
+                    <tr>
+                        <td>Others</td>
+                        <td class="editable">80,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 
 <div class="tables">
@@ -150,7 +152,7 @@
 <h3>Expected Income</h3>
 </div> 
         
-      <!-- Form for adding income -->
+<!-- Form for adding income -->
 <form id="add-income-form">
     <div class="form-group">
         <label for="date">Date:</label>
@@ -208,12 +210,15 @@
 </div>
 
     </div>
-    <script>
- // Handle the form submission
- document.getElementById('add-income-form').addEventListener('submit', function(event) {
+</body>
+</html>
+
+<script>
+    // Handle the form submission
+    document.getElementById('add-income-form').addEventListener('submit', function(event) {
         event.preventDefault();
-        
-        // Get form data
+
+           // Get form data
         const date = document.getElementById('date').value;
         const source = document.getElementById('source').value;
         const amount = document.getElementById('amount').value;
@@ -281,6 +286,3 @@ function saveUpdatedValues() {
 document.getElementById('update-button').addEventListener('click', makeTableEditable);
 
 </script>
-</body>
-
-</html>
