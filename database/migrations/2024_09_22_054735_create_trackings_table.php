@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tracking', function (Blueprint $table) {
+        Schema::create('trackings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(USer::class)->constrained()->cascadeOnDelete();
             $table->timestamps();

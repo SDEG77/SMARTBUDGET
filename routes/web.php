@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginUSerController;
 use App\Http\Controllers\RegisterUserController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,14 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/home', [WebsiteController::class, 'home'])->name('home');
     Route::get('SmartBudget/dashboard', [WebsiteController::class, 'dashboard'])->name('dashboard');
-    Route::get('SmartBudget/tracking', [WebsiteController::class, 'tracking'])->name('tracking');
+
+    Route::get('SmartBudget/trackings', [WebsiteController::class, 'tracking'])->name('tracking');
+    Route::get('SmartBudget/trackings/expenses', [WebsiteController::class, 'tracking_expenses'])->name('tracking.expenses');
+    Route::get('SmartBudget/trackings/incomes', [WebsiteController::class, 'tracking_incomes'])->name('tracking.incomes');
+    Route::post('SmartBudget/trackings', [TrackingController::class, 'store'])->name('tracking.store');
+    Route::delete('SmartBudget/trackings/{tracking}', [TrackingController::class, 'delete'])->name('tracking.delete');
+
+    
     Route::get('SmartBudget/ledger', [WebsiteController::class, 'ledger'])->name('ledger');
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
     Route::get('SmartBudget/about', [WebsiteController::class, 'about'])->name('about');

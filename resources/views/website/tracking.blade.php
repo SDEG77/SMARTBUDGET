@@ -76,15 +76,15 @@
     <div class="tracker-overview">
         <div class="tracker-summaries">
             <div class="tracker-summary">
-                <h2>P799,000.00</h2>
+                <h2>P{{$total_expense}}</h2>
                 <p>Total Expenses</p>
             </div>
             <div class="tracker-summary">
-                <h2>P799,000.00</h2>
+                <h2>P{{$total_income}}</h2>
                 <p>Total Income</p>
             </div>
             <div class="tracker-summary">
-                <h2>P799,000.00</h2>
+                <h2>P{{$total_income - $total_expense}}</h2>
                 <p>Total Balance</p>
             </div>
         </div>
@@ -98,15 +98,26 @@
 
 
 <div class="tracker-tabs">
-    <div>
-        <button {{--onclick="filterTable('all')"--}} class="active">All Transactions</button>
-        <button {{--onclick="filterTable('expenses')"--}}>Expenses</button>
-        <button {{--onclick="filterTable('income')"--}}>Income</button>
+    <div>        
+        <form action="{{route('tracking')}}" method="POST">
+            @method('GET')
+            @csrf
+            <button class="{{Request::is('SmartBudget/trackings') ? 'active' : 'inactive'}}">All Transactions</button>
+        </form>
+        <form action="{{route('tracking.expenses')}}" method="POST">
+            @method('GET')
+            @csrf
+            <button class="{{Request::is('SmartBudget/trackings/expenses') ? 'active' : 'inactive'}}">Expenses</button>
+        </form>
+        <form action="{{route('tracking.incomes')}}" method="POST">
+            @method('GET')
+            @csrf
+            <button class="{{Request::is('SmartBudget/trackings/incomes') ? 'active' : 'inactive'}}">Income</button>
+        </form>
     </div>
     <div class="action-buttons">
-        <button class="export">Export</button>
-        <button class="add" onclick="openModal()">Add Record</button>
-
+        <button class="export" onclick="event.preventDefault()">Export</button>
+        <button class="add" onclick="openModal(event)">Add Record</button>
     </div>
 </div>
 
@@ -114,96 +125,83 @@
 <table class="tracker-table" id="trackerTable">
     <tbody>
         <!-- Today's Transactions -->
-        <tr>
+        {{-- <tr>
             <td colspan="6"><strong>Today - Tuesday, September 10, 2024</strong></td>
         </tr>
-        <tr data-type="expenses">
+        <tr>
             <td>Outflow</td>
             <td>Food</td>
             <td>Coffee in Starbucks</td>
             <td>250.00</td>
             <td><button onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-        <tr data-type="income">
-            <td>Inflow</td>
-            <td>Scholarship</td>
-            <td>City Hall</td>
-            <td>2,000.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-        <tr data-type="income">
-            <td>Inflow</td>
-            <td>Allowance</td>
-            <td>From Parents</td>
-            <td>250.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
+        </tr> --}}
 
-        <!-- Yesterday's Transactions -->
-        <tr>
-            <td colspan="6"><strong>Yesterday - Monday, September 9, 2024</strong></td>
-        </tr>
-        <tr data-type="expenses">
-            <td>Outflow</td>
-            <td>Food</td>
-            <td>Coffee in Starbucks</td>
-            <td>250.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-        <tr data-type="income">
-            <td>Inflow</td>
-            <td>Scholarship</td>
-            <td>City Hall</td>
-            <td>2,000.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
+        @if ($tracks->count() > 0)
+            @php
+                $rendered = 'nope :)';
+            @endphp
 
-        <!-- Oldest Transactions -->
-        <tr>
-            <td colspan="6"><strong>Oldest Dates</strong></td>
-        </tr>
-        <tr data-type="expenses">
-            <td>Outflow</td>
-            <td>Transport</td>
-            <td>Bus Ticket</td>
-            <td>30.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa fa-trash"></i></button></td>
-        </tr>
-        <tr data-type="income">
-            <td>Inflow</td>
-            <td>Part-time Job</td>
-            <td>Company X</td>
-            <td>500.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa fa-trash"></i></button></td>
-        </tr>
+            @foreach ($tracks as $track)
+                @if ($rendered === $track->date && $rendered !== 'nope :)')
+                    
+                @else()
+                    <tr id="{{$track->mode}}">{{$track->date}}</tr> {{--TODO convert this into words like (today/yesterday/weekly) --}}
+                @endif
+
+                <tr id="{{$track->mode}}">
+                    <td>{{$track->mode}}</td>
+                    <td>{{$track->category}}</td>
+                    <td>{{$track->description}}</td>
+                    <td style="font-weight: bold; color: {{$track->mode === 'outgoing' ? 'red' : 'green'}}">
+                        {{$track->mode === 'outgoing' ? '-' : '+'}}{{$track->amount}}
+                    </td> {{--TODO format so that it add commas --}}
+                    <td>
+                        <form action="{{route('tracking.delete', $track->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                @php
+                    $rendered = $track->date;                    
+                @endphp
+            @endforeach
+        @endif
     </tbody>
 </table>
+</div>
 
-    </div>
 <!-- Add Record Modal -->
 <div id="recordModal" class="modal record-modal">
+    <form action="{{ route('tracking.store') }}" method="POST">
+    @csrf
     <div class="modal-content">
         <div class="modal-header">
             <h2>Add Record</h2>
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModal(event)">&times;</span>
         </div>
         <div class="modal-body">
             <label for="itemName">Description</label>
-            <input type="text" id="itemName" placeholder="Type here">
+            <input type="text" name="description" id="itemName" placeholder="Type here">
 
             <div class="input-group">
                 <div>
                     <label for="mode">Mode</label>
-                    <select id="mode">
-                        <option value="cash">outgoing</option>
-                        <option value="credit">incoming</option>
+                    <select name="mode" id="mode">
+                        <option value="outgoing">outgoing</option>
+                        <option value="ingoing">incoming</option>
                     </select>
                 </div>
                 <div>
                     <label for="category">Category</label>
-                    <select id="category">
+                    <select name="category" id="category">
                         <option value="food">Food</option>
                         <option value="transport">Transport</option>
+                        <option value="allowance">Allowance</option>
                         <!-- Add more categories as needed -->
                     </select>
                 </div>
@@ -212,19 +210,20 @@
             <div class="input-group">
                 <div>
                     <label for="date">Date</label>
-                    <input type="date" id="date">
+                    <input name="date" type="date" id="date">
                 </div>
                 <div>
                     <label for="amount">Amount</label>
-                    <input type="number" id="amount" placeholder="Amount">
+                    <input name="amount" type="number" id="amount" placeholder="Amount">
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="clear-btn" >Clear</button>
-            <button class="save-btn">Save</button>
+            <button type="reset">Clear</button>
+            <button type="submit" class="save-btn">Save</button>
         </div>
     </div>
+    </form>
 </div>
 
 
@@ -238,7 +237,7 @@
         <div class="modal-body">
             <p>Your record has been saved successfully!</p>
             <div class="modal-footer">
-                <button class="save-btn" onclick="closeGreatModal()">Go Back</button>
+                <button class="save-btn" onclick="closeGreatModal(event)">Go Back</button>
             </div>
         </div>
     </div>
@@ -253,8 +252,8 @@
         <div class="modal-body">
             <p>Are you sure you want to delete this item?</p>
             <div class="modal-footer">
-                <button class="clear-btn" onclick="confirmDelete()">Yes</button>
-                <button class="save-btn" onclick="closeDeleteModal()">No</button>
+                <button class="clear-btn" onclick="confirmDelete(event)">Yes</button>
+                <button class="save-btn" onclick="closeDeleteModal(event)">No</button>
             </div>
         </div>
     </div>
@@ -262,40 +261,53 @@
 </body>
 </html>
 
-<script>    
+<script> 
+    let filter;
+
+    function setMode(mode){
+        filter = mode;
+    }
+
     // Open the 'Add Record' Modal
-    function openModal() {
+    function openModal(event) {
+        event.preventDefault();
         document.getElementById('recordModal').style.display = 'flex';
     }
 
     // Close the 'Add Record' Modal
-    function closeModal() {
+    function closeModal(event) {
+        event.preventDefault();
         document.getElementById('recordModal').style.display = 'none';
     }
 
     // Open the 'GREAT!' Modal
-    function openGreatModal() {
+    function openGreatModal(event) {
+        event.preventDefault();
         document.getElementById('greatModal').style.display = 'flex';
     }
 
     // Close the 'GREAT!' Modal
-    function closeGreatModal() {
+    function closeGreatModal(event) {
+        event.preventDefault();
         document.getElementById('greatModal').style.display = 'none';
     }
 
 
     // Open the 'Delete Confirmation' Modal
-    function openDeleteModal() {
+    function openDeleteModal(event) {
+        event.preventDefault();
         document.getElementById('deleteModal').style.display = 'flex';
     }
 
     // Close the 'Delete Confirmation' Modal
-    function closeDeleteModal() {
+    function closeDeleteModal(event) {
+        event.preventDefault();
         document.getElementById('deleteModal').style.display = 'none';
     }
 
     // Confirm the deletion of a record
-    function confirmDelete() {
+    function confirmDelete(event) {
+        event.preventDefault();
         deleteRecord();
         closeDeleteModal();
     }

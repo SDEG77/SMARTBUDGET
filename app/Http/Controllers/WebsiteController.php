@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tracking;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -23,7 +24,30 @@ class WebsiteController extends Controller
     }
 
     public function tracking(){
-        return view('website.tracking');
+        return view('website.tracking', [
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->get(),
+            'state' => 'null',
+            'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
+            'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+        ]);
+    }
+
+    public function tracking_expenses(){
+        return view('website.tracking', [
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            'state' => 'null',
+            'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
+            'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+        ]);
+    }
+
+    public function tracking_incomes(){
+        return view('website.tracking', [
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            'state' => 'null',
+            'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
+            'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+        ]);
     }
     
     public function ledger(){
