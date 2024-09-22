@@ -12,15 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trackings', function (Blueprint $table) {
+        Schema::create('expected_incomes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(USer::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
-            $table->string('mode')->default('ingoing');
-            $table->string('category')->default('unset');
-            $table->string('description')->default('unset');
+            $table->date('date')->default('2004/07/07');
+            $table->string('source')->default('unset');
             $table->double('amount')->default(0.00);
-            $table->date('date')->default('2004/07/07');         
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tracking');
+        Schema::dropIfExists('expected_incomes');
     }
 };

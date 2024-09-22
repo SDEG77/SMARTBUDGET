@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Allocation;
+use App\Models\ExpectedIncome;
 
 class User extends Authenticatable
 {
@@ -48,5 +50,13 @@ class User extends Authenticatable
 
     public function tracking(): HasMany{
         return $this->hasMany(Tracking::class);
+    }
+
+    public function allocations(): HasMany{
+        return $this->hasMany(Allocation::class);
+    
+    }
+    public function expected_incomes(): HasMany{
+        return $this->hasMany(ExpectedIncome::class);
     }
 }

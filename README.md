@@ -19,3 +19,5 @@
 -- Do the charts for all pages (++)
 
 -- Do the popups in the Tracking Page (+)
+
+-- Do the date segments in the Tracking Page (+)
