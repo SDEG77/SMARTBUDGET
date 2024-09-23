@@ -56,7 +56,21 @@ class WebsiteController extends Controller
     
     public function ledger(){
         return view('website.ledger', [
-            'ledgers' => Ledger::where('user_id', auth()->user()->id)->get(),
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->orderBy('when', 'desc')->get(),
+            'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
+        ]);
+    }
+
+    public function ledger_toPay(){
+        return view('website.ledger', [
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'pay')->orderBy('when', 'desc')->get(),
+            'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
+        ]);
+    
+    }
+    public function ledger_toBuy(){
+        return view('website.ledger', [
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'buy')->orderBy('when', 'desc')->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
         ]);
     }

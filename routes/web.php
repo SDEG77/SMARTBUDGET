@@ -34,10 +34,14 @@ Route::middleware('auth')->group(function(){
 
     
     Route::get('SmartBudget/ledger', [WebsiteController::class, 'ledger'])->name('ledger');
+    Route::get('SmartBudget/ledger/pay', [WebsiteController::class, 'ledger_toPay'])->name('ledger.toPay');
+    Route::get('SmartBudget/ledger/buy', [WebsiteController::class, 'ledger_toBuy'])->name('ledger.toBuy');
+
     Route::post('SmartBudget/ledgers', [LedgerController::class, 'store'])->name('ledger.store');
     Route::put('SmartBudget/ledgers/{ledger}', [LedgerController::class, 'update'])->name('ledger.update');
     Route::put('SmartBudget/ledgers/checked/{check}', [LedgerController::class, 'check'])->name('ledger.check');
     Route::delete('SmartBudget/ledgers/{ledger}', [LedgerController::class, 'destroy'])->name('ledger.delete');
+    Route::get('SmartBudget/ledgers/delete-selected', [LedgerController::class, 'destroy_selected'])->name('ledger.destroy_selected');
 
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
     Route::post('SmartBudget/planner', [ExpectedIncomesController::class, 'store'])->name('planner.expected');

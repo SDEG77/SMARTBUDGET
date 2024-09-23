@@ -28,8 +28,12 @@
                     </li>
                 </a>
                 <a href="{{ route('ledger') }}">
-                    <li class="{{ Request::is('SmartBudget/ledger') ? 'active' : '' }}">
-                    <i class="fa-regular fa-star" alt="Ledger Icon"></i>
+                    <li class="{{ 
+                        Request::is('SmartBudget/ledger') || 
+                        Request::is('SmartBudget/ledger/pay') || 
+                        Request::is('SmartBudget/ledger/buy') ? 'active' : '' 
+                    }}">
+                        <i class="fa-regular fa-star" alt="Ledger Icon"></i>
                         <span class="label">Ledger</span>
                     </li>
                 </a>
@@ -77,12 +81,39 @@
         </div>
 
         <div class="filter-buttons">
-            <div>
-                <button class="active">TO PAY</button>
-                <button>TO BUY</button>
+            <div style="display: flex; flex-direction: row;">
+                <form action="{{route('ledger')}}" method="post">
+                    @csrf
+                    @method('GET')
+
+                    <button type="submit" class="{{Request::is('SmartBudget/ledger') ? 'active' : 'inactive'}}">ALL</button>
+                </form>
+
+                <form action="{{route('ledger.toPay')}}" method="post">
+                    @csrf
+                    @method('GET')
+
+                    <button type="submit" class="{{Request::is('SmartBudget/ledger/pay') ? 'active' : 'inactive'}}">TO PAY</button>
+                </form>
+
+                <form action="{{route('ledger.toBuy')}}" method="post">
+                    @csrf
+                    @method('GET')
+
+                    <button type="submit" class="{{Request::is('SmartBudget/ledger/buy') ? 'active' : 'inactive'}}">TO BUY</button>
+                </form>
+
+
             </div>
             <div class="action-buttons">
-                <button id="multi-delete-btn" onclick="cancel()" style="display: {{$ledgers->count() > 0 ? 'inline-block' : 'hidden'}}">Delete Selected</button>
+                <form action="{{ route('ledger.destroy_selected') }}" method="post" style="display: inline-block">
+                    @csrf
+                    @method('GET')
+
+                    <button type="submit" id="multi-delete-btn" onclick="!confirm('DELETE SELECTED RECORDS?') && event.preventDefault()" style="display: {{$checks_present->count() > 0 ? 'inline-block' : 'none'}}">
+                        Delete Selected
+                    </button>
+                </form>
 
                 <button class="export"> EXPORT FILE</button>
                 <button class="add" onclick="openModal()">ADD RECORD</button>
@@ -104,7 +135,12 @@
                             </form>
                             <div>{{$ledger->what}}</div>
                             <div>{{$ledger->where}}</div>
-                            <div>{{$ledger->amount}}</div>
+                            <div style="
+                                color: {{$ledger->type === 'pay' ? 'red' : 'green'}};
+                                font-weight: bold
+                            ">
+                                {{$ledger->type === 'pay' ? '-₱' . $ledger->amount : '+₱' . $ledger->amount}}
+                            </div>
                             <div>{{$ledger->when}}</div>
 
                         
@@ -122,10 +158,10 @@
                             <div class="modal-content">
                                 <i class="fa-solid fa-triangle-exclamation"></i>
                                 <div class="modal-header">
-                                    <h2>Oh no! {{$ledger->what}}</h2>
+                                    <h2>Oh no!</h2>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Are you sure you want to delete this item?</p>
+                                    <p>Are you sure you want to delete <b style="color: red">{{$ledger->what}}</b>?</p>
                                     <div class="modal-footer">
                                         <button class="clear-btn" type="submit" onclick="alert('Record deleted successfully!');">Yes</button>
                                         <button class="save-btn" onclick="event.preventDefault(); closeDeleteModal('{{$ledger->id}}')">No</button>
@@ -146,10 +182,10 @@
                                 <h2>Edit Record</h2>
                             </div>
                             <div class="modal-body" style="display: flex; flex-direction:column">
+                                <label for="type">Type:</label>
                                 <select name="type" required>
-                                    <option value="{{$ledger->type}}" disabled selected>Choose Type (previous: {{$ledger->type}})</option>
-                                    <option value="pay">To Pay</option>
-                                    <option value="buy">To Buy</option>
+                                    <option name="type" value="pay" {{$ledger->type === 'pay' ? 'selected' : null}}>To Pay</option>
+                                    <option name="type" value="buy" {{$ledger->type === 'buy' ? 'selected' : null}} >To Buy</option>
                                 </select>
 
                                 <label for="what">What:</label>        

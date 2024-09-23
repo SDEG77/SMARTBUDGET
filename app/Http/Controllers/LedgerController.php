@@ -34,8 +34,6 @@ class LedgerController extends Controller
             'amount' => 'required|integer|min:1',
         ]);
 
-        // dd($validated);
-
         $ledger->where('id', $ledger->id)->update($validated);
 
         return to_route('ledger');
@@ -55,6 +53,12 @@ class LedgerController extends Controller
     public function destroy(Ledger $ledger)
     {
         $ledger->delete();
+
+        return to_route('ledger');
+    }
+
+    public function destroy_selected(){
+        Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->delete();
 
         return to_route('ledger');
     }
