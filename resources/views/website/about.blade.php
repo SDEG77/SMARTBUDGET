@@ -78,7 +78,7 @@
             <div class="team-members">
                 <div class="team-member">
                     <div class="image-container">
-                        <img src="{{ asset('images/ferry.jpg') }}" alt="John Ferry">
+                        <img src="{{ asset('images/ferry.png') }}" alt="John Ferry">
                     </div>
                     <h3>John Ferry<br>
                     Project Manager</h3>
@@ -92,9 +92,9 @@
                 </div>
                 <div class="team-member">
                     <div class="image-container">
-                        <img src="{{ asset('images/moreno.jpg') }}" alt="Daniel Moreno">
+                        <img src="{{ asset('images/daniel.png') }}" alt="Daniel Moreno">
                     </div>
-                    <h3>Daniel Mreno<br>
+                    <h3>Daniel Moreno<br>
                     QA</h3>
                     
                     <p>Bachelor of Science in Information Technology<br>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="team-member">
                     <div class="image-container">
-                        <img src="{{ asset('images/jaira.jpg') }}" alt="Jaira Braza">
+                        <img src="{{ asset('images/jaira.png') }}" alt="Jaira Braza">
                     </div>
                     <h3>Jaira Braza<br>
                     Front End</h3>
@@ -118,10 +118,9 @@
                 </div>
                 <div class="team-member">
                     <div class="image-container">
-                        <img src="{{ asset('images/sg.jpg') }}" alt="Sigrae Gabriele">
+                        <img src="{{ asset('images/sigrae.png') }}" alt="Sigrae Gabriele">
                     </div>
-                    <h3>Sigare Gabriele<br>
-                    Backend</h3>
+                    <h3>Sigrae Derf Gabriel<br>Backend</h3>
                     
                     <p>Bachelor of Science in Information Technology<br>
     BSIT3-S1 | System Development<br>

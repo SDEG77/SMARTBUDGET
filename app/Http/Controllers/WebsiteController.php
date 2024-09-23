@@ -57,6 +57,7 @@ class WebsiteController extends Controller
     public function ledger(){
         return view('website.ledger', [
             'ledgers' => Ledger::where('user_id', auth()->user()->id)->get(),
+            'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
         ]);
     }
 

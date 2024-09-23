@@ -16,6 +16,7 @@ class Ledger extends Model
         'when',
         'type',
         'amount',
+        'checked'
     ];
 
     public function user(): BelongsTo {

@@ -13,7 +13,7 @@
 </head>
 <style>
 body{
-  background-image: url('images/welcome.png');
+  background-image: url('images/team.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   height: 100vh;

@@ -7,27 +7,55 @@ use Illuminate\Http\Request;
 
 class LedgerController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'type' => 'required|string|min:3',
+            'what' => 'required|string|min:3',
+            'when' => 'required|date',
+            'where' => 'required|string|min:3',
+            'amount' => 'required|integer|min:1',
+        ]);
+
+        auth()->user()->ledgers()->create($validated);
+
+        return to_route('ledger');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Ledger $ledger)
     {
-        //
+        // dd($request);
+
+        $validated = $request->validate([
+            'type' => 'required|string|min:3',
+            'what' => 'required|string|min:3',
+            'when' => 'required|date',
+            'where' => 'required|string|min:3',
+            'amount' => 'required|integer|min:1',
+        ]);
+
+        // dd($validated);
+
+        $ledger->where('id', $ledger->id)->update($validated);
+
+        return to_route('ledger');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function check(Request $request, Ledger $ledger){
+        $validated = $request->validate([
+            'ninja_check' => 'required|integer',
+            'ninja' => 'required|integer'
+        ]);
+
+        auth()->user()->ledgers()->where('id', $validated['ninja'])->update(['checked' => !$validated['ninja_check']]);
+
+        return to_route('ledger');
+    }
+
     public function destroy(Ledger $ledger)
     {
-        //
+        $ledger->delete();
+
+        return to_route('ledger');
     }
 }

@@ -78,43 +78,103 @@
 
         <div class="filter-buttons">
             <div>
-                <button onclick="filterTable('pay')" class="active">TO PAY</button>
-                <button onclick="filterTable('buy')">TO BUY</button>
+                <button class="active">TO PAY</button>
+                <button>TO BUY</button>
             </div>
             <div class="action-buttons">
+                <button id="multi-delete-btn" onclick="cancel()" style="display: {{$ledgers->count() > 0 ? 'inline-block' : 'hidden'}}">Delete Selected</button>
+
                 <button class="export"> EXPORT FILE</button>
                 <button class="add" onclick="openModal()">ADD RECORD</button>
             </div>
         </div>
 
-        <div id="transactionContainer">
-        <div class="transaction-item highlight border-radius">
-            <input type="checkbox" class="transactionCheckbox">
-            <div>Aquaflask</div>
-            <div>SM City Cabanatuan</div>
-            <div>700.00</div>
-            <div>Dec 25, 2024</div>
-            <button class="delete-btn" onclick="openDeleteModal()"><i class="fa fa-trash"></i></button>
-        </div>
-        <div id="transactionContainer">
-        <div class="transaction-item highlight border-radius">
-            <input type="checkbox" class="transactionCheckbox">
-            <div>Aquaflask</div>
-            <div>SM City Cabanatuan</div>
-            <div>700.00</div>
-            <div>Dec 25, 2024</div>
-            <button class="delete-btn" onclick="openDeleteModal()"><i class="fa fa-trash"></i></button>
-        </div>
-    <div id="transactionContainer">
-        <div class="transaction-item highlight border-radius">
-            <input type="checkbox" class="transactionCheckbox">
-            <div>Aquaflask</div>
-            <div>SM City Cabanatuan</div>
-            <div>700.00</div>
-            <div>Dec 25, 2024</div>
-            <button class="delete-btn" onclick="openDeleteModal()"><i class="fa fa-trash"></i></button>
-        </div>
-        <!-- Repeat the .transaction-item div as needed -->
+            @if ($ledgers->count() > 0)
+                @foreach ($ledgers as $ledger)
+                    <div id="transactionContainer">
+                        <div style="pointer-events: all" class="transaction-item highlight border-radius {{$ledger->checked === 0 ? null : 'faded'}}">
+                            
+                            <form id="form-{{$ledger->id}}" class="multi-check-form"  action="{{ route('ledger.check', $ledger->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+
+                                <input onchange="document.getElementById('form-{{$ledger->id}}').submit()" {{$ledger->checked ? 'checked' : null}} type="checkbox" class="transactionCheckbox">
+                                <input type="hidden" name="ninja_check" value="{{$ledger->checked}}">
+                                <input type="hidden" name="ninja" value="{{$ledger->id}}">
+                            </form>
+                            <div>{{$ledger->what}}</div>
+                            <div>{{$ledger->where}}</div>
+                            <div>{{$ledger->amount}}</div>
+                            <div>{{$ledger->when}}</div>
+
+                        
+                            <button type="button" class="edit-btn" onclick="openEditModal('{{$ledger->id}}'); "><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" class="delete-btn" onclick="openDeleteModal('{{$ledger->id}}'); "><i class="fa fa-trash"></i></button>      
+                        </div>
+                    </div>
+
+                    <form action="{{ route('ledger.delete', $ledger->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        
+                        <!-- Delete Confirmation Modal -->
+                        <div id="deleteModal-{{$ledger->id}}" class="modal delete-modal">
+                            <div class="modal-content">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <div class="modal-header">
+                                    <h2>Oh no! {{$ledger->what}}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this item?</p>
+                                    <div class="modal-footer">
+                                        <button class="clear-btn" type="submit" onclick="alert('Record deleted successfully!');">Yes</button>
+                                        <button class="save-btn" onclick="event.preventDefault(); closeDeleteModal('{{$ledger->id}}')">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="{{ route('ledger.update', $ledger->id) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        
+                        <!-- Edit Confirmation Modal -->
+                        <div id="editModal-{{$ledger->id}}" style="display: none" class="modal delete-modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h2>Edit Record</h2>
+                            </div>
+                            <div class="modal-body" style="display: flex; flex-direction:column">
+                                <select name="type" required>
+                                    <option value="{{$ledger->type}}" disabled selected>Choose Type (previous: {{$ledger->type}})</option>
+                                    <option value="pay">To Pay</option>
+                                    <option value="buy">To Buy</option>
+                                </select>
+
+                                <label for="what">What:</label>        
+                                <input required type="text" name="what" value="{{$ledger->what}}" placeholder="What">
+                                
+                                <label for="where">Where:</label>        
+                                <input required type="text" name="where" value="{{$ledger->where}}" placeholder="Where">
+                                
+                                <label for="when">When:</label>        
+                                <input required type="date" name="when" value="{{$ledger->when}}" placeholder="When">
+                                
+                                <label for="amount">Amount:</label>        
+                                <input required type="number" name="amount" value="{{$ledger->amount}}" placeholder="Amount">
+                                
+                                <div class="modal-footer">
+                                    <button class="clear-btn" type="submit" onclick="alert('Record updated successfully!');">Save Changes</button>
+                                    <button type="button" class="save-btn" onclick="event.preventDefault(); closeEditModal('{{$ledger->id}}')">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </form>
+                @endforeach
+            @endif
+        </div>        
     </div>
 
     </div>
@@ -123,29 +183,33 @@
 
     </div>
 
-    <!-- Add/Edit Record Modal -->
+    <!-- Add Record Modal -->
     <div id="recordModal" class="modal record-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add / Edit Record</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
+        <form action="{{route('ledger.store')}}" method="POST">
+            @csrf
+            
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Add</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <select required name="type" id="recordType">
+                        <option value="unset" selected hidden disabled>Type</option>
+                        <option value="pay">Pay</option>
+                        <option value="buy">Buy</option>
+                    </select>
+                    <input type="text" id="itemName" required name="what" placeholder="What">
+                    <input type="text" id="where" required name="where" placeholder="Where">
+                    <input type="date" id="when" required name="when" placeholder="When">
+                    <input type="number" id="amount" required name="amount" placeholder="Amount">
+                </div>
+                <div class="modal-footer">
+                    <button class="clear-btn" type="reset">Clear</button>
+                    <button class="save-btn" onclick="e.preventDefault(); this.closest('form').submit()" type="submit">Save</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <select id="recordType">
-                    <option value="unset" selected hidden disabled>Type</option>
-                    <option value="pay">Pay</option>
-                    <option value="buy">Buy</option>
-                </select>
-                <input type="text" id="itemName" placeholder="What">
-                <input type="text" id="where" placeholder="Where">
-                <input type="date" id="when" placeholder="When">
-                <input type="number" id="amount" placeholder="Amount">
-            </div>
-            <div class="modal-footer">
-                <button class="clear-btn" onclick="clearForm()">Clear</button>
-                <button class="save-btn" onclick="saveRecord()">Save</button>
-            </div>
-        </div>
+        </form>
     </div>
 
     <!-- GREAT Confirmation Modal -->
@@ -159,23 +223,6 @@
                 <p>Your record has been saved successfully!</p>
                 <div class="modal-footer">
                     <button class="save-btn" onclick="closeGreatModal()">Go Back</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal delete-modal">
-        <div class="modal-content">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <div class="modal-header">
-                <h2>Oh no!</h2>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this item?</p>
-                <div class="modal-footer">
-                    <button class="clear-btn" onclick="confirmDelete()">Yes</button>
-                    <button class="save-btn" onclick="closeDeleteModal()">No</button>
                 </div>
             </div>
         </div>
@@ -201,120 +248,46 @@
         document.getElementById('greatModal').style.display = 'none';
     }
 
-    function openDeleteModal() {
-        document.getElementById('deleteModal').style.display = 'flex';
+    function openDeleteModal(id) {
+        let dynamo = `deleteModal-${id}`;
+
+        document.getElementById(dynamo).style.display = 'flex';
     }
 
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').style.display = 'none';
+    function closeDeleteModal(id) {
+        let dynamo = `deleteModal-${id}`;
+
+        document.getElementById(dynamo).style.display = 'none';
     }
+
+    function openEditModal(id) {
+        let dynamo = `editModal-${id}`;
+
+        document.getElementById(dynamo).style.display = 'flex';
+    }
+
+    function closeEditModal(id) {
+        let dynamo = `editModal-${id}`;
+
+        document.getElementById(dynamo).style.display = 'none';
+    }
+
 
 
 // Toggle row highlight on checkbox click
 function toggleHighlight(checkbox) {
     const row = checkbox.closest('.transaction-item'); // Get the closest row (div with class transaction-item)
+
     if (checkbox.checked) {
         row.classList.add('faded'); // Add faded class when checked
-    } else {
+    } 
+    if (!checkbox.checked) {
         row.classList.remove('faded'); // Remove faded class when unchecked
     }
 }
 
-// Add event listeners to checkboxes on page load
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.transactionCheckbox').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            toggleHighlight(this);
-        });
-    });
-});
-
-
-function saveRecord() {
-    const recordType = document.getElementById('recordType').value;
-    const itemName = document.getElementById('itemName').value;
-    const where = document.getElementById('where').value;
-    const when = document.getElementById('when').value;
-    const amount = document.getElementById('amount').value;
-
-    if (recordType && itemName && where && when && amount) {
-        const container = document.getElementById('transactionContainer');
-        const item = document.createElement('div');
-        item.classList.add('transaction-item', 'highlight', 'border-radius');  // Ensure the same classes
-
-        item.innerHTML = `
-            <input type="checkbox" class="transactionCheckbox">
-            <div>${itemName}</div>
-            <div>${where}</div>
-            <div>${amount}</div>
-            <div>${when}</div>
-            <button class="delete-btn" onclick="openDeleteModal()"><i class="fa fa-trash"></i></button>
-        `;
-
-        container.prepend(item);
-
-        // Re-attach the event listener for the new checkbox
-        const newCheckbox = item.querySelector('.transactionCheckbox');
-        newCheckbox.addEventListener('change', function() {
-            toggleHighlight(this);
-        });
-
-        // Clear the form and close the modal
-        clearForm();
-        closeModal();
-        openGreatModal();
-    } else {
-        alert('Please fill out all fields.');
-    }
-}
-
-function clearForm() {
-    document.getElementById('recordType').value = '';
-    document.getElementById('itemName').value = '';
-    document.getElementById('where').value = '';
-    document.getElementById('when').value = '';
-    document.getElementById('amount').value = '';
-}
-
-    // Handle delete confirmation
-    function confirmDelete() {
-        const table = document.getElementById('transactionTable');
-        const selectedRows = document.querySelectorAll('.transactionCheckbox:checked');
-        selectedRows.forEach(checkbox => {
-            const row = checkbox.closest('tr');
-            table.removeChild(row);
-        });
-        closeDeleteModal();
-        alert('Items deleted successfully!');
-    }
-
-    // Filter table by type
-    function filterTable(type) {
-        const rows = document.querySelectorAll('#transactionTable .transaction-row');
-        rows.forEach(row => {
-            if (type === 'all' || row.getAttribute('data-type') === type) {
-                row.closest('tr').style.display = '';
-            } else {
-                row.closest('tr').style.display = 'none';
-            }
-        });
-
-        // Update button active states
-        document.querySelectorAll('.filter-buttons button').forEach(button => {
-            button.classList.remove('active');
-        });
-        document.querySelector(`.filter-buttons button[onclick="filterTable('${type}')"]`).classList.add('active');
-
-        // Save selected filter to localStorage
-        localStorage.setItem('selectedFilter', type);
-    }
-
-    // Apply the saved filter after page reload
+    // Add event listeners to checkboxes on page load
     document.addEventListener('DOMContentLoaded', function() {
-        const savedFilter = localStorage.getItem('selectedFilter') || 'pay';
-        filterTable(savedFilter);
-
-        // Attach event listeners to existing checkboxes (if any)
         document.querySelectorAll('.transactionCheckbox').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 toggleHighlight(this);

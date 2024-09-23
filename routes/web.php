@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LoginUSerController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\TrackingController;
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function(){
 
     
     Route::get('SmartBudget/ledger', [WebsiteController::class, 'ledger'])->name('ledger');
+    Route::post('SmartBudget/ledgers', [LedgerController::class, 'store'])->name('ledger.store');
+    Route::put('SmartBudget/ledgers/{ledger}', [LedgerController::class, 'update'])->name('ledger.update');
+    Route::put('SmartBudget/ledgers/checked/{check}', [LedgerController::class, 'check'])->name('ledger.check');
+    Route::delete('SmartBudget/ledgers/{ledger}', [LedgerController::class, 'destroy'])->name('ledger.delete');
 
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
     Route::post('SmartBudget/planner', [ExpectedIncomesController::class, 'store'])->name('planner.expected');

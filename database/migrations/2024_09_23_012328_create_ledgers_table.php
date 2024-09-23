@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('where')->default('unset');
             $table->date('when')->default('2004/07/07');
             $table->double('amount')->default(0.00);
+            $table->boolean('checked')->nullable()->default(false);
         });
     }
 

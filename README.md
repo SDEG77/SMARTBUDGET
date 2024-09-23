@@ -18,17 +18,27 @@
 
 -- Do the charts for all pages (++)
 
+
+# MISC
 -- Do the popups in the Tracking Page (+)
 -- Do the reset popup in the Planner Page (+)
 
+-- Do the missing update features for the Tracker and Planner (++)
+
+-- Do the @errors for the forms in Ledger, Planner, Tracker (++)
+
 -- Do the date segments in the Tracking Page (+)
 
--- Do the Ledger page (++++)
 
+# DASHBOARD 
 -- Do the Dashboard page (+++)
 
+# PROFILE 
 -- Do the Profile page (++)
 
 -- Do the forgot page (+)
 
--- Do the missing update features for the Tracker and Planner
+# LEDGER 
+-- Do the Ledger page (++++)
+-- Do the multi delete function for the ledger (+++)
+-- Do the filter for the ledger
