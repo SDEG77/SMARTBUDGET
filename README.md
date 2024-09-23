@@ -30,3 +30,5 @@
 -- Do the Profile page (++)
 
 -- Do the forgot page (+)
+
+-- Do the missing update features for the Tracker and Planner
