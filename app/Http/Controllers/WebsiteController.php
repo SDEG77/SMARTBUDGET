@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ledger;
 use App\Models\User;
 use App\Models\Tracking;
 use App\Models\Allocation;
@@ -54,8 +55,11 @@ class WebsiteController extends Controller
     }
     
     public function ledger(){
-        return view('website.ledger');
+        return view('website.ledger', [
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->get(),
+        ]);
     }
+
     public function planner(){
         return view('website.planner', [
             'expecteds' => ExpectedIncome::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->get(),

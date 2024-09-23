@@ -132,7 +132,7 @@
             </div>
             <div class="modal-body">
                 <select id="recordType">
-                    <option value="">Type</option>
+                    <option value="unset" selected hidden disabled>Type</option>
                     <option value="pay">Pay</option>
                     <option value="buy">Buy</option>
                 </select>

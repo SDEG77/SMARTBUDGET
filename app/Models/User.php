@@ -62,4 +62,7 @@ class User extends Authenticatable
     public function expected_incomes(): HasMany{
         return $this->hasMany(ExpectedIncome::class);
     }
+    public function ledgers(): HasMany{
+        return $this->hasMany(Ledger::class);
+    }
 }
