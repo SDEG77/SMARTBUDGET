@@ -11,6 +11,14 @@ This web application can help students manage and track their budget. We also ha
 
 
 ## MISC
+--  Recaptcha (+)
+
+-- show password. (+)
+
+-- Input Validation & Sanitazion to combat XSS & SQL injection (+)
+
+--  pictures (jpeg or png only) (+)
+
 -- Do the export feature (+)
 
 -- Do the charts for all pages (++)
@@ -37,6 +45,8 @@ This web application can help students manage and track their budget. We also ha
 
 ## PROFILE 
 -- Do the Profile page (+++)
+
+-- Do the profile pic change function
 
 -- Do the forgot page (+)
 

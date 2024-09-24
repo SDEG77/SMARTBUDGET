@@ -77,43 +77,93 @@
                     <!-- Update Information Section -->
                     <div class="profile-info">
                     <div class="section">
-                        <h2>UPDATE INFORMATION</h2>
-                        <div class="form-group">
-                            <input type="text" id="complete-name" placeholder="Complete Name">
-                            <input type="email" id="email-address" placeholder="Email Address">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="school-name" placeholder="School Name">
-                            <select id="course">
-                                <option>Bachelor of Science in Information Technology</option>
-                                <!-- Add more options here -->
-                            </select>
-                        </div>
-                        <div class="form-buttons">
-                            <button class="clear-btn">CLEAR</button>
-                            <button class="update-btn">UPDATE</button>
-                        </div>
+                        <form action="{{ route('account.profile.update', $user->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+
+                            <h2>UPDATE INFORMATION</h2>
+                            <div class="form-group">
+                                <div style="display:flex;flex-direction:column">
+                                    <x-input-error :err="'full_name'" />
+                                    <input value="{{ $user->full_name }}" required type="text" name="full_name" id="complete-name" placeholder="Complete Name"
+                                    style="{{ $errors->has('full_name') ? 'border: solid 1px red' : '' }}">
+                                </div>
+
+                                <div style="display:flex;flex-direction:column">
+                                    <x-input-error :err="'email'" />
+                                    <input value="{{ $user->email }}" required type="email" name="email" id="email-address" placeholder="Email Address"
+                                    style="{{ $errors->has('email') ? 'border: solid 1px red' : '' }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="display:flex;flex-direction:column">
+                                    <x-input-error :err="'school_name'" />
+                                    <input value="{{ $user->school_name }}" required type="text" name="school_name" id="school-name" placeholder="School Name"
+                                    style="{{ $errors->has('school_name') ? 'border: solid 1px red' : '' }}">
+                                </div>
+
+                                <div style="display:flex;flex-direction:column">
+                                <x-input-error :err="'course'" />
+                                    <select required name="course" id="course"
+                                    style="{{ $errors->has('course') ? 'border: solid 1px red' : '' }}"
+                                    >
+                                        <option @selected($user->course === 'BSIT' ? true : false) value="BSIT">BSIT</option>
+                                        <option @selected($user->course === 'BSCRIM' ? true : false) value="BSCRIM">BSCRIM</option>
+                                        <option @selected($user->course === 'BSED' ? true : false) value="BSED">BSED</option>
+                                        <!-- Add more options here -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-buttons">
+                                <button class="clear-btn" type="button" onclick="clearForm()">CLEAR</button>
+                                <button class="update-btn" type="submit">UPDATE</button>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- Change Password Section -->
                     <div class="section">
-                        <h2>CHANGE PASSWORD</h2>
-                        <div class="form-group">
-                            <input type="password" id="current-password" placeholder="Current Password">
-                            <input type="password" id="new-password" placeholder="Enter New Password">
-                            <input type="password" id="confirm-password" placeholder="Confirm Password">
-                        </div>
-                        <div class="form-buttons">
-                            <button class="clear-btn">CLEAR</button>
-                            <button class="save-btn">SAVE</button>
-                        </div>
+                        <form action="{{ route('account.password.update', $user->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+
+                            <h2>CHANGE PASSWORD</h2>
+                            <div class="form-group">
+                                <div style="display: flex; flex-direction:column">
+                                    <x-input-error :err="'current_password'" />
+                                    <input type="password" name="current_password" id="current-password" placeholder="Current Password"
+                                    style="{{ $errors->has('current_password') ? 'border: solid 1px red' : '' }}">
+                                </div>
+
+                                <div style="display: flex; flex-direction:column">
+                                    <x-input-error :err="'new_password'" />
+                                    <input type="password" name="new_password" id="new-password" placeholder="Enter New Password"
+                                    style="{{ $errors->has('new_password') ? 'border: solid 1px red' : '' }}">
+                                </div>
+
+                                <div style="display: flex; flex-direction:column">
+                                    <x-input-error :err="'new_password_confirmation'" />
+                                    <input type="password" name="new_password_confirmation" id="confirm-password" placeholder="Confirm Password"
+                                    style="{{ $errors->has('new_password_confirmation') ? 'border: solid 1px red' : '' }}">
+                                </div>
+                            </div>
+                            <div class="form-buttons">
+                                <button class="clear-btn">CLEAR</button>
+                                <button class="save-btn">SAVE</button>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- Delete Account Section -->
                     <div class="section">
                         <h2>DELETE ACCOUNT</h2>
                         <div class="form-buttons">
-                            <button class="delete-btn">DELETE ACCOUNT</button>
+                            <form action="{{ route('account.suicide') }}" method="post">
+                                @csrf
+                                @method('GET')
+
+                                <button type="submit" class="delete-btn" onclick="!confirm('ARE YOU SURE?') && event.preventDefault()">DELETE ACCOUNT</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -126,21 +176,10 @@
 </html>
 
 <script>
-    // Handle profile picture change
-    document.getElementById("profilePic").addEventListener("click", function () {
-        document.getElementById("profilePicInput").click();
-    });
-
-    document.getElementById("profilePicInput").addEventListener("change", function (event) {
-        const file = event.target.files[0]; // Get the selected file
-        if (file) {
-            const reader = new FileReader(); // Create a new FileReader object
-            reader.onload = function (e) {
-                // Update both the main profile and sidebar images with the new source
-                document.getElementById("profilePic").src = e.target.result;
-                document.getElementById("sidebarProfilePic").src = e.target.result;
-            };
-            reader.readAsDataURL(file); // Read the file as a data ROUTE
-        }
-    });
+    function clearForm(){ 
+        document.getElementById('complete-name').value = '';
+        document.getElementById('email-address').value = '';
+        document.getElementById('school-name').value = '';
+        document.getElementById('course').selectedIndex = 0;
+    }
 </script>

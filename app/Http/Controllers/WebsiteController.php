@@ -20,7 +20,7 @@ class WebsiteController extends Controller
     }
 
     public function profile(){
-        return view('website.account.profile');
+        return view('website.account.profile', ['user' => auth()->user()]);
     }
 
     public function dashboard(){

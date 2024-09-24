@@ -42,25 +42,72 @@ class LoginUSerController extends Controller
         return to_route('welcome');
     }
 
-    public function resetPass(Request $request, User $user){
-        
-        $validate = $request->validate([
-            'current' => 'required|min:3|string',
-            'new' => ['required', 'confirmed', 'min:3', Password::default()],
-        ]);
-
-        // if($user->get('password')->where()){
-        //     dd('hello');
-        //     $user->update(['password' =>  Hash::make($validate['new'])]);
-        // }
-
-        return to_route('account.profile');
-    }
-
     public function forgot(){
         return view('auth.forgot');
     }
     public function createPass(){
         return view('auth.createPass');
+    }
+
+    public function changePass(Request $request, User $user){
+        // dd($request);
+
+        $request->merge([
+            'current_password' => strip_tags($request->current_password),
+            'new_password' => strip_tags($request->new_password),
+        ]);
+
+        // dd($request);
+
+        $validated = $request->validate([
+            'current_password' => 'required|string|min:8',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // dd($validated);
+
+        if(!Hash::check($validated['current_password'], auth()->user()->password)){
+            return back()->withErrors(['current_password' => 'Current password does not match the original']);
+        }
+
+        Auth::user()->update([
+            'password' => Hash::make($validated['new_password'])
+        ]);
+
+        return to_route('account.profile');
+    }
+
+    public function updateInfo(Request $request, User $user){
+        // dd($request);
+        
+        $request->merge([
+            'full_name' => strip_tags($request->input('full_name')),
+            'email' => strip_tags($request->input('email')),
+            'school_name' => strip_tags($request->input('school_name')),
+            'course' => strip_tags($request->input('course')),
+        ]);
+
+        $validated = $request->validate([
+            'full_name' => 'required|string|min:3',
+            'email' => 'required|email|min:8|unique:users,email,' . auth()->user()->id,
+            'school_name' => 'required|string|min:3',
+            'course' => 'required|string|min:3',
+        ]);
+
+        $user->where('id', auth()->user()->id)->update($validated);
+
+        return to_route('account.profile');
+    }
+
+    public function suicide(){
+        if(auth()->user()){
+            auth()->user()->delete();
+            session()->invalidate();
+            session()->regenerateToken();
+
+            return to_route('welcome');
+        } else {
+            return to_route('welcome');
+        }
     }
 }

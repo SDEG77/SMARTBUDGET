@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/about', [WebsiteController::class, 'about'])->name('about');
 
     Route::get('SmartBudget/account/profile', [WebsiteController::class, 'profile'])->name('account.profile');
+    Route::put('SmartBudget/account/password/{id}', [LoginUSerController::class, 'changePass'])->name('account.password.update');
+    Route::put('SmartBudget/account/profile/{id}', [LoginUSerController::class, 'updateInfo'])->name('account.profile.update');
     Route::post('SmartBudget/acount/logout', [LoginUSerController::class, 'logout'])->name('account.logout');
     Route::post('SmartBudget/account/password/reset', [LoginUSerController::class, 'resetPass'])->name('account.password.reset');
+    Route::get('SmartBudget/account/suicide', [LoginUSerController::class, 'suicide'])->name('account.suicide');
+
 });
