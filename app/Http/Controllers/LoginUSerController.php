@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Storage;
 
 class LoginUSerController extends Controller
 {
@@ -95,6 +96,30 @@ class LoginUSerController extends Controller
         ]);
 
         $user->where('id', auth()->user()->id)->update($validated);
+
+        return to_route('account.profile');
+    }
+
+    public function updatePic(Request $request, User $user){
+        $old = auth()->user()->profile_pic; // Assuming you store the path in the user's profile_pic field
+        if ($old) {
+            Storage::disk('public')->delete($old);
+        }
+
+        // dd($request->profile_pic);
+        $validated = $request->validate([
+            'profile_pic' => 'required|image|mimes:jpeg,jpg,png|max:25600'
+        ]);
+
+
+        // dd($validated);
+        $validated['profile_pic'] = $request->file('profile_pic')->store('profile_pics', 'public');
+        // dd($validated);
+
+
+        Auth::user()->update([
+            'profile_pic' => $validated['profile_pic']
+        ]);
 
         return to_route('account.profile');
     }

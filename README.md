@@ -31,6 +31,8 @@ This web application can help students manage and track their budget. We also ha
 ## PLANNER
 -- Do the reset popup in the Planner Page (+)
 
+-- Fix ressurected bug when editing the budget allocation form. (++) (it doesnt save changes)
+
 ## TRACKER
 -- Convert this into words like (today/yesterday/weekly) (+)
 
@@ -44,11 +46,10 @@ This web application can help students manage and track their budget. We also ha
 -- Do the Dashboard page (++)
 
 ## PROFILE 
--- Do the Profile page (+++)
+-- Finished all todos yah00!
 
--- Do the profile pic change function
-
+## FORGOT
 -- Do the forgot page (+)
 
 ## LEDGER 
--- Finished all todos yay
+-- Finished all todos yay!

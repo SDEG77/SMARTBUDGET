@@ -67,11 +67,18 @@
 
     <div class="main-content">
             <div class="profile-sidebar">
-                <div class="profile-picture-wrapper">
-                    <img src="{{ asset('images/user.png') }}" id="profilePic" class="profile-picture">
-                    <input type="file" id="profilePicInput" class="hidden" accept="image/*">
-                    <span class="icon-overlay"><i class="fas fa-camera"></i></span>
-                </div>
+                <form id="profile-pic" action="{{ route('account.pic.update', $user->id) }}" method="post" enctype="multipart/form-data" >
+                @csrf
+                @method('PUT')
+                    <div class="profile-picture-wrapper">
+                        <img src=" {{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}}  " id="profilePic" class="profile-picture">
+
+                        <x-input-error :err="'image'" />
+                        <input name="profile_pic" onchange="document.getElementById('profile-pic').submit()"  type="file" id="profilePicInput" accept=".png, .jpg, .jpeg" required>
+                        <span class="icon-overlay"><i class="fas fa-camera"></i></span>
+                    </div>
+                    <button type="submit" id="profile-pic-btn" style="display: none">Change Photo</button>
+                </form>
 
                 <div class="profile-main">
                     <!-- Update Information Section -->

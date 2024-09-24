@@ -25,7 +25,7 @@ class User extends Authenticatable
         'password',
         'school_name',
         'course',
-        'target_income',
+        'profile_pic',
     ];
 
     /**

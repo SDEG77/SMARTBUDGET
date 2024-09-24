@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('school_name')->default('unset');
             $table->string('course')->default('unset');
+            $table->string ('profile_pic')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
