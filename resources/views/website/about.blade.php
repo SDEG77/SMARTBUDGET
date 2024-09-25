@@ -57,7 +57,7 @@
                 
                 <a href="{{ route('account.profile') }}">
                     <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
-                        <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
+                        <img src="{{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}}" alt="Profile Picture" class="profile-sidebar-img">
                         <span class="label">Profile</span>
                     </li>
                 </a>

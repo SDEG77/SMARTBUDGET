@@ -1,3 +1,8 @@
+@php
+    use Carbon\Carbon;
+    Carbon::setLocale('en'); 
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +68,7 @@
                 
                 <a href="{{ route('account.profile') }}">
                     <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
-                        <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
+                        <img src="{{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}}" alt="Profile Picture" class="profile-sidebar-img">
                         <span class="label">Profile</span>
                     </li>
                 </a>
@@ -122,6 +127,11 @@
 
             @if ($ledgers->count() > 0)
                 @foreach ($ledgers as $ledger)
+                    @php
+                        $date;
+                        $date = Carbon::createFromFormat('Y-m-d', $ledger->when);
+                    @endphp
+
                     <div id="transactionContainer">
                         <div style="pointer-events: all" class="transaction-item highlight border-radius {{$ledger->checked === 0 ? null : 'faded'}}">
                             
@@ -139,9 +149,11 @@
                                 color: {{$ledger->type === 'pay' ? 'red' : 'green'}};
                                 font-weight: bold
                             ">
-                                {{$ledger->type === 'pay' ? '-₱' . $ledger->amount : '+₱' . $ledger->amount}}
+                                {{$ledger->type === 'pay' ? '-₱' . number_format($ledger->amount) : '+₱' . number_format($ledger->amount)}}
                             </div>
-                            <div>{{$ledger->when}}</div>
+                            <div>
+                                {{$date->translatedFormat('F j, Y')}}
+                            </div>
 
                         
                             <button type="button" class="edit-btn" onclick="openEditModal('{{$ledger->id}}'); "><i class="fa-solid fa-pen-to-square"></i></button>
@@ -198,7 +210,7 @@
                                 <input required type="date" name="when" value="{{$ledger->when}}" placeholder="When">
                                 
                                 <label for="amount">Amount:</label>        
-                                <input required type="number" name="amount" value="{{$ledger->amount}}" placeholder="Amount">
+                                <input required type="number" step="0.01" name="amount" value="{{$ledger->amount}}" placeholder="Amount">
                                 
                                 <div class="modal-footer">
                                     <button class="clear-btn" type="submit" onclick="alert('Record updated successfully!');">Save Changes</button>
@@ -238,7 +250,7 @@
                     <input type="text" id="itemName" required name="what" placeholder="What">
                     <input type="text" id="where" required name="where" placeholder="Where">
                     <input type="date" id="when" required name="when" placeholder="When">
-                    <input type="number" id="amount" required name="amount" placeholder="Amount">
+                    <input type="number" step="0.01" id="amount" required name="amount" placeholder="Amount">
                 </div>
                 <div class="modal-footer">
                     <button class="clear-btn" type="reset">Clear</button>

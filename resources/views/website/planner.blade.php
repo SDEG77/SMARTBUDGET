@@ -1,3 +1,8 @@
+@php
+    use Carbon\Carbon;
+    Carbon::setLocale('en');
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +68,7 @@
                 
                 <a href="{{ route('account.profile') }}">
                     <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
-                        <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
+                        <img src=" {{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}} " alt="Profile Picture" class="profile-sidebar-img">
                         <span class="label">Profile</span>
                     </li>
                 </a>
@@ -71,41 +76,44 @@
         </div>
     </div>
 
+    @php
+        $sum = $allocation->food
+        +
+        $allocation->rent
+        +
+        $allocation->transportation
+        +
+        $allocation->loan
+        +
+        $allocation->shopping
+        +
+        $allocation->mobile
+        +
+        $allocation->savings
+        +
+        $allocation->school
+        +
+        $allocation->others;
+    @endphp
 
     <div class="main-content">
     <div class="planner-frame">
         <div class="header">Welcome to your Budget Planner</div>
         <div class="budget-stats">
             <div>
-                <h3>₱{{$total_expected}}</h3>
+                <h3>₱{{number_format($total_expected)}}</h3>
                 <p>Expected Income</p>
             </div>
             <div>
                 <h3>
-                    ₱{{$target_income}} OR {{$allocation ? (
-                        $allocation->food
-                        +
-                        $allocation->rent
-                        +
-                        $allocation->transportation
-                        +
-                        $allocation->loan
-                        +
-                        $allocation->shopping
-                        +
-                        $allocation->mobile
-                        +
-                        $allocation->savings
-                        +
-                        $allocation->school
-                        +
-                        $allocation->others
-                    ) : 'none'}} 
+                    ₱{{$allocation ? number_format((
+                        $sum
+                    )) : 0}} 
                 </h3>
                 <p>Target Income</p>
             </div>
             <div>
-                <h3>₱{{($target_income - $total_expected) < 0 ? 0 : ($target_income - $total_expected)}}</h3>
+                <h3>₱{{($sum - $total_expected) < 0 ? 0 : number_format($sum - $total_expected)}}</h3>
                 <p>Budget Variance</p>
             </div>
         </div>
@@ -207,10 +215,15 @@
             <tbody id="income-table-body">
                 @if ($expecteds->count() > 0)
                     @foreach ($expecteds as $expected)
+                    @php
+                        $date;
+                        $date = Carbon::createFromFormat('Y-m-d', $expected->date);
+                    @endphp
+
                         <tr>
-                            <td>{{$expected->date}}</td>
+                            <td>{{$date->translatedFormat('F j, Y')}}</td>
                             <td>{{$expected->source}}</td>
-                            <td>₱{{$expected->amount}}</td>
+                            <td>₱{{number_format($expected->amount)}}</td>
                         </tr>
                     @endforeach
                 @endif
@@ -248,7 +261,10 @@ function makeTableEditable(event) {
     editableCells.forEach(cell => {
         const currentValue = cell.textContent.trim(); // Get the current value in the cell
         if (!cell.querySelector('input')) {  // Avoid duplicating inputs
-            cell.innerHTML = `<input type="number" name="${categories[count]}"  value="${currentValue}" />`; // Replace with input field
+            cell.innerHTML = `
+                <x-input-error :err="'${categories[count]}'" />
+                <input type="number" name="${categories[count]}" required  value="${currentValue}" />
+            `; // Replace with input field
         }
 
         count += 1

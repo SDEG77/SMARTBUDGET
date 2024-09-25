@@ -1,3 +1,9 @@
+@php
+    use Carbon\Carbon;
+    Carbon::setLocale('en'); 
+@endphp
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +66,7 @@
 
             <a href="{{ route('account.profile') }}">
                 <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
-                    <img src="{{ asset('images/user.png') }}" alt="Profile Picture" class="profile-sidebar-img">
+                    <img src=" {{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}} " alt="Profile Picture" class="profile-sidebar-img">
                     <span class="label">Profile</span>
                 </li>
             </a>
@@ -76,15 +82,15 @@
     <div class="tracker-overview">
         <div class="tracker-summaries">
             <div class="tracker-summary">
-                <h2>₱{{$total_expense}}</h2>
+                <h2>₱{{number_format($total_expense)}}</h2>
                 <p>Total Expenses</p>
             </div>
             <div class="tracker-summary">
-                <h2>₱{{$total_income}}</h2>
+                <h2>₱{{number_format($total_income)}}</h2>
                 <p>Total Income</p>
             </div>
             <div class="tracker-summary">
-                <h2>₱{{$total_income - $total_expense}}</h2>
+                <h2>₱{{number_format(abs($total_income - $total_expense))}}</h2>
                 <p>Total Balance</p>
             </div>
         </div>
@@ -124,36 +130,37 @@
 
 <table class="tracker-table" id="trackerTable">
     <tbody>
-        <!-- Today's Transactions -->
-        {{-- <tr>
-            <td colspan="6"><strong>Today - Tuesday, September 10, 2024</strong></td>
-        </tr>
-        <tr>
-            <td>Outflow</td>
-            <td>Food</td>
-            <td>Coffee in Starbucks</td>
-            <td>250.00</td>
-            <td><button onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></button></td>
-        </tr> --}}
-
         @if ($tracks->count() > 0)
             @php
                 $rendered = 'nope :)';
             @endphp
 
             @foreach ($tracks as $track)
-                @if ($rendered === $track->date && $rendered !== 'nope :)')
-                    
-                @else()
-                    <tr id="{{$track->mode}}">{{$track->date}}</tr> {{--TODO convert this into words like (today/yesterday/weekly) --}}
-                @endif
+                @php
+                    $date;
+                    $date = Carbon::createFromFormat('Y-m-d', $track->date);
+                    $check_date = Carbon::parse($track->date);
+                @endphp
+
+                <tr>
+                    @if ($rendered === $track->date && $rendered !== 'nope :)')
+                        
+                    @else()
+                        <td style="padding-left: 15px; font-weight: bold;" colspan="100" id="{{$track->mode}}">
+                            {{$check_date->isToday() ? 'Today - ' : null}} 
+                            {{$check_date->isYesterday() ?'Yesterday - ' : null}}
+                            {{-- {{$check_date->isFuture() ?'Planned Ahead - ' : null}} --}}
+                            {{$date->translatedFormat('l, F j, Y')}}
+                        </td>
+                    @endif
+                </tr>
 
                 <tr id="{{$track->mode}}">
                     <td>{{$track->mode}}</td>
                     <td>{{$track->category}}</td>
                     <td>{{$track->description}}</td>
                     <td style="font-weight: bold; color: {{$track->mode === 'outgoing' ? 'red' : 'green'}}">
-                        {{$track->mode === 'outgoing' ? '-' : '+'}}₱{{$track->amount}}
+                        {{$track->mode === 'outgoing' ? '-' : '+'}}₱{{number_format($track->amount)}}
                     </td> {{--TODO format so that it add commas --}}
                     <td>
                         <form action="{{route('tracking.delete', $track->id)}}" method="POST">
@@ -186,35 +193,55 @@
         </div>
         <div class="modal-body">
             <label for="itemName">Description</label>
-            <input type="text" name="description" id="itemName" placeholder="Type here">
-
+            <div style="display: flex; flex-direction: column">
+                <x-input-error  :err="'description'" />
+                <input required type="text" name="description" id="itemName" placeholder="Type here">
+            </div>
             <div class="input-group">
                 <div>
                     <label for="mode">Mode</label>
-                    <select name="mode" id="mode">
+                    <div style="display: flex; flex-direction: column">
+                        <x-input-error  :err="'mode'" />
+                    <select name="mode" id="mode" onchange="changeOpts()">
                         <option value="outgoing">outgoing</option>
                         <option value="ingoing">incoming</option>
                     </select>
+                    </div>
                 </div>
                 <div>
                     <label for="category">Category</label>
-                    <select name="category" id="category">
-                        <option value="food">Food</option>
-                        <option value="transport">Transport</option>
-                        <option value="allowance">Allowance</option>
-                        <!-- Add more categories as needed -->
-                    </select>
+                    <div style="display: flex; flex-direction: column">
+                        <x-input-error  :err="'category'" />
+                        <select required name="category" id="category">
+                            <option value="food">Food</option>
+                            <option value="rent">Rent</option>
+                            <option value="transpo">Transportation</option>
+                            <option value="loan">Debt/Loan</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="savings">Savings</option>
+                            <option value="school">School</option>
+                            <option value="others">Others</option>
+                            <!-- Add more categories as needed -->
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <div class="input-group">
                 <div>
                     <label for="date">Date</label>
-                    <input name="date" type="date" id="date">
+                    <div style="display: flex; flex-direction: column">
+                        <x-input-error  :err="'date'" />
+                        <input required name="date" type="date" id="date">
+                    </div>
                 </div>
                 <div>
                     <label for="amount">Amount</label>
-                    <input name="amount" type="number" id="amount" placeholder="Amount">
+                    <div style="display: flex; flex-direction: column">
+                        <x-input-error  :err="'amount'" />
+                        <input required name="amount" type="number" id="amount" placeholder="Amount">
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,6 +293,33 @@
 
     function setMode(mode){
         filter = mode;
+    }
+
+    function changeOpts(){
+        const selected = document.getElementById('mode');
+        const change = document.getElementById('category');
+
+        if(selected.value === "outgoing"){
+            change.innerHTML = `
+                <option value="food">Food</option>
+                <option value="rent">Rent</option>
+                <option value="transpo">Transportation</option>
+                <option value="loan">Debt/Loan</option>
+                <option value="shopping">Shopping</option>
+                <option value="mobile">Mobile</option>
+                <option value="savings">Savings</option>
+                <option value="school">School</option>
+                <option value="others">Others</option>
+            `;
+        } else {
+            change.innerHTML = `
+                <option value="provider">Provider</option>
+                <option value="earnings">Earnings</option>
+                <option value="grant">Grant</option>
+                <option value="loan">Loan</option>
+                <option value="others">Others</option>
+            `;
+        }
     }
 
     // Open the 'Add Record' Modal

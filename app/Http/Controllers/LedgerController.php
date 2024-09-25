@@ -14,7 +14,7 @@ class LedgerController extends Controller
             'what' => 'required|string|min:3',
             'when' => 'required|date',
             'where' => 'required|string|min:3',
-            'amount' => 'required|integer|min:1',
+            'amount' => 'required|numeric|min:1',
         ]);
 
         auth()->user()->ledgers()->create($validated);

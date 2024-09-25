@@ -11,7 +11,7 @@ class ExpectedIncomesController extends Controller
         $validate = $request->validate([
             'date' => 'required|date',
             'source' => 'required|string|min:3',
-            'amount' => 'required|string|min:1'
+            'amount' => 'required|numeric|min:1'
         ]);
 
         auth()->user()->expected_incomes()->create($validate);

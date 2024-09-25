@@ -1,3 +1,8 @@
+@php
+    use Carbon\Carbon;
+    Carbon::setLocale('en');
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
 </head>
 <body>
     <div class="container">
@@ -60,7 +64,7 @@
                     </form>
                     <a href="{{ route('account.profile') }}">
                         <li class="{{ Request::is('SmartBudget/account/profile') ? 'active' : '' }}">
-                            <img src="{{asset('images/user.png')}}" alt="Profile Picture" class="profile-sidebar-img">
+                            <img src="{{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}}" alt="Profile Picture" class="profile-sidebar-img">
                             <span class="label">Profile</span>
                         </li>
                     </a>
@@ -75,22 +79,19 @@
                 <div class="flow-frame">
                     <div class="result-frame">
                         <div class="result-item">
-                            <p3>Total Expenses</p3><br>
-                            <p4>30,000.00</p4>
-                            <div class="box-container">
-                            </div>
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <p4>{{number_format($total_expense)}}</p4>
+                            <p3>Total Expenses</p3>
                         </div>
                         <div class="result-item">
-                            <p3>Total Income</p3><br>
-                            <p4>35,000.00</p4>
-                            <div class="box-container">
-                            </div>
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <p4>{{number_format($total_income)}}</p4>
+                            <p3>Total Income</p3>
                         </div>
                         <div class="result-item">
-                            <p3>Total Balance</p3><br>
-                            <p4>5,000.00</p4>
-                            <div class="box-container">
-                            </div>
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <p4>{{number_format(abs($total_income - $total_expense))}}</p4>
+                            <p3>Total Balance</p3>
                         </div>
                     </div>
                     <div class="graph-frame">
@@ -99,13 +100,16 @@
                 </div>
                 <div class="info-frame">
                     <div class="user-frame">
-                        <div class="profile">
+                        <div class="profile" style="background-color: white">
                             <center>
-                                <img src="{{asset('images/logo.png')}}" id="profilePic" class="profile-picture">
-                                <ul>
-                                    <li class="highlight">John Ferry Santiago</li>
-                                    <li>jnsantiago.au@phinmaed.com</li>
-                                    <li>0929-619-9578</li>
+                                <img src="{{$user->profile_pic ? asset('' . $user->profile_pic) : asset('images/user.png')}}" style="margin-bottom: 5px" id="profilePic" class="profile-picture">
+                                <ul style="color:black; display: flex; flex-direction:column">
+                                    <li class="highlight" style="text-transform:uppercase;
+                                    font-weight:bold;
+                                    font-size: 14px;
+                                    ">{{$user->full_name}}</li>
+                                    <li style="font-size:10px">{{$user->school_name}}</li>
+                                    <li style="font-size:10px">{{$user->course}}</li>
                                 </ul>
                             </center>
                         </div>
@@ -130,8 +134,20 @@
                 <div class="budget-frame">
                     <p2 class="summary-title">Expenses Summary</p2>
                     <div class="summary-section">
+                        <div class="chart-container" style="margin-bottom: 20px">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+
                         <ul>
-                            <li><span>Food</span><span>80,000.00</span></li>
+                            @foreach ($expenses as $sum)
+                                <li>
+                                    <span id="expenseCategory" >{{$sum->category}}</span>
+                                    <span id="expenseTotal">{{number_format($sum->total)}}</span>
+                                </li>
+                            @endforeach
+
+
+                            {{-- <li><span>Food</span><span>80,000.00</span></li>
                             <li><span>Rent</span><span>40,000.00</span></li>
                             <li><span>Transpo</span><span>40,000.00</span></li>
                             <li><span>Debt/Loan</span><span>80,000.00</span></li>
@@ -139,12 +155,8 @@
                             <li><span>Mobile</span><span>80,000.00</span></li>
                             <li><span>Savings</span><span>40,000.00</span></li>
                             <li><span>School</span><span>80,000.00</span></li>
-                            <li><span>Others</span><span>80,000.00</span></li>
-                        </ul>
-                        <div class="chart-container">
-                        <canvas id="budgetChart"></canvas>
-                        </div>
-                        
+                            <li><span>Others</span><span>80,000.00</span></li> --}}
+                        </ul>                        
                     </div>
                 </div>
 
@@ -155,22 +167,69 @@
                         <canvas id="incomeChart"></canvas>
                         </div>
                         <ul>
-                            <li><span>Provider</span><span>80,000.00</span></li>
+                            @foreach ($incomes as $sum)
+                                <li>
+                                    <span id="incomeCategory" >{{$sum->category}}</span>
+                                    <span id="incomeTotal">{{number_format($sum->total)}}</span>
+                                </li>
+                            @endforeach
+
+                            {{-- <li><span>Provider</span><span>80,000.00</span></li>
                             <li><span>Earnings</span><span>40,000.00</span></li>
                             <li><span>Grant</span><span>40,000.00</span></li>
                             <li><span>Loan</span><span>80,000.00</span></li>
-                            <li><span>Others</span><span>70,753.00</span></li>
+                            <li><span>Others</span><span>70,753.00</span></li> --}}
                         </ul>
                     </div>
                 </div>
 
                 <div class="recent-frame">
                     <p2 class="summary-title3"><span class="left">Recent Transactions</span>
-                        <span class="right"><a href="{{ url('tracking') }}" class="see-more-link">See more > </a></span></p2>
+                        <span class="right"><a href="{{ route('tracking') }}" class="see-more-link">See more > </a></span></p2>
                     <div class="summary-section">
                         <div class="recent-transactions">
                             <table class="tracker-table" id="trackerTable">
-                                <tr>
+                                @if ($tracks->count() > 0)
+                                    @php
+                                        $rendered = 'nope :)';
+                                    @endphp
+                        
+                                    @foreach ($tracks as $track)
+                                        @php
+                                            $date;
+                                            $date = Carbon::createFromFormat('Y-m-d', $track->date);
+                                            $check_date = Carbon::parse($track->date);
+                                        @endphp
+                        
+                                        <tr>
+                                            @if ($rendered === $track->date && $rendered !== 'nope :)')
+                                                
+                                            @else()
+                                                <td style="font-weight: bold" colspan="100" id="{{$track->mode}}">
+                                                    {{$check_date->isToday() ? 'Today - ' : null}} 
+                                                    {{$check_date->isYesterday() ?'Yesterday - ' : null}}
+                                                    {{$check_date->isFuture() ?'Planned Ahead - ' : null}}
+                                                    {{$date->translatedFormat('l, F j, Y')}}
+                                                </td>
+                                            @endif
+                                        </tr>
+                        
+                                        <tr id="{{$track->mode}}">
+                                            <td>{{$track->mode}}</td>
+                                            <td>{{$track->category}}</td>
+                                            <td>{{$track->description}}</td>
+                                            <td style="font-weight: bold; color: {{$track->mode === 'outgoing' ? 'red' : 'green'}}">
+                                                {{$track->mode === 'outgoing' ? '-' : '+'}}₱{{number_format($track->amount)}}
+                                            </td>
+                                        </tr>
+                        
+                                        @php
+                                            $rendered = $track->date;                    
+                                        @endphp
+                                    @endforeach
+                                @endif
+
+                                {{-- <tr>
                                     <td colspan="6"><strong>Today - Tuesday, September 10, 2024</strong></td>
                                 </tr>
                                 <tr data-type="expenses">
@@ -178,84 +237,7 @@
                                     <td><strong>Food</strong></td>
                                     <td>Coffee in Starbucks</td>
                                     <td>250.00</td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="income">
-                                    <td>Inflow</td>
-                                    <td><strong>Scholarship</strong></td>
-                                    <td>City Hall</td>
-                                    <td>2,000.00</td>
-                                </tr>
-                                <tr data-type="income">
-                                    <td>Inflow</td>
-                                    <td><strong>Scholarship</strong></td>
-                                    <td>City Hall</td>
-                                    <td>2,000.00</td>
-                                </tr>
-                                <tr data-type="income">
-                                    <td>Inflow</td>
-                                    <td><strong>Allowance</strong></td>
-                                    <td>From Parents</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6"><strong>Yesterday - Monday, September 9, 2024</strong></td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="income">
-                                    <td>Inflow</td>
-                                    <td><strong>Scholarship</strong></td>
-                                    <td>City Hall</td>
-                                    <td>2,000.00</td>
-                                </tr>
-                                <td colspan="6"><strong> October 9, 2024</strong></td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr>
-                                <tr data-type="income">
-                                    <td>Inflow</td>
-                                    <td><strong>Scholarship</strong></td>
-                                    <td>City Hall</td>
-                                    <td>2,000.00</td>
-                                </tr>
+                                </tr> --}}
                             </table>
                         </div>
                     </div>
@@ -263,111 +245,22 @@
             </div>
         </div>
     </div>
+
+    <div style="display: none">
+        @foreach ($track_all_expenses as $expense)
+            <p id="track_expense" style="display: none">
+                {{$expense->amount}}
+            </p>
+        @endforeach
+        
+        @foreach ($track_all_incomes as $income)
+            <p id="track_income" style="display: none">
+                {{$income->amount}}
+            </p>
+        @endforeach
+    </div>
+
 </body>
 </html>
 
-<script>
-    var ctxLine = document.getElementById('lineChart').getContext('2d');
-    var lineChart = new Chart(ctxLine, {
-    type: 'line',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My Dataset',
-            data: [10, 20, 15, 25, 30, 40, 35],
-            borderColor: '#FF6F61', // Coral orange color
-            backgroundColor: 'rgba(255, 111, 97, 0.2)', // Light coral orange
-            fill: true
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.label + ': ' + tooltipItem.raw;
-                    }
-                }
-            }
-        },
-        scales: {
-            x: {
-                beginAtZero: true
-            },
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-    });
-
-
-        var ctxBudget = document.getElementById('budgetChart').getContext('2d');
-        var budgetChart = new Chart(ctxBudget, {
-            type: 'doughnut',
-            data: {
-                labels: ['Food', 'Rent', 'Transpo', 'Debt/Loan', 'Shopping', 'Mobile', 'Savings', 'School', 'Others'],
-                datasets: [{
-                    label: 'Expenses',
-                    data: [80000, 40000, 40000, 80000, 40000, 80000, 40000, 80000, 80000],
-                    backgroundColor: [
-                    '#4C6F4C', '#3E5E3E', '#2F4E2F', '#1F3D1F', '#1A341A',
-    '#1E5A1E', '#2B6F2B', '#275B27', '#1E4A1E'
-
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,
-                        position: 'top'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        var ctxIncome = document.getElementById('incomeChart').getContext('2d');
-        var incomeChart = new Chart(ctxIncome, {
-            type: 'doughnut',
-            data: {
-                labels: ['Provider', 'Earnings', 'Grant', 'Loan', 'Others'],
-                datasets: [{
-                    label: 'Income',
-                    data: [80000, 40000, 40000, 80000, 70753],
-                    backgroundColor: [
-                        '#1D8B1D', '#1A7A1A', '#166C16', '#145C14', '#0F4A0F'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,
-                        position: 'top'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-</script>
+<script src="{{asset('js/dashboard.js')}}"></script>

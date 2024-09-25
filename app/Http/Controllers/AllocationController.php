@@ -8,17 +8,20 @@ use App\Models\Allocation;
 class AllocationController extends Controller
 {
     public function allocate(Request $request){
+        // dd($request);
         $validated = $request->validate([
-            'food' => 'required|integer|min:1',
-            'rent' => 'required|integer|min:1',
-            'transportation' => 'required|integer|min:1',
-            'loan' => 'required|integer|min:1',
-            'shopping' => 'required|integer|min:1',
-            'mobile' => 'required|integer|min:1',
-            'savings' => 'required|integer|min:1',
-            'school' => 'required|integer|min:1',
-            'others' => 'required|integer|min:1',
+            'food' => 'required|numeric',
+            'rent' => 'required|numeric',
+            'transportation' => 'required|numeric',
+            'loan' => 'required|numeric',
+            'shopping' => 'required|numeric',
+            'mobile' => 'required|numeric',
+            'savings' => 'required|numeric',
+            'school' => 'required|numeric',
+            'others' => 'required|numeric',
         ]); 
+
+        // dd($validated);
 
         $pizzaCount = Allocation::where('user_id', auth()->user()->id)->count();
 

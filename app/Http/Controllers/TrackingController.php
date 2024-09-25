@@ -13,11 +13,11 @@ class TrackingController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'description' => 'string|min:4|required',
+            'description' => 'string|min:1|required',
             'category' => 'string|min:2|required',
             'mode' => 'string|min:6|required',
-            'date' => 'date|required',
-            'amount' => 'integer|min:1|required',
+            'date' => 'date|required|before_or_equal:today',
+            'amount' => 'numeric|min:1|required',
         ]);
 
         auth()->user()->tracking()->create($validate);

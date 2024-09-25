@@ -244,6 +244,7 @@ color: inherit; /* Ensure color inherits from parent */
 }
 
 .result-item {
+    display: flex;
     flex: 1;
     margin-right: 0.8em;
     border-radius: 8px;
@@ -251,7 +252,7 @@ color: inherit; /* Ensure color inherits from parent */
     box-sizing: border-box;
     display: flex;
     flex-direction: column; /* Align content vertically */
-    align-items: flex-start; /* Align content to the left */
+    align-items: center; /* Align content to the left */
     background-color: white;
 }
 
