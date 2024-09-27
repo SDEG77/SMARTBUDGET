@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
     Route::post('SmartBudget/planner', [ExpectedIncomesController::class, 'store'])->name('planner.expected');
-    Route::get('SmartBudget/planner/reset', [WebsiteController::class, 'reset_planner'])->name('planner.reset');
+    Route::delete('SmartBudget/planner/reset/{id}', [WebsiteController::class, 'reset_planner'])->name('planner.reset');
     Route::post('SmartBudget/planner/allocate', [AllocationController::class, 'allocate'])->name('planner.allocate');
 
     Route::get('SmartBudget/about', [WebsiteController::class, 'about'])->name('about');

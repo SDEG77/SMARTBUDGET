@@ -15,15 +15,9 @@ This web application can help students manage and track their budget. We also ha
 
 -- show password. (+)
 
--- Input Validation & Sanitazion to combat XSS & SQL injection (+)
+-- Input Validation & Sanitazion to combat XSS & SQL injection on all inputs (+)
 
 -- Do the export feature (+)
-
--- Do the charts for all pages (++)
-
--- Do the missing update features for the Tracker and (++)
-
--- Do the @errors for the forms in Ledger, Planner, Tracker (++)
 
 -- Add paginate with limit of 10 in every page except Dashboard (+)
 
@@ -36,11 +30,14 @@ This web application can help students manage and track their budget. We also ha
 -- Do the popups in the Tracking Page (+)
 -- Export (+)
 -- Update (+)
+-- Delete all (+)
+-- Add the tracker linechart balance data (++)
+
 
 ## DASHBOARD 
 -- Do the Dashboard page (++)
-
--- Do the date segments in the Dashboard Page (+)
+-- Do the sort filter function (+) 
+-- Add the dashboard linechart balance data (++)
 
 ## PROFILE 
 -- add the other courses
@@ -51,3 +48,9 @@ This web application can help students manage and track their budget. We also ha
 
 ## LEDGER 
 -- export file left (+)
+
+# ADMIN
+
+## User Management Page
+
+## Resource Management Page

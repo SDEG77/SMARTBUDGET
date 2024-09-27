@@ -84,12 +84,12 @@
                             <p3>Total Expenses</p3>
                         </div>
                         <div class="result-item">
-                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <i class="fa-solid fa-hand-holding-usd"></i>
                             <p4>{{number_format($total_income)}}</p4>
                             <p3>Total Income</p3>
                         </div>
                         <div class="result-item">
-                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <i class="fa-solid fa-wallet"></i>
                             <p4>{{number_format(abs($total_income - $total_expense))}}</p4>
                             <p3>Total Balance</p3>
                         </div>
@@ -131,6 +131,7 @@
             </div>
 
             <div class="summary-frame">
+                @if ($expenses)                    
                 <div class="budget-frame">
                     <p2 class="summary-title">Expenses Summary</p2>
                     <div class="summary-section">
@@ -159,6 +160,7 @@
                         </ul>                        
                     </div>
                 </div>
+                @endif
 
                 <div class="income-frame">
                     <p2 class="summary-title">Income Summary</p2>

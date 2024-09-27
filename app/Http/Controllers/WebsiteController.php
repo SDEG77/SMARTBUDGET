@@ -61,6 +61,9 @@ class WebsiteController extends Controller
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+
+            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
         ]);
     }
 
@@ -71,6 +74,9 @@ class WebsiteController extends Controller
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+
+            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
         ]);
     }
 
@@ -81,6 +87,9 @@ class WebsiteController extends Controller
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+
+            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
         ]);
     }
     
@@ -114,11 +123,11 @@ class WebsiteController extends Controller
             'expecteds' => ExpectedIncome::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->get(),
             'allocation' => Allocation::where('user_id', auth()->user()->id)->first(),
             'total_expected' => ExpectedIncome::where('user_id', auth()->user()->id)->sum('amount'),
-            'target_income' => User::where('id', auth()->user()->id)->first()->target_income
+            'target_income' => User::where('id', auth()->user()->id)->first()->target_income,
         ]);
     }
 
-    public function reset_planner(User $user, ExpectedIncome $expectedIncome, Allocation $allocation){
+    public function reset_planner( User $user, ExpectedIncome $expectedIncome, Allocation $allocation){
         $expectedIncome->where('user_id', auth()->user()->id)->delete();
         $allocation->where('user_id', auth()->user()->id)->delete();
 

@@ -27,7 +27,7 @@
 
 
         <div class="login-link">
-            <p>Already have an account? <a href="{{ url('SmartBudget/login') }}">LOGIN</a></p>
+            <p>Already have an account? <a style="color: blue" href="{{ url('SmartBudget/login') }}">LOGIN</a></p>
         </div>
     </div>
 </x-layout>

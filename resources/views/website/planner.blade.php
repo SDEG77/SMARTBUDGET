@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('css/planner.css') }}">
     <title>Planner</title>
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -77,6 +77,7 @@
     </div>
 
     @php
+    if($allocation){
         $sum = $allocation->food
         +
         $allocation->rent
@@ -94,6 +95,9 @@
         $allocation->school
         +
         $allocation->others;
+    } else {
+        $sum = 0;
+    }
     @endphp
 
     <div class="main-content">
@@ -126,7 +130,7 @@
             <p2 class="chart-title">Budget Allocation</p2>
             <div class="chart">
                 <!-- Pie chart goes here -->
-                <img src="{{ asset('images/chart2.png') }}" alt="chart">
+                <canvas id="allocationDonut"></canvas>
             </div>
         </div>
         <div class="allocation-container">
@@ -136,40 +140,40 @@
                 <tbody>
                     @if ($allocation)                    
                     <tr>
-                        <td>Food</td>
+                        <td id="category" >Food</td>
                         <td class="editable">{{$allocation->food}}</td>              
                     </tr>
                     <tr>
-                        <td>Rent</td>
+                        <td id="category" >Rent</td>
                         <td class="editable">{{$allocation->rent}}</td>
                     </tr>
                     <tr>
-                        <td>Transportation</td>
+                        <td id="category" >Transportation</td>
                         <td class="editable">{{$allocation->transportation}}</td>
                     </tr>
                     <tr>
-                        <td>Debt/Loan</td>
+                        <td id="category" >Debt/Loan</td>
                         <td class="editable">{{$allocation->loan}}</td>
                     </tr>
                     <tr>
-                        <td>Shopping</td>
+                        <td id="category" >Shopping</td>
                         <td class="editable">{{$allocation->shopping}}</td>
                     </tr>
                     <tr>
-                        <td>Mobile</td>
+                        <td id="category" >Mobile</td>
                         <td class="editable">{{$allocation->mobile}}</td>
                     </tr>
                     <tr>
-                        <td>Savings</td>
+                        <td id="category" >Savings</td>
                         <td class="editable">{{$allocation->savings}}</td>
                     </tr>
                     <tr>
-                        <td>School</td>
+                        <td id="category" >School</td>
                         <td class="editable">{{$allocation->school}}</td>
 
                     </tr>
                     <tr>
-                        <td>Others</td>
+                        <td id="category" >Others</td>
                         <td class="editable">{{$allocation->others}}</td>
                     </tr>
 
@@ -236,9 +240,9 @@
     <div class="reset-button">
         <p>Want to start new? Click the reset button to clear all your entries & re-create new ones.</p>
     </div>
-    <form action="{{ route('planner.reset') }}" method="POST" >
+    <form action="{{ route('planner.reset', auth()->user()->id) }}" method="POST" >
         @csrf
-        @method('GET')
+        @method('DELETE')
         <button type="submit" class="btn-reset" onclick="confirm('Are You Sure??') ?  null : event.preventDefault()">Reset Planner</button>
     </form>
 </div>
@@ -246,6 +250,8 @@
     </div>
 </body>
 </html>
+
+<script src="{{ asset('js/planner.js') }}" ></script>
 
 <script>
     
@@ -263,7 +269,7 @@ function makeTableEditable(event) {
         if (!cell.querySelector('input')) {  // Avoid duplicating inputs
             cell.innerHTML = `
                 <x-input-error :err="'${categories[count]}'" />
-                <input type="number" name="${categories[count]}" required  value="${currentValue}" />
+                <input type="number" id="editable" name="${categories[count]}" required  value="${currentValue}" />
             `; // Replace with input field
         }
 

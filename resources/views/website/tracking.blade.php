@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/tracker.css') }}">
     <title>Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -96,8 +97,8 @@
         </div>
 
         <!-- Chart Container -->
-        <div class="tracker-chart-container">
-            <img src="{{ asset('images/graph.png') }}" alt="Chart" class="tracker-chart">
+        <div style="background-color: transparent" class="tracker-chart-container">
+            <canvas id="lineChart" ></canvas>
         </div>
     </div>
 </div>
@@ -285,16 +286,28 @@
         </div>
     </div>
 </div>
+
+<div style="display: none">
+    @foreach ($track_all_expenses as $expense)
+        <p id="track_expense" style="display: none">
+            {{$expense->amount}}
+        </p>
+    @endforeach
+    
+    @foreach ($track_all_incomes as $income)
+        <p id="track_income" style="display: none">
+            {{$income->amount}}
+        </p>
+    @endforeach
+</div>
+
+
 </body>
 </html>
 
+<script src="{{ asset('js/tracking.js') }}" ></script>
+
 <script> 
-    let filter;
-
-    function setMode(mode){
-        filter = mode;
-    }
-
     function changeOpts(){
         const selected = document.getElementById('mode');
         const change = document.getElementById('category');

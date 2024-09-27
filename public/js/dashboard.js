@@ -107,7 +107,7 @@ options: {
 }
 });
 
-
+// Expense Donut Chart
 var ctxBudget = document.getElementById('budgetChart').getContext('2d');
 var budgetChart = new Chart(ctxBudget, {
     type: 'doughnut',
