@@ -374,3 +374,29 @@ h2 {
     padding: 10px;
   }
 }
+
+/* SDEG CSS */
+.big-dark {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(93, 92, 92, 0.706);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deleteModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 19px;
+  background-color: white;
+  height: 45%;
+  width: 35%;
+  border-radius: 30px;
+}

@@ -746,7 +746,7 @@ button i {
 }
 
 /* SIGRAE CSS */
-.editModal {
+.editModal, .big-bright {
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -757,7 +757,7 @@ button i {
     background-color: rgba(69, 68, 68, 0.742);
 }
 
-.editBody {
+.editBody, .deleteForm {
     display: flex;
     position: relative;
     flex-direction: column !important;

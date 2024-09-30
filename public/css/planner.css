@@ -577,7 +577,7 @@ tbody{
 }
 
 /* SIGRAE CSS */
-.big-dark{
+.big-dark, .deleteDark, .sunrise{
     position: fixed;
     left: 0;
     top: 0;
@@ -587,7 +587,7 @@ tbody{
     justify-content: center;
     align-items: center;
 }
-.editForm{
+.editForm, .deleteForm, .resetForm{
     position: relative;
     display: flex;
     flex-direction: column;

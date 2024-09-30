@@ -202,8 +202,11 @@
     <div class="form-group">
         <label for="source">Source:</label>
         <select id="source" name="source" required>
-            <option value="Allowance">Allowance</option>
-            <option value="Scholarship">Scholarship</option>
+            <option value="provider">Provider</option>
+            <option value="earnings">Earnings</option>
+            <option value="grant">Grant</option>
+            <option value="loan">Loan</option>
+            <option value="others">Others</option>
         </select>
     </div>
     <div class="form-group">
@@ -263,13 +266,24 @@
                             </div>
 
                             <td>
+                                <button onclick="setDeleteModal({{ $expected->id }})" >
+                                    DELETE
+                                </button>
+
+                                <div class="deleteDark" id="sunrise-{{ $expected->id }}" style="display: none">
+                                <div class="deleteForm" >
                                 <form action="{{ route('planner.expected.delete') }}" method="POST">
                                     @csrf
                                     @method('DELETE')
 
                                     <input type="hidden" name="id" value="{{ $expected->id }}">
-                                    <button type="submit" onclick="!confirm('Are your sure?') && event.preventDefault()" >DELETE</button>
+
+                                    <h1>Delete The Record?</h1>
+                                    <button type="submit" onclick="!confirm('Are your sure?') && event.preventDefault()" >YES DELETE</button>
+                                    <button type="button" onclick="setDeleteModal({{ $expected->id }})" >NO`GO BACK</button>
                                 </form>
+                                </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -283,11 +297,23 @@
     <div class="reset-button">
         <p>Want to start new? Click the reset button to clear all your entries & re-create new ones.</p>
     </div>
+
+    <button onclick="setDeleteForm()" class="btn-reset">Reset Planner</button>
+
+    <div class="sunrise" id="sunrise" style="display:none">
+    <div class="resetForm">
     <form action="{{ route('planner.reset', auth()->user()->id) }}" method="POST" >
         @csrf
         @method('DELETE')
+
+        <h1>RESET THE WHOLE PLANNER PAGE?</h1>
+
         <button type="submit" class="btn-reset" onclick="confirm('Are You Sure??') ?  null : event.preventDefault()">Reset Planner</button>
+        <button type="button" onclick="setDeleteForm()" class="btn-reset">Go Back</button>
+
     </form>
+    </div>
+    </div>
 </div>
 
     </div>
@@ -297,6 +323,31 @@
 <script src="{{ asset('js/planner.js') }}" ></script>
 
 <script>
+function setDeleteForm(){
+    if(document.getElementById('sunrise')){
+        document.getElementById('sunrise').style = "display: flex";
+        document.getElementById('sunrise').id = "eclipse";
+    }
+    
+    else if(document.getElementById('eclipse')){
+        document.getElementById('eclipse').style = "display: none";
+        document.getElementById('eclipse').id = "sunrise";
+    } 
+
+}
+
+function setDeleteModal(id) {
+    if(document.getElementById(`sunrise-${id}`)){
+        document.getElementById(`sunrise-${id}`).style = 'display: flex';
+        document.getElementById(`sunrise-${id}`).id = `eclipse-${id}`;        
+    }
+    
+    else if(document.getElementById(`eclipse-${id}`)){
+        document.getElementById(`eclipse-${id}`).style = 'display: none';
+        document.getElementById(`eclipse-${id}`).id = `sunrise-${id}`;
+    }
+}
+
 function setEditModal(id) {
     if(document.getElementById(`dark-${id}`)){
         document.getElementById(`dark-${id}`).style = 'display: flex';

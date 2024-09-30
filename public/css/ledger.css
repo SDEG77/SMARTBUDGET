@@ -492,6 +492,43 @@ color: inherit; /* Ensure color inherits from parent */
         right: 2px;
         bottom: 2px;
     }
+}
 
-  
+.sunrise {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(87, 87, 87, 0.712);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.deleteAllForm {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.deleteSel, .cancelDeleteSel{    
+    color: white !important;
+    font-weight: 500 !important;
+    padding: 5px 10px !important;
+    font-size: 18px !important;
+}
+
+.deleteSel {
+    background-color: red !important;
+}
+
+.cancelDeleteSel{
+    background-color: green !important;
 }

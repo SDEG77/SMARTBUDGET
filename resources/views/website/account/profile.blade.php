@@ -230,12 +230,22 @@
                     <div class="section">
                         <h2>DELETE ACCOUNT</h2>
                         <div class="form-buttons">
-                            <form action="{{ route('account.suicide') }}" method="post">
-                                @csrf
-                                @method('GET')
+                            <button type="button" class="delete-btn" style="width: fit-content" onclick="setDeleteModal()">DELETE ACCOUNT</button>
 
-                                <button type="submit" class="delete-btn" onclick="!confirm('ARE YOU SURE?') && event.preventDefault()">DELETE ACCOUNT</button>
-                            </form>
+                            <div class="big-dark" style="display: none" id="big-bright">
+                            <div class="deleteModal">
+                                <form action="{{ route('account.suicide') }}" method="post">
+                                    @csrf
+                                    @method('GET')
+
+                                    <h1>ARE YOUR SURE??</h1>
+    
+                                    <button type="submit" class="delete-btn" onclick="!confirm('ARE YOU SURE?') && event.preventDefault()">YES DELETE ACCOUNT</button>
+
+                                    <button style="background-color: green;margin-top: 30px" type="button" class="delete-btn" onclick="setDeleteModal()">NO, GO BACK</button>
+                                </form>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -248,6 +258,17 @@
 </html>
 
 <script>
+    function setDeleteModal(){
+        if(document.getElementById('big-bright')){
+            document.getElementById('big-bright').style = 'display: flex';
+            document.getElementById('big-bright').id = 'big-dark';
+        }
+        else if(document.getElementById('big-dark')){
+            document.getElementById('big-dark').style = 'display: none';
+            document.getElementById('big-dark').id = 'big-bright';
+        }
+    }
+
     function clearForm(){ 
         document.getElementById('complete-name').value = '';
         document.getElementById('email-address').value = '';

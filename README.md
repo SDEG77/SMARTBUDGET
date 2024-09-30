@@ -18,17 +18,13 @@ This web application can help students manage and track their budget. We also ha
 -- Add paginate with limit of 10 in every page except Dashboard (+)
 
 ## PLANNER
--- Do the reset popup in the Planner Page (+)
 -- Do the update and delete function for expected income (++)
 -- Do the color samples for each category (+)
 
 ## TRACKER
--- Do the popups in the Tracking Page (+)
 -- Export (+)
 -- Delete all (+)
 -- Add the tracker linechart balance data (++)
--- Finish the edit popup for date errors & others (++)
-
 
 ## DASHBOARD 
 -- Do the sort filter function (+) 

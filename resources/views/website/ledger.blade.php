@@ -111,14 +111,25 @@
 
             </div>
             <div class="action-buttons">
+                <button type="button" onclick="setDeleteAllForm()" style="display: {{$checks_present->count() > 0 ? 'inline-block' : 'none'}}" >
+                    Delete Selected
+                </button>
+
+                <div class="sunrise" id="sunrise" style="display: none">
+                <div class="deleteAllForm" >
                 <form action="{{ route('ledger.destroy_selected') }}" method="post" style="display: inline-block">
                     @csrf
                     @method('GET')
 
-                    <button type="submit" id="multi-delete-btn" onclick="!confirm('DELETE SELECTED RECORDS?') && event.preventDefault()" style="display: {{$checks_present->count() > 0 ? 'inline-block' : 'none'}}">
+                    <h1>DELETE THE SELECTED RECORDS?</h1>
+
+                    <button class="deleteSel" type="submit" id="multi-delete-btn" onclick="!confirm('YOU SURE?') && event.preventDefault()">
                         Delete Selected
                     </button>
-                </form>
+                    <button class="cancelDeleteSel" type="button" onclick="setDeleteAllForm()">NO GO BACK</button>
+                </form>                        
+                </div>
+                </div>
 
                 <button class="export"> EXPORT FILE</button>
                 <button class="add" onclick="openModal()">ADD RECORD</button>
@@ -279,6 +290,19 @@
 </html>
 
 <script>
+    function setDeleteAllForm(){
+        if(document.getElementById('sunrise')){
+            document.getElementById('sunrise').style = "display: flex";
+            document.getElementById('sunrise').id = "eclipse";
+        }
+        
+        else if(document.getElementById('eclipse')){
+            document.getElementById('eclipse').style = "display: none";
+            document.getElementById('eclipse').id = "sunrise";
+        } 
+
+    }
+
     // Function to open and close modals
     function openModal() {
         document.getElementById('recordModal').style.display = 'flex';

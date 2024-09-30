@@ -217,13 +217,23 @@
                     </div>
 
                     <td>
+                        <button type="button" onclick="setDeleteModal({{ $track->id }})" ><i class="fa-solid fa-trash"></i></button>
+
+                        <div class="big-bright" id="big-bright-{{ $track->id }}" style="display: none">
+                        <div class="deleteForm" >
                         <form action="{{route('tracking.delete', $track->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="!confirm('Are you sure?') && event.preventDefault()" >
-                                <i class="fa-solid fa-trash"></i>
+
+                            <h1>DELETE THIS RECORD?</h1>
+
+                            <button style="background-color: rgb(251, 104, 104); color: white;" type="submit" onclick="!confirm('Are you sure?') && event.preventDefault()" >
+                                DELETE THE RECORD?
                             </button>
+                            <button style="background-color: green; color: white" type="button" onclick="setDeleteModal({{ $track->id }})">NO GO BACK</button>
                         </form>
+                        </div>
+                        </div>
                     </td>
                 </tr>
 
@@ -324,7 +334,7 @@
     </div>
 </div>
 <!-- Delete Confirmation Modal -->
-<div id="deleteModal" class="modal delete-modal">
+{{-- <div id="deleteModal" class="modal delete-modal">
     <div class="modal-content">
     <i class="fa-solid fa-triangle-exclamation"></i>
         <div class="modal-header">
@@ -338,7 +348,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div style="display: none">
     @foreach ($track_all_expenses as $expense)
@@ -361,6 +371,18 @@
 <script src="{{ asset('js/tracking.js') }}" ></script>
 
 <script>
+    function setDeleteModal(id){
+        if(document.getElementById(`big-bright-${id}`)) {
+            document.getElementById(`big-bright-${id}`).style = 'display: flex';
+            document.getElementById(`big-bright-${id}`).id = `big-dark-${id}`;
+        }
+
+        else if(document.getElementById(`big-dark-${id}`)) {
+            document.getElementById(`big-dark-${id}`).style = 'display: none';
+            document.getElementById(`big-dark-${id}`).id = `big-bright-${id}`;
+        }
+    }
+
     function setEditModal(id){
         if(document.getElementById(`false-${id}`)) {
             document.getElementById(`false-${id}`).id = `true-${id}`;
@@ -449,25 +471,5 @@
     function closeGreatModal(event) {
         event.preventDefault();
         document.getElementById('greatModal').style.display = 'none';
-    }
-
-
-    // Open the 'Delete Confirmation' Modal
-    function openDeleteModal(event) {
-        event.preventDefault();
-        document.getElementById('deleteModal').style.display = 'flex';
-    }
-
-    // Close the 'Delete Confirmation' Modal
-    function closeDeleteModal(event) {
-        event.preventDefault();
-        document.getElementById('deleteModal').style.display = 'none';
-    }
-
-    // Confirm the deletion of a record
-    function confirmDelete(event) {
-        event.preventDefault();
-        deleteRecord();
-        closeDeleteModal();
     }
 </script>
