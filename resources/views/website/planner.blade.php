@@ -226,8 +226,51 @@
 
                         <tr>
                             <td>{{$date->translatedFormat('F j, Y')}}</td>
-                            <td>{{$expected->source}}</td>
+                            <td style="text-transform: capitalize" >{{$expected->source}}</td>
                             <td>₱{{number_format($expected->amount)}}</td>
+                            <td>
+                                <button type="button" onclick="setEditModal({{ $expected->id }})" >Edit</button>
+                            </td>
+
+                            <div style="display: none" class="big-dark" id="dark-{{ $expected->id }}">
+                            <div class="editForm">
+                                <div class="closeEditBtn" onclick="setEditModal({{ $expected->id }})" >X</div>
+
+                                <form action="{{ route('planner.expected.update') }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <input type="hidden" name="id" value="{{ $expected->id }}">
+
+                                    <label for="date">Date: <x-input-error  :err="'date'" /></label>
+                                    <input type="date" name="date" value="{{ $expected->date }}">
+                                    
+                                    <label for="source">Source: <x-input-error  :err="'source'" /></label>
+                                    <select name="source">
+                                        <option @selected($expected->source === 'provider') value="provider">Provider</option>
+                                        <option @selected($expected->source === 'earnings') value="earnings">Earnings</option>
+                                        <option @selected($expected->source === 'grant') value="grant">Grant</option>
+                                        <option @selected($expected->source === 'loan') value="loan">Loan</option>
+                                        <option @selected($expected->source === 'others') value="others">Others</option>
+                                    </select>
+
+                                    <label for="date">Date: <x-input-error  :err="'date'" /></label>
+                                    <input type="number" name="amount" value="{{ $expected->amount }}">
+
+                                    <button type="submit" class="editBtn">Edit</button>
+                                </form>
+                            </div>
+                            </div>
+
+                            <td>
+                                <form action="{{ route('planner.expected.delete') }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <input type="hidden" name="id" value="{{ $expected->id }}">
+                                    <button type="submit" onclick="!confirm('Are your sure?') && event.preventDefault()" >DELETE</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 @endif
@@ -254,6 +297,18 @@
 <script src="{{ asset('js/planner.js') }}" ></script>
 
 <script>
+function setEditModal(id) {
+    if(document.getElementById(`dark-${id}`)){
+        document.getElementById(`dark-${id}`).style = 'display: flex';
+        document.getElementById(`dark-${id}`).id = `bright-${id}`;
+    }
+
+    else if(document.getElementById(`bright-${id}`)){
+        document.getElementById(`bright-${id}`).style = 'display: none';
+        document.getElementById(`bright-${id}`).id = `dark-${id}`;        
+    }
+}
+
     
 // Function to make table editable
 function makeTableEditable(event) {

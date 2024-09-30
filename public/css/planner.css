@@ -575,3 +575,46 @@ tbody{
     }
 
 }
+
+/* SIGRAE CSS */
+.big-dark{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(87, 87, 87, 0.712);
+    justify-content: center;
+    align-items: center;
+}
+.editForm{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+.editBtn{
+    display: inline-block;
+    align-self: center;
+}
+.closeEditBtn{
+    cursor: pointer;
+    position: absolute;
+    left: -30px;
+    top: -30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 100000000000000000000000000000000000000000000000000000000000000000000000px;
+}

@@ -48,7 +48,9 @@ Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/ledgers/delete-selected', [LedgerController::class, 'destroy_selected'])->name('ledger.destroy_selected');
 
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
-    Route::post('SmartBudget/planner', [ExpectedIncomesController::class, 'store'])->name('planner.expected');
+    Route::post('SmartBudget/planner/expected', [ExpectedIncomesController::class, 'store'])->name('planner.expected');
+    Route::put('SmartBudget/planner/expected', [ExpectedIncomesController::class, 'update'])->name('planner.expected.update');
+    Route::delete('SmartBudget/planner/expected', [ExpectedIncomesController::class, 'delete'])->name('planner.expected.delete');
     Route::delete('SmartBudget/planner/reset/{id}', [WebsiteController::class, 'reset_planner'])->name('planner.reset');
     Route::post('SmartBudget/planner/allocate', [AllocationController::class, 'allocate'])->name('planner.allocate');
 

@@ -179,13 +179,14 @@
                             @method('PUT')
                             
                             <input type="hidden" name="id" value="{{ $track->id }}">
-                            <label for="mode">Mode:</label>
+                            
+                            <label for="mode">Mode: <x-input-error :err="'mode'" /> </label>
                             <select name="mode" id="modeEdit-{{ $track->id }}" onchange="changeEditOpts({{ $track->id }})" >
                                 <option @selected($track->mode === 'outgoing') value="outgoing">Outgoing</option>
                                 <option @selected($track->mode === 'ingoing') value="ingoing">Ingoing</option>
                             </select>
 
-                            <label for="category">Category:</label>
+                            <label for="category">Category: <x-input-error :err="'category'" /> </label>
                             <select name="category" id="categoryEdit-{{ $track->id }}" >
                                 <option value="food">Food</option>
                                 <option value="rent">Rent</option>
@@ -198,12 +199,15 @@
                                 <option value="others">Others</option>
                             </select>
                             
+                            <x-input-error :err="'description'" />
                             <label for="Description">Description:</label>
                             <input name="description" type="text" value="{{ $track->description }}" required >
                             
+                            <x-input-error :err="'amount'" />
                             <label for="Amount">Amount:</label>
                             <input name="amount" type="number" step="0.01" value="{{ $track->amount }}" required >
 
+                            <x-input-error :err="'date'" />
                             <label for="date">Date:</label>
                             <input name="date" type="date" value="{{ $track->date }}" required >
 
