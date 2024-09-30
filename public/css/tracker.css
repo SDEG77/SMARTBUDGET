@@ -744,3 +744,53 @@ button i {
     font-size: 8px; /* Icon size */
 }
 }
+
+/* SIGRAE CSS */
+.editModal {
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(69, 68, 68, 0.742);
+}
+
+.editBody {
+    display: flex;
+    position: relative;
+    flex-direction: column !important;
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    padding: 30px 50px;
+    border-radius: 15px;
+}
+
+.editBtn{
+    padding: 9px 15px;
+    font-size: 18px;
+    color: white;
+    border-radius: 20px;
+    background-color: green;
+    margin-top: 10px;
+}
+
+.exitEditBtn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    left: -50px;
+    top: -40px;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 1000px;
+    margin-top: -4;
+}

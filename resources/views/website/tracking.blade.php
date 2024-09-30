@@ -91,7 +91,7 @@
                 <p>Total Income</p>
             </div>
             <div class="tracker-summary">
-                <h2>₱{{number_format(abs($total_income - $total_expense))}}</h2>
+                <h2> {{($total_income - $total_expense) < 0 ? '-' : null}}₱{{number_format(abs($total_income - $total_expense))}}</h2>
                 <p>Total Balance</p>
             </div>
         </div>
@@ -162,12 +162,61 @@
                     <td>{{$track->description}}</td>
                     <td style="font-weight: bold; color: {{$track->mode === 'outgoing' ? 'red' : 'green'}}">
                         {{$track->mode === 'outgoing' ? '-' : '+'}}₱{{number_format($track->amount)}}
-                    </td> {{--TODO format so that it add commas --}}
+                    </td>
+
+                    <td>
+                        <button id="false-{{ $track->id }}" type="button" onclick="setEditModal({{$track->id}})" >
+                            Edit
+                        </button>
+                    </td>
+
+                    <div class="editModal" id="editModal-{{ $track->id }}" style="display: none">
+                        <div class="editBody">
+                            <div class="exitEditBtn" onclick="setEditModal({{$track->id}})" >X</div>
+
+                        <form action="{{ route('tracking.update') }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            
+                            <input type="hidden" name="id" value="{{ $track->id }}">
+                            <label for="mode">Mode:</label>
+                            <select name="mode" id="modeEdit-{{ $track->id }}" onchange="changeEditOpts({{ $track->id }})" >
+                                <option @selected($track->mode === 'outgoing') value="outgoing">Outgoing</option>
+                                <option @selected($track->mode === 'ingoing') value="ingoing">Ingoing</option>
+                            </select>
+
+                            <label for="category">Category:</label>
+                            <select name="category" id="categoryEdit-{{ $track->id }}" >
+                                <option value="food">Food</option>
+                                <option value="rent">Rent</option>
+                                <option value="transpo">Transportation</option>
+                                <option value="loan">Debt/Loan</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="mobile">Mobile</option>
+                                <option value="savings">Savings</option>
+                                <option value="school">School</option>
+                                <option value="others">Others</option>
+                            </select>
+                            
+                            <label for="Description">Description:</label>
+                            <input name="description" type="text" value="{{ $track->description }}" required >
+                            
+                            <label for="Amount">Amount:</label>
+                            <input name="amount" type="number" step="0.01" value="{{ $track->amount }}" required >
+
+                            <label for="date">Date:</label>
+                            <input name="date" type="date" value="{{ $track->date }}" required >
+
+                            <button class="editBtn" type="submit">Edit Record</button>
+                        </form>
+                        </div>
+                    </div>
+
                     <td>
                         <form action="{{route('tracking.delete', $track->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">
+                            <button type="submit" onclick="!confirm('Are you sure?') && event.preventDefault()" >
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
@@ -307,7 +356,46 @@
 
 <script src="{{ asset('js/tracking.js') }}" ></script>
 
-<script> 
+<script>
+    function setEditModal(id){
+        if(document.getElementById(`false-${id}`)) {
+            document.getElementById(`false-${id}`).id = `true-${id}`;
+            document.getElementById(`editModal-${id}`).style = 'display: flex';
+        }
+
+        else if (document.getElementById(`true-${id}`)) {
+            document.getElementById(`true-${id}`).id = `false-${id}`;
+            document.getElementById(`editModal-${id}`).style = 'display: none';
+        }
+    } 
+
+    function changeEditOpts(id){
+        const selected = document.getElementById(`modeEdit-${id}`);
+        const change = document.getElementById(`categoryEdit-${id}`);
+
+        if(selected.value === "outgoing"){
+            change.innerHTML = `
+                <option value="food">Food</option>
+                <option value="rent">Rent</option>
+                <option value="transpo">Transportation</option>
+                <option value="loan">Debt/Loan</option>
+                <option value="shopping">Shopping</option>
+                <option value="mobile">Mobile</option>
+                <option value="savings">Savings</option>
+                <option value="school">School</option>
+                <option value="others">Others</option>
+            `;
+        } else {
+            change.innerHTML = `
+                <option value="provider">Provider</option>
+                <option value="earnings">Earnings</option>
+                <option value="grant">Grant</option>
+                <option value="loan">Loan</option>
+                <option value="others">Others</option>
+            `;
+        }
+    }
+
     function changeOpts(){
         const selected = document.getElementById('mode');
         const change = document.getElementById('category');

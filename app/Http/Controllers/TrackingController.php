@@ -25,6 +25,24 @@ class TrackingController extends Controller
         return to_route('tracking');
     }
 
+    public function update(Request $request)
+    {
+        // dd($request);
+        $validate = $request->validate([
+            'description' => 'string|min:1|required',
+            'category' => 'string|min:2|required',
+            'mode' => 'string|min:6|required',
+            'date' => 'date|required|before_or_equal:today',
+            'amount' => 'numeric|min:1|required',
+        ]);
+
+        // dd($validate);
+
+        Tracking::where('user_id', auth()->user()->id)->where('id', $request->input('id'))->update($validate);
+
+        return to_route('tracking');
+    }
+
     public function delete(Tracking $tracking)
     {
         $tracking->delete();

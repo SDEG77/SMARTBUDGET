@@ -12,35 +12,29 @@ This web application can help students manage and track their budget. We also ha
 
 ## MISC
 --  Recaptcha (+)
-
 -- show password. (+)
-
 -- Input Validation & Sanitazion to combat XSS & SQL injection on all inputs (+)
-
 -- Do the export feature (+)
-
 -- Add paginate with limit of 10 in every page except Dashboard (+)
 
 ## PLANNER
 -- Do the reset popup in the Planner Page (+)
-
 -- Do the update and delete function for expected income (++)
+-- Do the color samples for each category (+)
 
 ## TRACKER
 -- Do the popups in the Tracking Page (+)
 -- Export (+)
--- Update (+)
 -- Delete all (+)
 -- Add the tracker linechart balance data (++)
+-- Finish the edit popup for date errors & others (++)
 
 
 ## DASHBOARD 
--- Do the Dashboard page (++)
 -- Do the sort filter function (+) 
 -- Add the dashboard linechart balance data (++)
 
 ## PROFILE 
--- add the other courses
 <!-- -- Finished all todos yah00! -->
 
 ## FORGOT
@@ -51,6 +45,6 @@ This web application can help students manage and track their budget. We also ha
 
 # ADMIN
 
-## User Management Page
+## User Management Page (CRUD)
 
-## Resource Management Page
+## Resource Management Page (CRUD)

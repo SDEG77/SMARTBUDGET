@@ -18,8 +18,11 @@ Route::middleware('guest')->group(function(){
 
     Route::get('SmartBudget/login', [LoginUSerController::class, 'login'])->name('login');
     Route::post('SmartBudget/login', [LoginUSerController::class, 'store'])->name('login.store');
-    Route::get('SmartBudget/login/forgot', [LoginUSerController::class, 'forgot'])->name('forgot');
-    Route::get('SmartBudget/forgot/createPass', [LoginUSerController::class, 'createPass'])->name('createPass');
+    Route::get('SmartBudget/login/forgot', [LoginUSerController::class, 'forgot'])->name('forgot.page');
+
+    // Route::post('SmartBudget/login/forgot', [LoginUSerController::class, 'forgor'])->name('forgot');
+    // Route::get('SmartBudget/forgot/createPass', [LoginUSerController::class, 'createPass'])->name('createPass');
+    // Route::put('SmartBudget/forgot/createPass', [LoginUSerController::class, 'storePass'])->name('storePass');
 });
 
 Route::middleware('auth')->group(function(){
@@ -30,6 +33,7 @@ Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/trackings/expenses', [WebsiteController::class, 'tracking_expenses'])->name('tracking.expenses');
     Route::get('SmartBudget/trackings/incomes', [WebsiteController::class, 'tracking_incomes'])->name('tracking.incomes');
     Route::post('SmartBudget/trackings', [TrackingController::class, 'store'])->name('tracking.store');
+    Route::put('SmartBudget/trackings', [TrackingController::class, 'update'])->name('tracking.update');
     Route::delete('SmartBudget/trackings/{tracking}', [TrackingController::class, 'delete'])->name('tracking.delete');
 
     

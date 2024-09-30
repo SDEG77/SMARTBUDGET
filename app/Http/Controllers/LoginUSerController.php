@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class LoginUSerController extends Controller
 {
@@ -16,6 +18,11 @@ class LoginUSerController extends Controller
     }
 
     public function store(Request $request){
+        $request->merge([
+            'email' => strip_tags($request->email),
+            'password' => strip_tags($request->password)
+        ]);
+
         $validate = $request->validate([
             'email' => 'required|min:8|email',
             'password' => 'required|min:8|string',
@@ -134,5 +141,36 @@ class LoginUSerController extends Controller
         } else {
             return to_route('welcome');
         }
+    }
+
+    public function forgor(Request $request){
+        // dd($request);
+        $request->merge([
+            'email' => strip_tags($request->email)
+        ]);
+        // dd($request);
+        
+        $validated = $request->validate([
+            'email' => 'required|email|min:6'
+        ]);
+        // dd($validated);
+
+        if(User::where('email', $validated['email'])->exists()){
+            // dd(new UserMail(['email' => $validated['email']]));
+            Mail::to($validated['email'])->send(new UserMail(['email' => $validated['email']]));
+
+            return to_route('register');
+        }
+
+        // dd('This does not work');
+        return back()->withErrors(['email' => 'No email found in database']);
+    }
+
+    public function storePass(){
+        return view('welcome');
+    }
+
+    public function email() {
+        return view('forgot');
     }
 }

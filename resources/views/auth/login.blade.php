@@ -19,7 +19,7 @@
             <x-input-error :err="'password'"></x-input-error>
             <input type="password" name="password" placeholder="Password" required style="{{ $errors->has('password') ? 'border: solid 1px red' : '' }}">
 
-            <a href="{{ route('forgot') }}">Forgot Password?</a>
+            <a href="{{ route('forgot.page') }}">Forgot Password?</a>
             <button type="submit">Login</button>
         </form>
 

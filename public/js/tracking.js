@@ -12,11 +12,6 @@ track_income.forEach(val => {
   track_income_arr.push(val.innerHTML)
 });
 
-console.log(
-  {one: track_expense_arr,
-    two: track_income_arr
-  }
-)
 
 let check = track_expense_arr.length > track_income_arr.length ? track_expense_arr.length : track_income_arr.length;
 let genrerateLabel = [];
