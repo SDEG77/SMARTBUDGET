@@ -30,27 +30,70 @@ class WebsiteController extends Controller
 
     public function dashboard(){
         return view('website.dashboard',[
+            // USER DATA
             'user' => auth()->user(),
-            'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
-            'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
 
-            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
-            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            // FOR THE EXPENSE TALLY
+            'total_expense' => Tracking::where('user_id', auth()->user()->id)
+            ->where('mode', 'outgoing')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->sum('amount'),
+
+            // FOR THE INCOME TALLY
+            'total_income' => Tracking::where('user_id', auth()->user()->id)
+            ->where('mode', 'ingoing')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->sum('amount'),
+
+            // DATA FOR THE EXPENSE SUMMARY DONUT
+            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)
+            ->where('mode', 'outgoing')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->get(),
+
+            // DATA FOR THE INCOME SUMMARY DONUT
+            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)
+            ->where('mode', 'ingoing')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->get(),
 
             // Gets the most recent date for incomes and expenses
             'tracks' => Tracking::where('user_id', auth()->user()->id)
             ->whereBetween('date', [Carbon::yesterday()->startOfDay(), Carbon::today()->endOfDay()])
             ->orderBy('date', 'desc')->get(),
 
+            // EXPENSE DATAS BELOW THE DONUT CHART
             'expenses' => Tracking::where('mode', 'outgoing')->select('category', Tracking::raw('SUM(amount) as total'))
             ->where('user_id', auth()->user()->id) 
             ->groupBy('category')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->orderBy('category', 'asc')
             ->get(),
 
+            // INCOME DATAS BELOW THE DONUT CHART
             'incomes' => Tracking::where('mode', 'ingoing')->select('category', Tracking::raw('SUM(amount) as total'))
             ->where('user_id', auth()->user()->id) 
             ->groupBy('category')
-            ->get()
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->orderBy('category', 'asc')
+            ->get(),
+
+            // LINES ARE FOR THE LINE CHART (THEY NEED TO BE GROUPED TOGETHER UNLIKE 'expenses' & 'incomes')
+            'expense_line' => Tracking::where('user_id', auth()->user()->id)
+            ->where('mode', 'outgoing')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->selectRaw('DATE_FORMAT(date, "%Y-%m") as state, SUM(amount) as state_total')
+            ->groupBy('state')
+            ->orderBy('state') 
+            ->get(),
+            
+            'income_line' => Tracking::where('user_id', auth()->user()->id)
+            ->where('mode', 'ingoing')
+            ->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->selectRaw('DATE_FORMAT(date, "%Y-%m") as state, SUM(amount) as state_total')
+            ->groupBy('state')
+            ->orderBy('state') 
+            ->get(),
         ]);
     }
 

@@ -1,76 +1,86 @@
-const sum = (...numbers) => {
-  return numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-};
+// PROCESS 1: SORT INTO THE SPECIFIED FILTER
+let labels = [];
 
-let expense_data = [];
-let expense_data_category = [];
-
-let expense_totals = document.querySelectorAll('#expenseTotal');
-let expense_cats = document.querySelectorAll('#expenseCategory');
-
-expense_totals.forEach(exp => {
-    expense_data.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
-});
-
-expense_cats.forEach(exp => {
-    expense_data_category.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
-});
-
-///////////////////////////////////////////////////////////////
-
-let income_data = [];
-let income_data_category = [];
-
-let income_totals = document.querySelectorAll('#incomeTotal');
-let income_cats = document.querySelectorAll('#incomeCategory');
-
-income_totals.forEach(exp => {
-    income_data.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
-});
-
-income_cats.forEach(exp => {
-    income_data_category.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
-});
-
-//////////////////////////////////////////////////////
 let track_expense_arr = [];
+let track_expense_cats = [];
+
 let track_income_arr = [];
+let track_income_cats = [];
 
-const track_expense = document.querySelectorAll('#track_expense');
-const track_income = document.querySelectorAll('#track_income');
+const track_expense = document.querySelectorAll('#expense-line');
 
-track_expense.forEach(val => {
-  track_expense_arr.push(val.innerHTML)
-});
+const track_income = document.querySelectorAll('#income-line');
 
-track_income.forEach(val => {
-  track_income_arr.push(val.innerHTML)
-});
+if (window.location.pathname === "/SmartBudget/dashboard" ||
+    window.location.pathname === "/SmartBudget/dashboard/yearly"){
+    labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',];
 
-let check = track_expense_arr.length > track_income_arr.length ? track_expense_arr.length : track_income_arr.length;
-let genrerateLabel = [];
+    track_expense.forEach(val => {
+        track_expense_arr.push([`${val.className}`, `${val.innerHTML}`])
+        track_expense_cats.push(val.className)
+    });
+    
+    track_income.forEach(val => {
+        track_income_arr.push([`${val.className}`, `${val.innerHTML}`])
+        track_income_cats.push(val.className)
+    });
+    
+    console.log(track_expense_arr);
+}
+else if (window.location.pathname === "/SmartBudget/dashboard/weekly"){
+    labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',];
 
-while(check) {
-  genrerateLabel.push('WIP')
-  check -= 1;
+    track_expense.forEach(val => {
+        track_expense_arr.push([`${val.className}`, `${val.innerHTML}`])
+        track_expense_cats.push(val.className)
+        console.log([val.className, val.innerHTML]);
+    });
+    
+    track_income.forEach(val => {
+        track_income_arr.push([`${val.className}`, `${val.innerHTML}`])
+        track_income_cats.push(val.className)
+    });
+    
+}
+else if (window.location.pathname === "/SmartBudget/dashboard/monthly"){
+    let count= 1;
+    while (count <= 31) { 
+        labels.push(count);
+        count++;
+    }
+
+    track_expense.forEach(val => {
+        track_expense_arr.push([`${val.className}`, `${val.innerHTML}`])
+        track_expense_cats.push(val.className)
+        console.log([val.className, val.innerHTML]);
+    });
+    
+    track_income.forEach(val => {
+        track_income_arr.push([`${val.className}`, `${val.innerHTML}`])
+        track_income_cats.push(val.className)
+    });
 }
 
+// PROCESS 2: RETRIEVE THE DATA FROM THE HIDDEN HTML TAGS AND PROCESS THEM
+
+
+// STEP 3: DISPLAY THE CREATED INFORMATION
 var ctxLine = document.getElementById('lineChart').getContext('2d');
 var lineChart = new Chart(ctxLine, {
 type: 'line',
 data: {
-    labels: genrerateLabel,
+    labels: labels,
     datasets: [
         {
-            label: ['Expenses'],
-            data: [...track_expense_arr],
-            backgroundColor: 'rgba(126, 217, 87, 0.5)', // Light coral orange
+            label: ['Expense'],
+            data: track_expense_arr,
+            backgroundColor: 'rgba(126, 217, 87, 0.5)', 
             fill: true
         },
         {
             label: ['Income'],
-            data: [...track_income_arr],
-            backgroundColor: 'rgba(69, 168, 52, 0.5)', // Light coral orange
+            data: track_income_arr,
+            backgroundColor: 'rgba(57, 139, 43, 0.5)', 
             fill: true
         },
         // {
@@ -108,6 +118,20 @@ options: {
 });
 
 // Expense Donut Chart
+let expense_data = [];
+let expense_data_category = [];
+
+let expense_totals = document.querySelectorAll('#expenseTotal');
+let expense_cats = document.querySelectorAll('#expenseCategory');
+
+expense_totals.forEach(exp => {
+    expense_data.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
+});
+
+expense_cats.forEach(exp => {
+    expense_data_category.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
+});
+
 var ctxBudget = document.getElementById('budgetChart').getContext('2d');
 var budgetChart = new Chart(ctxBudget, {
     type: 'doughnut',
@@ -117,8 +141,15 @@ var budgetChart = new Chart(ctxBudget, {
             label: 'expenses',
             data: expense_data,
             backgroundColor: [
-            '#4C6F4C', '#3E5E3E', '#2F4E2F', '#1F3D1F', '#1A341A',
-'#1E5A1E', '#2B6F2B', '#275B27', '#1E4A1E'
+            'green', // rent
+            'red', // debt/loan
+            'indigo', // mobile
+            'gray', // others
+            'blue', // rent
+            'yellow', // savings
+            'orange', // school
+            'purple', // shopping
+            'darkorange' // transportation
 
             ]
         }]
@@ -139,6 +170,22 @@ var budgetChart = new Chart(ctxBudget, {
             }
         }
     }
+});
+
+// Income Donut Chart
+
+let income_data = [];
+let income_data_category = [];
+
+let income_totals = document.querySelectorAll('#incomeTotal');
+let income_cats = document.querySelectorAll('#incomeCategory');
+
+income_totals.forEach(exp => {
+    income_data.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
+});
+
+income_cats.forEach(exp => {
+    income_data_category.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
 });
 
 var ctxIncome = document.getElementById('incomeChart').getContext('2d');

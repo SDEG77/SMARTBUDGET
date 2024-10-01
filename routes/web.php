@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LoginUSerController;
 use App\Http\Controllers\RegisterUserController;
@@ -27,7 +28,12 @@ Route::middleware('guest')->group(function(){
 
 Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/home', [WebsiteController::class, 'home'])->name('home');
+
     Route::get('SmartBudget/dashboard', [WebsiteController::class, 'dashboard'])->name('dashboard');
+    Route::get('SmartBudget/dashboard/weekly', [DashboardController::class, 'dashboard_weekly'])->name('dashboard.weekly');
+    Route::get('SmartBudget/dashboard/monthly', [DashboardController::class, 'dashboard_monthly'])->name('dashboard.monthly');
+    Route::get('SmartBudget/dashboard/yearly', [DashboardController::class, 'dashboard_yearly'])->name('dashboard.yearly');
+
 
     Route::get('SmartBudget/trackings', [WebsiteController::class, 'tracking'])->name('tracking');
     Route::get('SmartBudget/trackings/expenses', [WebsiteController::class, 'tracking_expenses'])->name('tracking.expenses');

@@ -22,7 +22,12 @@
                 <ul>
                     <h4>Menu</h4>
                     <a href="{{ route('dashboard') }}">
-                        <li class="{{ Request::is('SmartBudget/dashboard') ? 'active' : '' }}">
+                        <li class="{{ 
+                                Request::is('SmartBudget/dashboard') || 
+                                Request::is('SmartBudget/dashboard/weekly') ||
+                                Request::is('SmartBudget/dashboard/monthly') ||
+                                Request::is('SmartBudget/dashboard/yearly')
+                                ? 'active' : '' }}">
                         <i class="fa-solid fa-house" alt="Home Icon"></i>
                             <span class="label">Home</span>
                         </li>
@@ -91,7 +96,7 @@
                         <div class="result-item">
                             <i class="fa-solid fa-wallet"></i>
                             <p4>{{number_format(abs($total_income - $total_expense))}}</p4>
-                            <p3>Total Balance</p3>
+                            <p3>Remaining Funds</p3>
                         </div>
                     </div>
                     <div class="graph-frame">
@@ -119,10 +124,28 @@
                         <center>
                             <p5>SORT DATA BY</p5>
                             <ul>
-                                <li><button class="control-button" id="yearly-btn">WEEKLY</button></li>
-                                <li><button class="control-button" id="monthly-btn">MONTHLY</button></li>
-                                <li><button class="control-button" id="weekly-btn">YEARLY</button></li>
-                                <li></li>
+                                <li>
+                                    <form action="{{ route('dashboard.weekly') }}">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="control-button" id="yearly-btn">WEEKLY</button>
+                                    </form>
+                                </li>
+                                
+                                <li>
+                                    <form action="{{ route('dashboard.monthly') }}">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="control-button" id="monthly-btn">MONTHLY</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form action="{{ route('dashboard.yearly') }}">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="control-button" id="weekly-btn">YEARLY</button>
+                                    </form>
+                                </li>
                             </ul>
                         </center>
                         </div>
@@ -249,15 +272,55 @@
     </div>
 
     <div style="display: none">
+        {{-- DONUTS DATA --}}
         @foreach ($track_all_expenses as $expense)
-            <p id="track_expense" style="display: none">
+            <p class="{{ $expense->date }}" id="track_expense" style="display: none">
                 {{$expense->amount}}
             </p>
         @endforeach
         
         @foreach ($track_all_incomes as $income)
-            <p id="track_income" style="display: none">
+            <p class="{{ $income->date }}" id="track_income" style="display: none">
                 {{$income->amount}}
+            </p>
+        @endforeach
+
+        {{-- Request::is('SmartBudget/dashboard') || 
+        Request::is('SmartBudget/dashboard/weekly') ||
+        Request::is('SmartBudget/dashboard/monthly') ||
+        Request::is('SmartBudget/dashboard/yearly') --}}
+        {{-- LINECHART DATA --}}
+        @foreach ($expense_line as $expenses)
+            <p class="{{ 
+                Request::is('SmartBudget/dashboard') ||
+                Request::is('SmartBudget/dashboard/yearly') ?
+                Carbon::parse($expenses->state)->format('F') : null
+            }}{{
+                Request::is('SmartBudget/dashboard/weekly') ?
+                Carbon::parse($expenses->state)->format('l') : null
+            }}{{
+                Request::is('SmartBudget/dashboard/monthly') ?
+                Carbon::parse($expenses->state)->format('j') : null
+
+            }}" id="expense-line" style="display: none">
+                {{$expenses->state_total}}
+            </p>
+        @endforeach
+
+        @foreach ($income_line as $incomes)
+            <p class="{{ 
+                Request::is('SmartBudget/dashboard') ||
+                Request::is('SmartBudget/dashboard/yearly') ?
+                Carbon::parse($incomes->state)->format('F') : null
+            }}{{
+                Request::is('SmartBudget/dashboard/weekly') ?
+                Carbon::parse($incomes->state)->format('l') : null
+            }}{{
+                Request::is('SmartBudget/dashboard/monthly') ?
+                Carbon::parse($incomes->state)->format('j') : null
+
+            }}" id="income-line" style="display: none">
+                {{$incomes->state_total}}
             </p>
         @endforeach
     </div>

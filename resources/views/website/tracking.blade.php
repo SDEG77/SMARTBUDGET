@@ -92,7 +92,7 @@
             </div>
             <div class="tracker-summary">
                 <h2> {{($total_income - $total_expense) < 0 ? '-' : null}}₱{{number_format(abs($total_income - $total_expense))}}</h2>
-                <p>Total Balance</p>
+                <p>Remaining Funds</p>
             </div>
         </div>
 
@@ -188,15 +188,15 @@
 
                             <label for="category">Category: <x-input-error :err="'category'" /> </label>
                             <select name="category" id="categoryEdit-{{ $track->id }}" >
-                                <option value="food">Food</option>
-                                <option value="rent">Rent</option>
-                                <option value="transpo">Transportation</option>
-                                <option value="loan">Debt/Loan</option>
-                                <option value="shopping">Shopping</option>
-                                <option value="mobile">Mobile</option>
-                                <option value="savings">Savings</option>
-                                <option value="school">School</option>
-                                <option value="others">Others</option>
+                                <option @selected($track->category === 'food')  value="food">Food</option>
+                                <option @selected($track->category === 'rent') value="rent">Rent</option>
+                                <option @selected($track->category === 'transpo') value="transpo">Transportation</option>
+                                <option @selected($track->category === 'loan') value="loan">Debt/Loan</option>
+                                <option @selected($track->category === 'shopping') value="shopping">Shopping</option>
+                                <option @selected($track->category === 'mobile') value="mobile">Mobile</option>
+                                <option @selected($track->category === 'savings') value="savings">Savings</option>
+                                <option @selected($track->category === 'school') value="school">School</option>
+                                <option @selected($track->category === 'others') value="others">Others</option>
                             </select>
                             
                             <x-input-error :err="'description'" />
@@ -356,7 +356,7 @@
             {{$expense->amount}}
         </p>
     @endforeach
-    
+
     @foreach ($track_all_incomes as $income)
         <p id="track_income" style="display: none">
             {{$income->amount}}
@@ -401,7 +401,7 @@
 
         if(selected.value === "outgoing"){
             change.innerHTML = `
-                <option value="food">Food</option>
+                <option  value="food">Food</option>
                 <option value="rent">Rent</option>
                 <option value="transpo">Transportation</option>
                 <option value="loan">Debt/Loan</option>
