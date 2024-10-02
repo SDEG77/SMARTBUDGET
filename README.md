@@ -8,6 +8,7 @@ This web application can help students manage and track their budget. We also ha
 4. **Daniel Zabat Moreno**
 
 # TODOS (BRAZA):
+-- ADMIN SIGNUP: 'admin@secret.com' (email) and '23456789' (password)
 
 ## GIT CLONING
 -- gawin mo steps nato para makapag start kana
@@ -30,7 +31,7 @@ This web application can help students manage and track their budget. We also ha
 
 -> pwede kanang mag simula, yay.
 
-## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. (YUNG ADMIN SIDE WALA PA FRONTEND)
+## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. (YUNG ADMIN SIDE WALA PANG FRONTEND)
 
 # TODOS (SIGRAE):
 
@@ -77,7 +78,8 @@ This web application can help students manage and track their budget. We also ha
 -- export file left (+)
 
 # ADMIN (+++)
-- DB SEEDER: (INSERT INTO users(full_name, email, password, is_admin) VALUES ('admin', 'admin@secret.com','23456789', true);)
+- DB SEEDER: INSERT INTO users(full_name, email, password, is_admin) 
+              VALUES ('admin', 'admin@secret.com','23456789', true);
   
 ## User Management Page (CRUD) (++)
 

@@ -7,12 +7,12 @@
     <title>SmartBudget</title>
 </head>
 <body>
-    <form action="/" method="POST">
+    <form action="{{ route('admin.courses.update', $course->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <label for="course">Course:</label>
-        <input type="text" name="course">
+        <input type="text" value="{{ old('course', $course->course) }}" name="course">
     
         <button type="submit">Edit Course</button>
     </form>

@@ -79,8 +79,10 @@ Route::middleware('auth')->group(function(){
 
 Route::middleware('admin')->group(function() {
     Route::get('SmartBudget/admin', [AdminAssetController::class, 'index'])->name('admin.index');
+    Route::post('SmartBudget/admin', [AdminAssetController::class, 'admin_logout'])->name('admin.logout');
 
     Route::get('SmartBudget/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::delete('SmartBudget/admin/users/{id}', [AdminUserController::class, 'delete'])->name('admin.users.delete');
 
     Route::get('SmartBudget/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.category.index');
     Route::get('SmartBudget/admin/categories/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
@@ -88,5 +90,8 @@ Route::middleware('admin')->group(function() {
 
     Route::get('SmartBudget/admin/courses', [AdminCourseController::class, 'index'])->name('admin.courses.index');
     Route::get('SmartBudget/admin/courses/create', [AdminCourseController::class, 'create'])->name('admin.courses.create');
-    Route::get('SmartBudget/admin/courses/edit/id', [AdminCourseController::class, 'edit'])->name('admin.courses.edit');
+    Route::post('SmartBudget/admin/courses/create', [AdminCourseController::class, 'store'])->name('admin.courses.store');
+    Route::get('SmartBudget/admin/courses/edit/{course}', [AdminCourseController::class, 'edit'])->name('admin.courses.edit');
+    Route::put('SmartBudget/admin/courses/edit/{course}', [AdminCourseController::class, 'update'])->name('admin.courses.update');
+    Route::delete('SmartBudget/admin/courses/delete/{course}', [AdminCourseController::class, 'delete'])->name('admin.courses.delete');
 });

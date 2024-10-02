@@ -7,7 +7,7 @@
     <title>SmartBudget</title>
 </head>
 <body>
-    <form action="/" method="POST">
+    <form action="{{ route('admin.courses.store') }}" method="POST">
         @csrf
         <label for="course">Course:</label>
         <input type="text" name="course">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Course;
 use App\Models\Ledger;
 use App\Models\User;
 use App\Models\Tracking;
@@ -18,14 +20,11 @@ class WebsiteController extends Controller
         return view('website.welcome');
     }
 
-    public function home(){
-        return view('website.home', [
-            'user' => auth()->user(),
-        ]);
-    }
-
     public function profile(){
-        return view('website.account.profile', ['user' => auth()->user()]);
+        return view('website.account.profile', [
+            'user' => auth()->user(),
+            'courses' => Course::all()->sortBy('course'),
+        ]);
     }
 
     public function dashboard(){
@@ -167,6 +166,7 @@ class WebsiteController extends Controller
             'allocation' => Allocation::where('user_id', auth()->user()->id)->first(),
             'total_expected' => ExpectedIncome::where('user_id', auth()->user()->id)->sum('amount'),
             'target_income' => User::where('id', auth()->user()->id)->first()->target_income,
+            'categories' => Category::all()->sortBy('category'),
         ]);
     }
 

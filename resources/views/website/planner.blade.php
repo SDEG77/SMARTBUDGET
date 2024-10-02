@@ -317,6 +317,14 @@
 </div>
 
     </div>
+
+    <div>
+    @foreach ($categories as $category)
+        <p id="category" style="display: none">
+            {{$category->category}}
+        </p>
+    @endforeach
+    </div>
 </body>
 </html>
 

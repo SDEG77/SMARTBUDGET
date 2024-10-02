@@ -14,4 +14,11 @@ class AdminUserController extends Controller
     {
         return view('admin.users.index', ['users' => User::all()]);
     }
+    
+    public function delete(Request $request, User $user)
+    {
+        User::where('id', $request->input('id'))->delete();
+
+        return to_route('admin.users.index');
+    }
 }

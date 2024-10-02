@@ -33,10 +33,11 @@
                         <td>{{ $user->school_name }}</td>
                         <td>{{ $user->course }}</td>
                         <td>
-                            <form action="/" method="POST">
+                            <form action="{{ route('admin.users.delete', $user->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
 
+                                <input type="hidden" value="{{ $user->id }}" name="id">
                                 <button type="submit">DELETE USER</button>
                             </form>
                         </td>

@@ -114,75 +114,15 @@
                                     <select required name="course" id="course"
                                     style="{{ $errors->has('course') ? 'border: solid 1px red' : '' }}"
                                     >
+                                        @foreach ($courses as $course)
+                                            <option @selected($user->course === $course->course ? true : false) value="{{ $course->course }}">
+                                                {{$course->course}}
+                                            </option>
+                                        @endforeach
+
                                         <!-- Bachelor's Degrees -->
-                                        <option @selected($user->course === 'BAA' ? true : false) value="BAA">BA in Advertising</option>
-                                        <option @selected($user->course === 'BAC' ? true : false) value="BAC">BA in Communication</option>
-                                        <option @selected($user->course === 'BAE' ? true : false) value="BAE">BA in English</option>
-                                        <option @selected($user->course === 'BAIS' ? true : false) value="BAIS">BA in International Studies</option>
-                                        <option @selected($user->course === 'BAPS' ? true : false) value="BAPS">BA in Political Science</option>
-                                        <option @selected($user->course === 'BAP' ? true : false) value="BAP">BA in Psychology</option>
-                                        <option @selected($user->course === 'BAS' ? true : false) value="BAS">BA in Sociology</option>
-                                        <option @selected($user->course === 'BEEd' ? true : false) value="BEEd">BEEd in Elementary Education</option>
-                                        <option @selected($user->course === 'BSEdE' ? true : false) value="BSEdE">BSEd in English</option>
-                                        <option @selected($user->course === 'BSEdF' ? true : false) value="BSEdF">BSEd in Filipino</option>
-                                        <option @selected($user->course === 'BSEdM' ? true : false) value="BSEdM">BSEd in Mathematics</option>
-                                        <option @selected($user->course === 'BSEdS' ? true : false) value="BSEdS">BSEd in Science</option>
-                                        <option @selected($user->course === 'BSA' ? true : false) value="BSA">BS in Accountancy</option>
-                                        <option @selected($user->course === 'BSAgr' ? true : false) value="BSAgr">BS in Agriculture</option>
-                                        <option @selected($user->course === 'BArch' ? true : false) value="BArch">BS in Architecture</option>
-                                        <option @selected($user->course === 'BSAvi' ? true : false) value="BSAvi">BS in Aviation</option>
-                                        <option @selected($user->course === 'BSBio' ? true : false) value="BSBio">BS in Biology</option>
-                                        <option @selected($user->course === 'BSChE' ? true : false) value="BSChE">BS in Chemical Engineering</option>
-                                        <option @selected($user->course === 'BSChem' ? true : false) value="BSChem">BS in Chemistry</option>
-                                        <option @selected($user->course === 'BSCivE' ? true : false) value="BSCivE">BS in Civil Engineering</option>
-                                        <option @selected($user->course === 'BSCompE' ? true : false) value="BSCompE">BS in Computer Engineering</option>
-                                        <option @selected($user->course === 'BSCS' ? true : false) value="BSCS">BS in Computer Science</option>
-                                        <option @selected($user->course === 'BSCrim' ? true : false) value="BSCrim">BS in Criminology</option>
-                                        <option @selected($user->course === 'BSEE' ? true : false) value="BSEE">BS in Electrical Engineering</option>
-                                        <option @selected($user->course === 'BSECE' ? true : false) value="BSECE">BS in Electronics and Communications Engineering</option>
-                                        <option @selected($user->course === 'BSES' ? true : false) value="BSES">BS in Environmental Science</option>
-                                        <option @selected($user->course === 'BSHM' ? true : false) value="BSHM">BS in Hospitality Management</option>
-                                        <option @selected($user->course === 'BSIE' ? true : false) value="BSIE">BS in Industrial Engineering</option>
-                                        <option @selected($user->course === 'BSIT' ? true : false) value="BSIT">BS in Information Technology</option>
-                                        <option @selected($user->course === 'BSME' ? true : false) value="BSME">BS in Marine Engineering</option>
-                                        <option @selected($user->course === 'BSMT' ? true : false) value="BSMT">BS in Maritime Transportation</option>
-                                        <option @selected($user->course === 'BSN' ? true : false) value="BSN">BS in Nursing</option>
-                                        <option @selected($user->course === 'BSND' ? true : false) value="BSND">BS in Nutrition and Dietetics</option>
-                                        <option @selected($user->course === 'BSP' ? true : false) value="BSP">BS in Pharmacy</option>
-                                        <option @selected($user->course === 'BSPT' ? true : false) value="BSPT">BS in Physical Therapy</option>
-                                        <option @selected($user->course === 'BSPsy' ? true : false) value="BSPsy">BS in Psychology</option>
-                                        <option @selected($user->course === 'BSREM' ? true : false) value="BSREM">BS in Real Estate Management</option>
-                                        <option @selected($user->course === 'BSTM' ? true : false) value="BSTM">BS in Tourism Management</option>
-                                        <option @selected($user->course === 'BSBABM' ? true : false) value="BSBABM">BSBA in Banking & Microfinance</option>
-                                        <option @selected($user->course === 'BSBAFM' ? true : false) value="BSBAFM">BSBA in Financial Management</option>
-                                        <option @selected($user->course === 'BSBAHR' ? true : false) value="BSBAHR">BSBA in Human Resource Management</option>
-                                        <option @selected($user->course === 'BSBAMM' ? true : false) value="BSBAMM">BSBA in Marketing Management</option>
-                                        <option @selected($user->course === 'BSNE' ? true : false) value="BSNE">BSNE in Special Needs Education</option>
-                                        <option @selected($user->course === 'CulArt' ? true : false) value="CulArt">Culinary Arts</option>
-                                        <option @selected($user->course === 'DataSci' ? true : false) value="DataSci">Data Science</option>
-                                        <option @selected($user->course === 'DigMark' ? true : false) value="DigMark">Digital Marketing</option>
-                                        <option @selected($user->course === 'FashDes' ? true : false) value="FashDes">Fashion Design</option>
-                                        <option @selected($user->course === 'FineArt' ? true : false) value="FineArt">Fine Arts</option>
-                                        <option @selected($user->course === 'GraphDes' ? true : false) value="GraphDes">Graphic Design</option>
-                                        <option @selected($user->course === 'InfoSys' ? true : false) value="InfoSys">Information Systems</option>
-                                        <option @selected($user->course === 'IntDes' ? true : false) value="IntDes">Interior Design</option>
-                                        <option @selected($user->course === 'MultArts' ? true : false) value="MultArts">Multimedia Arts</option>
-                                        <option @selected($user->course === 'TESOL' ? true : false) value="TESOL">TESOL</option>
-                                        <option @selected($user->course === 'WebDev' ? true : false) value="WebDev">Web Development</option>
-
-                                        <!-- Master's Degrees -->
-                                        <option @selected($user->course === 'MAEd' ? true : false) value="MAEd">MA in Education</option>
-                                        <option @selected($user->course === 'MBA' ? true : false) value="MBA">MBA</option>
-                                        <option @selected($user->course === 'MPA' ? true : false) value="MPA">Master of Public Administration</option>
-                                        <option @selected($user->course === 'MSIT' ? true : false) value="MSIT">MS in Information Technology</option>
-                                        <option @selected($user->course === 'MSN' ? true : false) value="MSN">MS in Nursing</option>
-                                        <option @selected($user->course === 'PM' ? true : false) value="PM">Project Management</option>
-
-                                        <!-- Doctoral Degrees -->
-                                        <option @selected($user->course === 'DBA' ? true : false) value="DBA">DBA</option>
-                                        <option @selected($user->course === 'JD' ? true : false) value="JD">Doctor of Jurisprudence (Law)</option>
-                                        <option @selected($user->course === 'MD' ? true : false) value="MD">MD</option>
-                                        <option @selected($user->course === 'PhDEd' ? true : false) value="PhDEd">PhD in Education</option>
+                                        {{-- <option @selected($user->course === 'BAA' ? true : false) value="BAA">BA in Advertising</option> --}}
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -226,6 +166,7 @@
                         </form>
                     </div>
 
+                    @if (!$user->is_admin)
                     <!-- Delete Account Section -->
                     <div class="section">
                         <h2>DELETE ACCOUNT</h2>
@@ -248,6 +189,13 @@
                             </div>
                         </div>
                     </div>
+
+                    @else
+                    <div class="section">
+                        <h2>Go Back to Admin Side</h2>
+                        <a href="{{ route('admin.index') }}">RETURN BACK</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

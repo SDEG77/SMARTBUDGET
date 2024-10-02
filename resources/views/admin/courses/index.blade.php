@@ -24,10 +24,10 @@
                         <td>{{ $course->id }}</td>
                         <td>{{ $course->course }}</td>
                         <td>
-                            <a href="{{ route('admin.courses.edit') }}">EDIT</a>
+                            <a href="{{ route('admin.courses.edit', $course->id) }}">EDIT</a>
                         </td>
                         <td>
-                            <form action="/" method="POST">
+                            <form action="{{ route('admin.courses.delete', $course->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
 

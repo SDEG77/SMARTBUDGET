@@ -12,14 +12,17 @@
 
     <div class="portal-btns" style="display: flex;gap:20px; font-size:20px">
         <a href="{{ route('admin.users.index') }}">Users Management</a>
-        <a href="{{ route('admin.category.index') }}">Category Management</a>
+        {{-- <a href="{{ route('admin.category.index') }}">Category Management</a> --}}
         <a href="{{ route('admin.courses.index') }}">Course Management</a>
     </div>
+    <a style="font-size: 20px" href="{{ route('dashboard') }}">Test Client Environment</a>
 
-    <form action="/" method="POST">
+    <form action="{{ route('admin.logout') }}" method="POST">
         @csrf
 
-        <button type="submit"> LOG OUT OF ADMIN </button>
+        <button type="submit" onclick="event.preventDefault; this.closest('form').submit">
+            LOG OUT OF ADMIN 
+        </button>
     </form>
 </body>
 </html>
