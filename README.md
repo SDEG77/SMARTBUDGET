@@ -13,13 +13,21 @@ This web application can help students manage and track their budget. We also ha
 -- gawin mo steps nato para makapag start kana
 
 -> make a folder, kahit saan
+
 -> open mo cmd mo doon sa loob ng folder nayun
+
 -> run mo to: **git clone https://github.com/SDEG77/SMARTBUDGET.git ./**
+
 -> copy mo yung .env.example
+
 -> rename mo yung copy into: .env
+
 -> run mo to sa folder after matapos mag DL: **composer install**
+
 -> again, run mo to pag kayari mag DL: **php artisan key:generate**
+
 -> tapos: **php artisan migrate:fresh --seed**
+
 -> pwede kanang mag simula, yay.
 
 ## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. WAG MUNA GALAWIN ADMIN SIDE
