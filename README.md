@@ -30,7 +30,7 @@ This web application can help students manage and track their budget. We also ha
 
 -> pwede kanang mag simula, yay.
 
-## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. WAG MUNA GALAWIN ADMIN SIDE
+## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. (YUNG ADMIN SIDE WALA PA FRONTEND)
 
 # TODOS (SIGRAE):
 
