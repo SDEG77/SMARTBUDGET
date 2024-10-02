@@ -112,7 +112,7 @@
                                     <li class="highlight" style="text-transform:uppercase;
                                     font-weight:bold;
                                     font-size: 14px;
-                                    ">{{$user->full_name}}</li>
+                                    ">{{$user->name}}</li>
                                     <li style="font-size:10px">{{$user->school_name}}</li>
                                     <li style="font-size:10px">{{$user->course}}</li>
                                 </ul>

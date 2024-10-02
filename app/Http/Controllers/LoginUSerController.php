@@ -35,6 +35,9 @@ class LoginUSerController extends Controller
 
             $request->session()->regenerate();
 
+            if (auth()->user()->is_admin) {
+                return to_route('admin.index');
+            }
             return redirect()->intended(route('dashboard'));
         } else {
             return back()->withErrors(['email' => 'Wrong Email!', 'password' => 'Wrong Password!']);
@@ -89,14 +92,14 @@ class LoginUSerController extends Controller
         // dd($request);
         
         $request->merge([
-            'full_name' => strip_tags($request->input('full_name')),
+            'name' => strip_tags($request->input('name')),
             'email' => strip_tags($request->input('email')),
             'school_name' => strip_tags($request->input('school_name')),
             'course' => strip_tags($request->input('course')),
         ]);
 
         $validated = $request->validate([
-            'full_name' => 'required|string|min:3',
+            'name' => 'required|string|min:3',
             'email' => 'required|email|min:8|unique:users,email,' . auth()->user()->id,
             'school_name' => 'required|string|min:3',
             'course' => 'required|string|min:3',

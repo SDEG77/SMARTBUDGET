@@ -9,10 +9,15 @@ use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\ExpectedIncomesController;
 use App\Http\Controllers\AllocationController;
 
+use App\Http\Controllers\AdminAssetController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminCategoryController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function(){
     Route::view('/', 'website.welcome');
+    Route::view('/SmartBudget', 'website.welcome');
     Route::get('/SmartBudget/welcome', [WebsiteController::class, 'welcome'])->name('welcome');
     Route::get('SmartBudget/register', [RegisterUserController::class, 'register'])->name('register');
     Route::post('SmartBudget/register', [RegisterUserController::class, 'store'])->name('register.store');
@@ -69,5 +74,18 @@ Route::middleware('auth')->group(function(){
     Route::post('SmartBudget/acount/logout', [LoginUSerController::class, 'logout'])->name('account.logout');
     Route::post('SmartBudget/account/password/reset', [LoginUSerController::class, 'resetPass'])->name('account.password.reset');
     Route::get('SmartBudget/account/suicide', [LoginUSerController::class, 'suicide'])->name('account.suicide');
+});
 
+Route::middleware('admin')->group(function() {
+    Route::get('SmartBudget/admin', [AdminAssetController::class, 'index'])->name('admin.index');
+
+    Route::get('SmartBudget/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+
+    Route::get('SmartBudget/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.category.index');
+    Route::get('SmartBudget/admin/categories/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
+    Route::get('SmartBudget/admin/categories/edit/id', [AdminCategoryController::class, 'edit'])->name('admin.category.edit');
+
+    Route::get('SmartBudget/admin/courses', [AdminCategoryController::class, 'index'])->name('admin.courses.index');
+    Route::get('SmartBudget/admin/courses/create', [AdminCategoryController::class, 'create'])->name('admin.courses.create');
+    Route::get('SmartBudget/admin/courses/edit/id', [AdminCategoryController::class, 'edit'])->name('admin.courses.edit');
 });

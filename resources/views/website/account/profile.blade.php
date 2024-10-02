@@ -91,9 +91,9 @@
                             <h2>UPDATE INFORMATION</h2>
                             <div class="form-group">
                                 <div style="display:flex;flex-direction:column">
-                                    <x-input-error :err="'full_name'" />
-                                    <input value="{{ $user->full_name }}" required type="text" name="full_name" id="complete-name" placeholder="Complete Name"
-                                    style="{{ $errors->has('full_name') ? 'border: solid 1px red' : '' }}">
+                                    <x-input-error :err="'name'" />
+                                    <input value="{{ $user->name }}" required type="text" name="name" id="complete-name" placeholder="Complete Name"
+                                    style="{{ $errors->has('name') ? 'border: solid 1px red' : '' }}">
                                 </div>
 
                                 <div style="display:flex;flex-direction:column">
