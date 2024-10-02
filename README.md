@@ -7,7 +7,24 @@ This web application can help students manage and track their budget. We also ha
 3. **Jaira Braza**
 4. **Daniel Zabat Moreno**
 
-# TODOS:
+# TODOS (BRAZA):
+
+## GIT CLONING
+-- gawin mo steps nato para makapag start kana
+
+-> make a folder, kahit saan
+-> open mo cmd mo doon sa loob ng folder nayun
+-> run mo to: **git clone https://github.com/SDEG77/SMARTBUDGET.git ./**
+-> copy mo yung .env.example
+-> rename mo yung copy into: .env
+-> run mo to sa folder after matapos mag DL: **composer install**
+-> again, run mo to pag kayari mag DL: **php artisan key:generate**
+-> tapos: **php artisan migrate:fresh --seed**
+-> pwede kanang mag simula, yay.
+
+## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. WAG MUNA GALAWIN ADMIN SIDE
+
+# TODOS (SIGRAE):
 
 
 ## MISC
@@ -52,7 +69,8 @@ This web application can help students manage and track their budget. We also ha
 -- export file left (+)
 
 # ADMIN (+++)
-- DB SEEDER: (INSERT INTO users(full_name, email, password, is_admin) VALUES ('admin', 'admin@secret.com','88888888', true);)
+- DB SEEDER: (INSERT INTO users(full_name, email, password, is_admin) VALUES ('admin', 'admin@secret.com','23456789', true);)
+  
 ## User Management Page (CRUD) (++)
 
 ## Resource Management Page (CRUD) (++)

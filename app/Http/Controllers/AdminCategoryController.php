@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 class AdminCategoryController extends Controller
 {
     public function index() {
-        return view('auth.categories.index');
+        return view('admin.categories.index');
     }
     public function create(Request $request) {
-        return view('auth.categories.create');
+        return view('admin.categories.create');
     }
     public function edit(Request $request) {
-        return view('auth.categories.edit');
+        return view('admin.categories.edit');
     }
 }
