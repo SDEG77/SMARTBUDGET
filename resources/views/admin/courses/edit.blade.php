@@ -7,18 +7,15 @@
     <title>SmartBudget</title>
 </head>
 <body>
-    <form action="{{ route('admin.courses.update', $course->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+<form action="{{ route('admin.courses.update', $course->id) }}" method="POST">
+    @csrf
+    @method('PUT')
 
-        <label for="course">Course:</label>
-        <input type="text" value="{{ old('course', $course->course) }}" name="course">
-    
-        <button type="submit">Edit Course</button>
-    </form>
-    <div style="display: flex;gap:20px">
-        <a href="{{ route('admin.courses.index') }}" style="font-size: 20px">Back to Admin Course Page</a>
-        <a href="{{ route('admin.index') }}" style="font-size: 20px">Back to Admin Portal Page</a>
-    </div>
+    <label for="course">Course:</label>
+    <input type="text" value="{{ old('course', $course->course) }}" name="course" required>
+
+    <button type="submit">Edit Course</button>
+</form>
+
 </body>
 </html>

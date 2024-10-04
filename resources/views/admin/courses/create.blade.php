@@ -7,16 +7,13 @@
     <title>SmartBudget</title>
 </head>
 <body>
-    <form action="{{ route('admin.courses.store') }}" method="POST">
-        @csrf
-        <label for="course">Course:</label>
-        <input type="text" name="course">
-    
-        <button type="submit">Add Course</button>
-    </form>
-    <div style="display: flex;gap:20px">
-        <a href="{{ route('admin.courses.index') }}" style="font-size: 20px">Back to Admin Course Page</a>
-        <a href="{{ route('admin.index') }}" style="font-size: 20px">Back to Admin Portal Page</a>
-    </div>
+<form action="{{ route('admin.courses.store') }}" method="POST">
+    @csrf
+    <label for="course">Course:</label>
+    <input type="text" name="course" required>
+
+    <button type="submit">Add Course</button>
+</form>
+
 </body>
 </html>
