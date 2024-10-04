@@ -8,21 +8,22 @@
     <link rel="stylesheet" href="{{ asset('css/admin/admin.index.css') }}">
 </head>
 <body>
-    <h1>ADMIN PORTAL PAGE</h1>
-
-    <div class="portal-btns" style="display: flex;gap:20px; font-size:20px">
-        <a href="{{ route('admin.users.index') }}">Users Management</a>
-        {{-- <a href="{{ route('admin.category.index') }}">Category Management</a> --}}
-        <a href="{{ route('admin.courses.index') }}">Course Management</a>
+    <div class="container">
+        <div class="side-nav">
+            <h1>ADMIN PORTAL PAGE</h1>
+            <div class="portal-btns">
+                <a href="{{ route('admin.users.index') }}">Users Management</a>
+                <a href="{{ route('admin.courses.index') }}">Course Management</a>
+            </div>
+            <a class="client-env" href="{{ route('dashboard') }}">Test Client Environment</a>
+            
+            <form class="logout-form" action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+                <button type="submit" onclick="event.preventDefault(); this.closest('form').submit();">
+                    LOG OUT OF ADMIN
+                </button>
+            </form>
+        </div>
     </div>
-    <a style="font-size: 20px" href="{{ route('dashboard') }}">Test Client Environment</a>
-
-    <form action="{{ route('admin.logout') }}" method="POST">
-        @csrf
-
-        <button type="submit" onclick="event.preventDefault; this.closest('form').submit">
-            LOG OUT OF ADMIN 
-        </button>
-    </form>
 </body>
 </html>

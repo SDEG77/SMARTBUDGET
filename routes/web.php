@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('admin')->group(function() {
+    Route::get('admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+
     Route::get('SmartBudget/admin', [AdminAssetController::class, 'index'])->name('admin.index');
     Route::post('SmartBudget/admin', [AdminAssetController::class, 'admin_logout'])->name('admin.logout');
 
