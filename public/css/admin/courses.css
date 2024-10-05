@@ -131,6 +131,8 @@ th, td {
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+    margin-left: 85%;
+    margin-bottom: 20px;
 }
 /* General Button Styling */
 button {

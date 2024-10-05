@@ -14,6 +14,14 @@
     <div class="sidebar">
         <h1>ADMIN PORTAL</h1>
         <ul class="menu-sidebar">
+
+         <!-- admin -->
+         <li class="{{ Route::is('admin.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.index') }}">
+                        <span class="label">Dashboard</span>
+                    </a>
+                </li>
+
             <!-- Users Management -->
             <li class="{{ Route::is('admin.users.index') ? 'active' : '' }}">
                 <a href="{{ route('admin.users.index') }}">
@@ -25,13 +33,6 @@
             <li class="{{ Route::is('admin.courses.index') ? 'active' : '' }}">
                 <a href="{{ route('admin.courses.index') }}">
                     <span class="label">Course Management</span>
-                </a>
-            </li>
-
-            <!-- Category Management -->
-            <li class="{{ Route::is('admin.category.index') ? 'active' : '' }}">
-                <a href="{{ route('admin.category.index') }}">
-                    <span class="label">Category Management</span>
                 </a>
             </li>
             
@@ -57,11 +58,11 @@
 
     <div class="main-content">
         <div class="content">
-            <h1>ADMIN COURSES INDEX PAGE</h1>
+            <h1>Courses Index Management</h1>
 
             <!-- Add Course Button -->
             <div class="add-btn">
-                <button id="openModalBtn">Add Course</button>
+                <button id="openModalBtn">Add New +</button>
             </div>
 
             <!-- Table for displaying courses -->

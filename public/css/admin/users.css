@@ -68,18 +68,28 @@ body {
 /* Logout Button */
 .logout-form button {
     font-size: 16px;
-    background-color: #e74c3c;
-    color: white;
     padding: 10px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s;
+    background-color: transparent; /* No background */
+    color: #fff; /* White text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    transition: color 0.3s, transform 0.2s; /* Add some interaction on hover */
 }
 
+.logout-form button i {
+    font-size: 18px; /* Icon size */
+}
+
+/* Hover effect */
 .logout-form button:hover {
-    background-color: #c0392b;
+    background-color: #e7e3e355;
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 /* Main Content */
@@ -101,13 +111,4 @@ h1 {
     margin-bottom: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-}
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}

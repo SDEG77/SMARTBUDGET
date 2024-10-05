@@ -1,138 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
-    background-size: 500% 500%; /* Makes the gradient transition smoother */
-    
-   }
-
-.container {
-    display: flex;
-    height: 100vh;
-    position: relative;
-}
-
-
-.logo-section {
-    text-align: center;
-    margin-top:40px;
-    margin-right: 80%;
-}
-
-.logo {
-    width: 150px;
-    height: 150px;
-}
-
-.brand {
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    color: #ffffff;
-}
-
-
-.main-content {
-    position: absolute; /* Overlay position */
-    top: 20px;
-    left: 20%; /* Align next to sidebar */
-    right: 5%;
-    z-index: 2; /* Ensure it’s above the sidebar */
-    background-color: #ffffff;
-    padding: 20px 70px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 90%;
-    width: 70%;
+    background-image: url('/images/team.png');
+    background-size: 100% 100%; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Removes default margin */
+    font-family: 'Poppins', sans-serif; /* Google font 'Poppins' */
+    color: #053A3D; /* Default text color */
 }
 
 .buttons {
-    position: fixed; /* Fixed position for floating effect */
-    top: 10%;
-    right: 5%;
-    z-index: 10; /* Ensure it stays on top */
-    
+    position: fixed; /* Keeps buttons floating as the user scrolls */
+    top: 35%; /* Positions the buttons vertically at 35% from the top */
+    margin-left: 30px; /* Adds space from the left */
+    z-index: 10; /* Ensures buttons stay on top of other elements */
+    gap: 10%; /* Adds space between buttons */
+    justify-content: space-between; /* Distributes space evenly between buttons */
+    display: flex; /* Makes the buttons align horizontally */
 }
 
-.register-button  {
-    background:#f1454d;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 14px;
-
-}
-.login-button  {
-    background:#45db82;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 14px;
-
+.register-button {
+    background: #053A3D; /* Dark background color */
+    color: #fff; /* White text */
+    padding: 10px 50px; /* Padding for button size */
+    border-radius: 10px; /* Rounded corners */
+    text-decoration: none; /* Removes underline from links */
+    font-size: 20px; /* Font size */
 }
 
-
-.login-button a:hover {
-    background-color: #2c3e50;
+.login-button {
+    background: white; /* White background for contrast */
+    color: black; /* Black text */
+    padding: 10px 50px; /* Same padding as the register button */
+    border-radius: 10px; /* Rounded corners */
+    text-decoration: none; /* No underline */
+    font-size: 20px; /* Same font size */
+    border: 1px solid black; /* Adds a black border */
 }
 
-.header h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-    margin-top: 5%;
+.header {
+    font-size: 40px; /* Large font for the header */
+    padding: 30px; /* Padding around the header */
+    font-weight: bold; /* Bold text */
 }
 
-.header h2 {
-    font-size: 24px;
-    color: #555;
-    margin-bottom: 40px;
-}
-.screenshots {
-    width: 80%; /* Make the slider full width */
-    margin: 0 auto; /* Center the slider */
-   margin-top: 70px;
+.text {
+    width: 70%; /* Text content width */
+    margin-left: 30px; /* Left margin */
+    margin-top: -20px; /* Moves text up */
+    font-size: 20px; /* Font size */
 }
 
-.img-slider {
-    width: 70%; /* Reduce width to 80% of the screen */
-    margin: 0 auto; /* Center the images */
+/* Media Queries */
+
+/* For tablets (max width 768px) */
+@media (max-width: 1080px) {
+    .buttons {
+        margin-top: 10%; /* Adjusts the button position for smaller screens */
+    }
+    .text{
+        font-size: 15px;
+    }
+}
+@media (max-width: 768px) {
+    .buttons {
+        margin-top: 20%; /* Adjusts the button position for smaller screens */
+    }
+    .text{
+        font-size: 15px;
+    }
 }
 
-.screenshot {
-    width: 100%; /* Let the image fill the width of the slider */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Optional: round the corners */
+/* For mobile devices (max width 480px) */
+@media (max-width: 480px) {
+    .buttons {
+        margin-top: 30%; /* Moves the buttons further down for mobile */
+    }
+    .text{
+        font-size: 10px;
+    }
+    .register-button { 
+        padding: 10px 10x; /* Padding for button size */
+        font-size: 10px; /* Font size */
 }
+.login-button {
+    padding: 10px 30px; /* Same padding as the register button */
+    font-size: 10px; /* Same font size */
 
-.slick-prev, .slick-next {
-    font-size: 30px;
-    color: #333;
 }
-
-.slick-prev:before, .slick-next:before {
-    color: #007bff; /* Customize arrow color */
 }
-
-.slick-dots {
-    bottom: -30px; /* Adjust the position of dots */
-}
-
-.slick-dots li button:before {
-    font-size: 15px;
-    color: #007bff; /* Customize dots color */
-    
-}
-
-.slick-dots li.slick-active button:before {
-    color: #ff0000; /* Customize active dot color */
-}
-
-.description {
-    margin-bottom: 40px;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
