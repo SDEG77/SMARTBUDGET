@@ -31,19 +31,19 @@ This web application can help students manage and track their budget. We also ha
 
 -> pwede kanang mag simula, yay.
 
-## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. (YUNG ADMIN SIDE WALA PANG FRONTEND)
+## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. 
+
 
 # TODOS (SIGRAE):
-
 
 ## MISC
 --  Recaptcha (+)
 
+-- Make pdf files support the Philippine Peso Symbol (+)
+
 -- show password. (+)
 
 -- Input Validation & Sanitazion to combat XSS & SQL injection on all inputs (+)
-
--- Do the export feature (+)
 
 -- Add paginate with limit of 10 in every page except Dashboard (+)
 
@@ -53,9 +53,11 @@ This web application can help students manage and track their budget. We also ha
 -- Make donut display dynamic, it will only show up when data is present inside the chart (+)
 
 ## TRACKER
--- Export (+)
+-- Conditional Export File(+)
 
 -- Delete all (+)
+
+-- Make the grouped dates order correct so new is at top (+)
 
 -- Make edit list dropdown immedietly adaptive for income (+)
 
@@ -75,7 +77,9 @@ This web application can help students manage and track their budget. We also ha
 -- Do the forgot page (+)
 
 ## LEDGER 
--- export file left (+)
+-- Conditional Export File(+)
+
+-- Make the grouped dates order correct so new is at top (+) *(UNSURE IF THERE'S ISSUE HERE)*
 
 # ADMIN (+++)
 - DB SEEDER: INSERT INTO users(full_name, email, password, is_admin) 

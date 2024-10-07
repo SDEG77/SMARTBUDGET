@@ -131,7 +131,14 @@
                 </div>
                 </div>
 
-                <button class="export"> EXPORT FILE</button>
+                <form style="display: inline-block" action="{{ route('ledger.pdf') }}">
+                    @csrf
+                    @method('GET')
+                    
+                    <button class="export" type="submit" > EXPORT FILE</button>
+                </form>
+                
+
                 <button class="add" onclick="openModal()">ADD RECORD</button>
             </div>
         </div>
@@ -154,13 +161,11 @@
                                 <input type="hidden" name="ninja_check" value="{{$ledger->checked}}">
                                 <input type="hidden" name="ninja" value="{{$ledger->id}}">
                             </form>
+                            <div style="text-transform: capitalize" >To {{ $ledger->type }}</div>
                             <div>{{$ledger->what}}</div>
                             <div>{{$ledger->where}}</div>
-                            <div style="
-                                color: {{$ledger->type === 'pay' ? 'red' : 'green'}};
-                                font-weight: bold
-                            ">
-                                {{$ledger->type === 'pay' ? '-₱' . number_format($ledger->amount) : '+₱' . number_format($ledger->amount)}}
+                            <div style="font-weight: bold">
+                                {{'₱' . number_format($ledger->amount)}}
                             </div>
                             <div>
                                 {{$date->translatedFormat('F j, Y')}}
