@@ -529,67 +529,74 @@ button i {
     color: white;
 }
 /* Delete Confirmation Modal Styles */
-.delete-modal .modal-content {
+.deleteForm {
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     width: 300px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
 }
 
-.delete-modal .modal-header {
+/* Header Styles */
+.deleteForm .header {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.delete-modal .modal-header h2 {
+.deleteForm .header h2 {
     font-size: 24px;
     color: black; 
     margin: 0;
 }
 
-.delete-modal .modal-content i {
+/* Icon Styles */
+.deleteForm .header i {
     font-size: 48px;
-    color: #724143;/* Red color for delete confirmation */
-    display: block;
-    margin-bottom: 15px;
+    color: #e74c3c; /* Red color for delete confirmation */
+    margin-left: 10px; /* Spacing between text and icon */
+}
+
+/* Body Styles */
+.deleteForm .body {
     text-align: center;
 }
 
-.delete-modal .modal-body {
-    text-align: center;
-}
-
-.delete-modal .modal-footer {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.delete-modal .modal-footer .clear-btn,
-.delete-modal .modal-footer .save-btn {
+/* Button Styles */
+.deleteForm button {
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    font-size: 16px; /* Standard button text size */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effects */
+    margin: 5px; /* Space between buttons */
 }
 
-.delete-modal .modal-footer .clear-btn {
-    background-color: #2f5f98;
+/* YES Button Styles */
+.deleteForm button[type="submit"] {
+    background-color: rgb(251, 104, 104);
     color: white;
 }
 
-.delete-modal .modal-footer .save-btn {
-    background-color: #ccc; /* Gray color for cancellation */
-    color: black;
+/* NO Button Styles */
+.deleteForm button[type="button"] {
+    background-color: green;
+    color: white;
 }
 
-.delete-modal .modal-header .close {
-    font-size: 24px;
-    cursor: pointer;
-    color: #2f5f98; /* Match the close icon color with header */
+/* Button Hover Effects */
+.deleteForm button[type="submit"]:hover {
+    background-color: rgb(220, 30, 30); /* Darker shade on hover for YES */
 }
+
+.deleteForm button[type="button"]:hover {
+    background-color: darkgreen; /* Darker shade on hover for NO */
+}
+
 
 
 .content {

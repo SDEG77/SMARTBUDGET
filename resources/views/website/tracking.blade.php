@@ -225,12 +225,16 @@
                             @csrf
                             @method('DELETE')
 
-                            <h1>DELETE THIS RECORD?</h1>
+                            <div class="header">
+                          <h2>Oh no!</h2>
+                              </div>
+                              <div class="body">
+                          <p>Are you sure you want to delete this item?</p>
 
                             <button style="background-color: rgb(251, 104, 104); color: white;" type="submit" onclick="!confirm('Are you sure?') && event.preventDefault()" >
-                                DELETE THE RECORD?
+                                YES
                             </button>
-                            <button style="background-color: green; color: white" type="button" onclick="setDeleteModal({{ $track->id }})">NO GO BACK</button>
+                            <button style="background-color: green; color: white" type="button" onclick="setDeleteModal({{ $track->id }})">NO</button>
                         </form>
                         </div>
                         </div>
@@ -334,7 +338,7 @@
     </div>
 </div>
 <!-- Delete Confirmation Modal -->
-{{-- <div id="deleteModal" class="modal delete-modal">
+<div id="deleteModal" class="modal delete-modal">
     <div class="modal-content">
     <i class="fa-solid fa-triangle-exclamation"></i>
         <div class="modal-header">
@@ -343,12 +347,13 @@
         <div class="modal-body">
             <p>Are you sure you want to delete this item?</p>
             <div class="modal-footer">
-                <button class="clear-btn" onclick="confirmDelete(event)">Yes</button>
-                <button class="save-btn" onclick="closeDeleteModal(event)">No</button>
+                <button class="clear-btn" onclick="confirmDelete()">Yes</button>
+                <button class="save-btn" onclick="closeDeleteModal()">No</button>
             </div>
         </div>
     </div>
-</div> --}}
+</div>
+
 
 <div style="display: none">
     @foreach ($track_all_expenses as $expense)
