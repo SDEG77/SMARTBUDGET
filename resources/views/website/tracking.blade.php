@@ -123,7 +123,13 @@
         </form>
     </div>
     <div class="action-buttons">
-        <button class="export" onclick="event.preventDefault()">Export</button>
+        <form action="{{ route('tracker.pdf') }}">
+            @csrf
+            @method('GET')
+            
+            <button class="export" type="submit" >Export</button>
+        </form>
+
         <button class="add" onclick="openModal(event)">Add Record</button>
     </div>
 </div>

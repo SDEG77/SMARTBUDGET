@@ -14,6 +14,8 @@ use App\Http\Controllers\AdminAssetController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminCategoryController;
 
+use App\Http\Controllers\PDFController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function(){
@@ -33,22 +35,27 @@ Route::middleware('guest')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
+    // DEFAULT VIEW
     Route::get('SmartBudget/home', [WebsiteController::class, 'home'])->name('home');
 
+    // DASHBOARD VIEW AND FUNCTIONS
     Route::get('SmartBudget/dashboard', [WebsiteController::class, 'dashboard'])->name('dashboard');
     Route::get('SmartBudget/dashboard/weekly', [DashboardController::class, 'dashboard_weekly'])->name('dashboard.weekly');
     Route::get('SmartBudget/dashboard/monthly', [DashboardController::class, 'dashboard_monthly'])->name('dashboard.monthly');
     Route::get('SmartBudget/dashboard/yearly', [DashboardController::class, 'dashboard_yearly'])->name('dashboard.yearly');
-
-
+    
+    
+    // TRACKINGS VIEW AND FUNCTIONS
     Route::get('SmartBudget/trackings', [WebsiteController::class, 'tracking'])->name('tracking');
     Route::get('SmartBudget/trackings/expenses', [WebsiteController::class, 'tracking_expenses'])->name('tracking.expenses');
     Route::get('SmartBudget/trackings/incomes', [WebsiteController::class, 'tracking_incomes'])->name('tracking.incomes');
     Route::post('SmartBudget/trackings', [TrackingController::class, 'store'])->name('tracking.store');
     Route::put('SmartBudget/trackings', [TrackingController::class, 'update'])->name('tracking.update');
     Route::delete('SmartBudget/trackings/{tracking}', [TrackingController::class, 'delete'])->name('tracking.delete');
-
     
+    Route::get('/SmartBudget/trackings/pdf', [PDFController::class,'trackerPdf'])->name('tracker.pdf');
+    
+    // LEDGER VIEW AND FUNCTIONS
     Route::get('SmartBudget/ledger', [WebsiteController::class, 'ledger'])->name('ledger');
     Route::get('SmartBudget/ledger/pay', [WebsiteController::class, 'ledger_toPay'])->name('ledger.toPay');
     Route::get('SmartBudget/ledger/buy', [WebsiteController::class, 'ledger_toBuy'])->name('ledger.toBuy');
@@ -59,6 +66,9 @@ Route::middleware('auth')->group(function(){
     Route::delete('SmartBudget/ledgers/{ledger}', [LedgerController::class, 'destroy'])->name('ledger.delete');
     Route::get('SmartBudget/ledgers/delete-selected', [LedgerController::class, 'destroy_selected'])->name('ledger.destroy_selected');
 
+    Route::get('/SmartBudget/ledgers/pdf', [PDFController::class,'ledgerPdf'])->name('ledger.pdf');
+
+    // PLANNER VIEW AND FUNCTIONS
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
     Route::post('SmartBudget/planner/expected', [ExpectedIncomesController::class, 'store'])->name('planner.expected');
     Route::put('SmartBudget/planner/expected', [ExpectedIncomesController::class, 'update'])->name('planner.expected.update');
@@ -66,8 +76,10 @@ Route::middleware('auth')->group(function(){
     Route::delete('SmartBudget/planner/reset/{id}', [WebsiteController::class, 'reset_planner'])->name('planner.reset');
     Route::post('SmartBudget/planner/allocate', [AllocationController::class, 'allocate'])->name('planner.allocate');
 
+    // ABOUT VIEW
     Route::get('SmartBudget/about', [WebsiteController::class, 'about'])->name('about');
 
+    // PROFILE VIEW AND FUNCTIONS
     Route::get('SmartBudget/account/profile', [WebsiteController::class, 'profile'])->name('account.profile');
     Route::put('SmartBudget/account/password/{id}', [LoginUSerController::class, 'changePass'])->name('account.password.update');
     Route::put('SmartBudget/account/profile/{id}', [LoginUSerController::class, 'updateInfo'])->name('account.profile.update');
@@ -78,16 +90,20 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('admin')->group(function() {
+    // ADMIN DASHBOARD VIEW AND FUNCTIONS
     Route::get('SmartBudget/admin', [AdminAssetController::class, 'index'])->name('admin.index');
     Route::post('SmartBudget/admin', [AdminAssetController::class, 'admin_logout'])->name('admin.logout');
 
+    // ADMIN USER VIEW AND FUNCTIONS
     Route::get('SmartBudget/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
     Route::delete('SmartBudget/admin/users/{id}', [AdminUserController::class, 'delete'])->name('admin.users.delete');
 
+    // ADMIN CATEGORY VIEW AND FUNCTIONS
     Route::get('SmartBudget/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.category.index');
     Route::get('SmartBudget/admin/categories/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
     Route::get('SmartBudget/admin/categories/edit/id', [AdminCategoryController::class, 'edit'])->name('admin.category.edit');
 
+    // ADMIN COURSES VIEW AND FUNCTIONS
     Route::get('SmartBudget/admin/courses', [AdminCourseController::class, 'index'])->name('admin.courses.index');
     Route::get('SmartBudget/admin/courses/create', [AdminCourseController::class, 'create'])->name('admin.courses.create');
     Route::post('SmartBudget/admin/courses/create', [AdminCourseController::class, 'store'])->name('admin.courses.store');
