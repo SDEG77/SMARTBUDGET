@@ -1,14 +1,18 @@
-**This is our group project for ITE 387:**
-This web application can help students manage and track their budget. We also have a mobile version for this application. 
+## **This is our group project for ITE 387:**
 
-## Members: 
-1. **Sigrae Derf Gabriel**
-2. **John Ferry Santiago**
-3. **Jaira Braza**
-4. **Daniel Zabat Moreno**
+**This web application can help students manage and track their budget. We also have a mobile version for this application.** 
+
+|          MEMBERS          |
+|---------------------------|
+|1. **Sigrae Derf Gabriel** |
+|2. **John Ferry Santiago** |
+|3. **Jaira Braza**         |
+|4. **Daniel Zabat Moreno** |
+
+---
 
 # TODOS (BRAZA):
--- ADMIN SIGNUP: 'admin@secret.com' (email) and '23456789' (password)
+-- ADMIN SIGNUP: ```'admin@secret.com' (email) and '23456789' (password)```q
 
 ## GIT CLONING
 -- gawin mo steps nato para makapag start kana
@@ -17,74 +21,81 @@ This web application can help students manage and track their budget. We also ha
 
 -> open mo cmd mo doon sa loob ng folder nayun
 
--> run mo to: **git clone https://github.com/SDEG77/SMARTBUDGET.git ./**
+-> run mo to: 
+```git clone https://github.com/SDEG77/SMARTBUDGET.git ./```
 
--> copy mo yung .env.example
+-> copy mo yung ```.env.example```
 
--> rename mo yung copy into: .env
+-> rename mo yung copy into: ```.env```
 
--> run mo to sa folder after matapos mag DL: **composer install**
+-> run mo to sa folder after matapos mag DL: ```composer install```
 
--> again, run mo to pag kayari mag DL: **php artisan key:generate**
+-> again, run mo to pag kayari mag DL: 
+```php artisan key:generate```
 
--> tapos: **php artisan migrate:fresh --seed**
+-> tapos: 
+```php artisan migrate:fresh --seed```
 
 -> pwede kanang mag simula, yay.
 
 ## ALL PAGES NEED NG FIXES AND TOUCH UPS SA FRONT. 
 
+---
 
 # TODOS (SIGRAE):
 
 ## MISC
---  Recaptcha (+)
+- [ ]  Recaptcha (+)
 
--- Make pdf files support the Philippine Peso Symbol (+)
+- [ ] Make pdf files support the Philippine Peso Symbol (+)
 
--- show password. (+)
+- [ ] show password. (+)
 
--- Input Validation & Sanitazion to combat XSS & SQL injection on all inputs (+)
+- [ ] Input Validation & Sanitazion to combat XSS & SQL injection on all inputs (+)
 
--- Add paginate with limit of 10 in every page except Dashboard (+)
+- [ ] Add paginate with limit of 10 in every page except Dashboard (+)
+
+- [ ] Replace placeholders with something better for Tracker & Ledger (+) 
 
 ## PLANNER
--- Do the color samples for each category (+)
+- [ ] Do the color samples for each category (+)
 
--- Make donut display dynamic, it will only show up when data is present inside the chart (+)
+- [ ] Make donut display dynamic, it will only show up when data is present inside the chart (+)
 
 ## TRACKER
--- Conditional Export File(+)
+- [ ] Delete all (+)
 
--- Delete all (+)
+- [ ] Make the grouped dates order correct so new is at top (+)
 
--- Make the grouped dates order correct so new is at top (+)
-
--- Make edit list dropdown immedietly adaptive for income (+)
-
--- Replace linechart with tally instead with total records. Example: (3,500.00 Total Income | 50 Records) (+)
+- [ ] Make edit list dropdown immedietly adaptive for income (+)
+  
+- [ ] Replace linechart with tally instead with total records. Example: (3,500.00 Total Income | 50 Records) (+)
 
 ## DASHBOARD 
--- Make displays dynamic where it will show up only when there is data (+)
+- [ ] Make displays dynamic where it will show up only when there is data (+)
 
--- change income donut color (+)
+- [ ] change income donut color (+)
 
--- Make sort button active if url is in the specified condition (+)
+- [ ] Make sort button active if url is in the specified condition (+)
 
 ## PROFILE 
+- [x] Finished
 <!-- -- Finished all todos yah00! -->
 
 ## FORGOT
--- Do the forgot page (+)
+- [ ] Do the forgot page (+)
 
 ## LEDGER 
--- Conditional Export File(+)
+- [ ] Make the grouped dates order correct so new is at top (+) *(UNSURE IF THERE'S ISSUE HERE)*
 
--- Make the grouped dates order correct so new is at top (+) *(UNSURE IF THERE'S ISSUE HERE)*
+---
 
-# ADMIN (+++)
-- DB SEEDER: INSERT INTO users(full_name, email, password, is_admin) 
-              VALUES ('admin', 'admin@secret.com','23456789', true);
-  
-## User Management Page (CRUD) (++)
+## ADMIN TODOS
+DB SEEDER:
+```
+INSERT INTO users(full_name, email, password, is_admin) 
+VALUES ('admin', 'admin@secret.com','23456789', true);
+```
 
-## Resource Management Page (CRUD) (++)
+- [ ] Paginate all of the tables (+)
+- [ ] ~~Find a way to make the category work (+)~~

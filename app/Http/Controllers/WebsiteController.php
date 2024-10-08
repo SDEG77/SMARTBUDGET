@@ -106,6 +106,7 @@ class WebsiteController extends Controller
 
             'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
             'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            'pageType' => 'all',
         ]);
     }
 
@@ -119,6 +120,7 @@ class WebsiteController extends Controller
 
             'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
             'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            'pageType' => 'outgoing',
         ]);
     }
 
@@ -132,6 +134,7 @@ class WebsiteController extends Controller
 
             'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
             'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            'pageType' => 'ingoing',
         ]);
     }
     
@@ -140,6 +143,7 @@ class WebsiteController extends Controller
             'user' => auth()->user(),
             'ledgers' => Ledger::where('user_id', auth()->user()->id)->orderBy('when', 'desc')->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
+            'pageType' => 'all',
         ]);
     }
 
@@ -148,6 +152,7 @@ class WebsiteController extends Controller
             'user' => auth()->user(),
             'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'pay')->orderBy('when', 'desc')->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
+            'pageType' => 'pay',
         ]);
     
     }
@@ -156,6 +161,7 @@ class WebsiteController extends Controller
             'user' => auth()->user(),
             'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'buy')->orderBy('when', 'desc')->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
+            'pageType' => 'buy',
         ]);
     }
 

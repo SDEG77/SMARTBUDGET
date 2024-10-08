@@ -31,8 +31,21 @@
         }
         </style>
 </head>
+@php
+  $byahoo;
+
+  if ($type === 'all') {
+    $byahoo = 'ALL';
+  }
+  elseif ($type === 'outgoing') {
+    $byahoo = 'OUTGOING';
+  }
+  elseif ($type === 'ingoing') {
+    $byahoo = 'INGOING';
+  }
+@endphp
 <body>
-  <h1>Tracker Data (ALL)</h1>
+  <h1>Tracker Data ({{$byahoo}})</h1>
   <table border="2">
       <thead>
           <tr>

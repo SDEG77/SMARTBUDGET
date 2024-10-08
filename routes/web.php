@@ -49,11 +49,14 @@ Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/trackings', [WebsiteController::class, 'tracking'])->name('tracking');
     Route::get('SmartBudget/trackings/expenses', [WebsiteController::class, 'tracking_expenses'])->name('tracking.expenses');
     Route::get('SmartBudget/trackings/incomes', [WebsiteController::class, 'tracking_incomes'])->name('tracking.incomes');
+
     Route::post('SmartBudget/trackings', [TrackingController::class, 'store'])->name('tracking.store');
     Route::put('SmartBudget/trackings', [TrackingController::class, 'update'])->name('tracking.update');
     Route::delete('SmartBudget/trackings/{tracking}', [TrackingController::class, 'delete'])->name('tracking.delete');
     
     Route::get('/SmartBudget/trackings/pdf', [PDFController::class,'trackerPdf'])->name('tracker.pdf');
+    Route::get('/SmartBudget/trackings/pdf/outgoing', [PDFController::class,'trackerOutgoingPdf'])->name('tracker.pdf.outgoing');
+    Route::get('/SmartBudget/trackings/pdf/ingoing', [PDFController::class,'trackerIngoingPdf'])->name('tracker.pdf.ingoing');
     
     // LEDGER VIEW AND FUNCTIONS
     Route::get('SmartBudget/ledger', [WebsiteController::class, 'ledger'])->name('ledger');
@@ -67,6 +70,8 @@ Route::middleware('auth')->group(function(){
     Route::get('SmartBudget/ledgers/delete-selected', [LedgerController::class, 'destroy_selected'])->name('ledger.destroy_selected');
 
     Route::get('/SmartBudget/ledgers/pdf', [PDFController::class,'ledgerPdf'])->name('ledger.pdf');
+    Route::get('/SmartBudget/ledgers/pdf/pay', [PDFController::class,'ledgerPayPdf'])->name('ledger.pdf.pay');
+    Route::get('/SmartBudget/ledgers/pdf/buy', [PDFController::class,'ledgerBuyPdf'])->name('ledger.pdf.buy');
 
     // PLANNER VIEW AND FUNCTIONS
     Route::get('SmartBudget/planner', [WebsiteController::class, 'planner'])->name('planner');
@@ -113,6 +118,4 @@ Route::middleware('admin')->group(function() {
     Route::get('SmartBudget/admin/courses/edit/{course}', [AdminCourseController::class, 'edit'])->name('admin.courses.edit');
     Route::put('SmartBudget/admin/courses/edit/{course}', [AdminCourseController::class, 'update'])->name('admin.courses.update');
     Route::delete('SmartBudget/admin/courses/delete/{course}', [AdminCourseController::class, 'delete'])->name('admin.courses.delete');
-
-   
 });

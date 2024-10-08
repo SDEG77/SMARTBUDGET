@@ -22,8 +22,21 @@
         }
     </style>
 </head>
+@php
+    $current;
+
+    if($type === 'all') {
+        $current = 'ALL';
+    }
+    elseif($type === 'pay') {
+        $current = 'PAY';
+    }
+    elseif($type === 'buy') {
+        $current = 'BUY';
+    }
+@endphp
 <body>
-    <h1>Ledger Data (ALL)</h1>
+    <h1>Ledger Data ({{ $current }})</h1>
     <table border="2" >
         <thead>
             <tr>

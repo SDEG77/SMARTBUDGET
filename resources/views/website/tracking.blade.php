@@ -122,8 +122,23 @@
             <button class="{{Request::is('SmartBudget/trackings/incomes') ? 'active' : 'inactive'}}">Income</button>
         </form>
     </div>
+
+    @php
+        $route;
+
+        if($pageType === 'all') {
+            $route = route('tracker.pdf');
+        }
+        elseif($pageType === 'outgoing') {
+            $route = route('tracker.pdf.outgoing');
+        }
+        elseif($pageType === 'ingoing') {
+            $route = route('tracker.pdf.ingoing');
+        }
+    @endphp
+
     <div class="action-buttons">
-        <form action="{{ route('tracker.pdf') }}">
+        <form action="{{ $route }}">
             @csrf
             @method('GET')
             

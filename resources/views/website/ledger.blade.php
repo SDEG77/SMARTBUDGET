@@ -131,7 +131,21 @@
                 </div>
                 </div>
 
-                <form style="display: inline-block" action="{{ route('ledger.pdf') }}">
+                @php
+                    $route;
+                    
+                    if($pageType === 'all') {
+                        $route = route('ledger.pdf');
+                    }
+                    elseif($pageType === 'pay') {
+                        $route = route('ledger.pdf.pay');
+                    }
+                    elseif($pageType === 'buy') {
+                        $route = route('ledger.pdf.buy');
+                    }
+                @endphp
+
+                <form style="display: inline-block" action="{{ $route }}">
                     @csrf
                     @method('GET')
                     
