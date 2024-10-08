@@ -133,7 +133,7 @@
 
                 @php
                     $route;
-                    
+
                     if($pageType === 'all') {
                         $route = route('ledger.pdf');
                     }
@@ -231,16 +231,16 @@
                                 </select>
 
                                 <label for="what">What:</label>        
-                                <input required type="text" name="what" value="{{$ledger->what}}" placeholder="What">
+                                <input required type="text" name="what" value="{{$ledger->what}}" placeholder="Burger">
                                 
                                 <label for="where">Where:</label>        
-                                <input required type="text" name="where" value="{{$ledger->where}}" placeholder="Where">
+                                <input required type="text" name="where" value="{{$ledger->where}}" placeholder="Jollibee">
                                 
                                 <label for="when">When:</label>        
-                                <input required type="date" name="when" value="{{$ledger->when}}" placeholder="When">
+                                <input required type="date" name="when" value="{{$ledger->when}}" placeholder="07/07/2004">
                                 
                                 <label for="amount">Amount:</label>        
-                                <input required type="number" step="0.01" name="amount" value="{{$ledger->amount}}" placeholder="Amount">
+                                <input required type="number" step="0.01" name="amount" value="{{$ledger->amount}}" placeholder="₱120">
                                 
                                 <div class="modal-footer">
                                     <button class="clear-btn" type="submit" onclick="alert('Record updated successfully!');">Save Changes</button>
@@ -277,10 +277,10 @@
                         <option value="pay">Pay</option>
                         <option value="buy">Buy</option>
                     </select>
-                    <input type="text" id="itemName" required name="what" placeholder="What">
-                    <input type="text" id="where" required name="where" placeholder="Where">
-                    <input type="date" id="when" required name="when" placeholder="When">
-                    <input type="number" step="0.01" id="amount" required name="amount" placeholder="Amount">
+                    <input type="text" id="itemName" required name="what" placeholder="Burger">
+                    <input type="text" id="where" required name="where" placeholder="Jollibee">
+                    <input type="date" id="when" required name="when" placeholder="07/07/2004">
+                    <input type="number" step="0.01" id="amount" required name="amount" placeholder="₱120">
                 </div>
                 <div class="modal-footer">
                     <button class="clear-btn" type="reset">Clear</button>

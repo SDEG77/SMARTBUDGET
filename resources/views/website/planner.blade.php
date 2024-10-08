@@ -102,7 +102,7 @@
 
     <div class="main-content">
     <div class="planner-frame">
-        <div class="header">Welcome to your Budget Planner</div>
+        <div class="header">Budget Planner</div>
         <div class="budget-stats">
             <div>
                 <h3>₱{{number_format($total_expected)}}</h3>

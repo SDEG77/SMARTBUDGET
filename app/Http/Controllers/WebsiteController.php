@@ -99,13 +99,22 @@ class WebsiteController extends Controller
     public function tracking(){
         return view('website.tracking', [
             'user' => auth()->user(),
-            'tracks' => Tracking::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->get(),
+            'tracks' => Tracking::where('user_id', auth()->user()->id)
+            ->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')            
+            ->get(),
+            
             'state' => 'null',
+
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+            'daily_expenses' => Tracking::where('user_id', auth()->user()->id)
+            ->whereDate('date', Carbon::today())
+            ->where('mode', 'outgoing')
+            ->average('amount'),
 
-            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
-            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            // 'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            // 'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
             'pageType' => 'all',
         ]);
     }
@@ -113,13 +122,16 @@ class WebsiteController extends Controller
     public function tracking_expenses(){
         return view('website.tracking', [
             'user' => auth()->user(),
-            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->orderBy('date', 'desc')->get(),
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')
+            ->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')  
+            ->get(),
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
 
-            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
-            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            // 'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            // 'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
             'pageType' => 'outgoing',
         ]);
     }
@@ -127,13 +139,16 @@ class WebsiteController extends Controller
     public function tracking_incomes(){
         return view('website.tracking', [
             'user' => auth()->user(),
-            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->orderBy('date', 'desc')->get(),
+            'tracks' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')
+            ->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')  
+            ->get(),
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
 
-            'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
-            'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
+            // 'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
+            // 'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
             'pageType' => 'ingoing',
         ]);
     }
@@ -141,7 +156,9 @@ class WebsiteController extends Controller
     public function ledger(){
         return view('website.ledger', [
             'user' => auth()->user(),
-            'ledgers' => Ledger::where('user_id', auth()->user()->id)->orderBy('when', 'desc')->get(),
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->orderBy('when', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
             'pageType' => 'all',
         ]);
@@ -150,7 +167,10 @@ class WebsiteController extends Controller
     public function ledger_toPay(){
         return view('website.ledger', [
             'user' => auth()->user(),
-            'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'pay')->orderBy('when', 'desc')->get(),
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'pay')
+            ->orderBy('when', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
             'pageType' => 'pay',
         ]);
@@ -159,7 +179,10 @@ class WebsiteController extends Controller
     public function ledger_toBuy(){
         return view('website.ledger', [
             'user' => auth()->user(),
-            'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'buy')->orderBy('when', 'desc')->get(),
+            'ledgers' => Ledger::where('user_id', auth()->user()->id)->where('type', 'buy')
+            ->orderBy('when', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get(),
             'checks_present' => Ledger::where('user_id', auth()->user()->id)->where('checked', 1)->get(),
             'pageType' => 'buy',
         ]);

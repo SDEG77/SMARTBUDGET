@@ -94,12 +94,16 @@
                 <h2> {{($total_income - $total_expense) < 0 ? '-' : null}}₱{{number_format(abs($total_income - $total_expense))}}</h2>
                 <p>Remaining Funds</p>
             </div>
+            <div class="tracker-summary">
+                <h2> ₱{{ number_format($daily_expenses) }}</h2>
+                <p>Daily Average Expenses</p>
+            </div>
         </div>
 
         <!-- Chart Container -->
-        <div style="background-color: transparent" class="tracker-chart-container">
-            <canvas id="lineChart" ></canvas>
-        </div>
+        {{-- <div style="background-color: transparent" class="tracker-chart-container">
+            
+        </div> --}}
     </div>
 </div>
 
@@ -222,11 +226,11 @@
                             
                             <x-input-error :err="'description'" />
                             <label for="Description">Description:</label>
-                            <input name="description" type="text" value="{{ $track->description }}" required >
+                            <input name="description" placeholder="Chessboard" type="text" value="{{ $track->description }}" required >
                             
                             <x-input-error :err="'amount'" />
                             <label for="Amount">Amount:</label>
-                            <input name="amount" type="number" step="0.01" value="{{ $track->amount }}" required >
+                            <input name="amount" placeholder="₱120" type="number" step="0.01" value="{{ $track->amount }}" required >
 
                             <x-input-error :err="'date'" />
                             <label for="date">Date:</label>
@@ -284,7 +288,7 @@
             <label for="itemName">Description</label>
             <div style="display: flex; flex-direction: column">
                 <x-input-error  :err="'description'" />
-                <input required type="text" name="description" id="itemName" placeholder="Type here">
+                <input required type="text" name="description" id="itemName" placeholder="Chessboard">
             </div>
             <div class="input-group">
                 <div>
@@ -329,7 +333,7 @@
                     <label for="amount">Amount</label>
                     <div style="display: flex; flex-direction: column">
                         <x-input-error  :err="'amount'" />
-                        <input required name="amount" type="number" id="amount" placeholder="Amount">
+                        <input required name="amount" type="number" id="amount" placeholder="₱120">
                     </div>
                 </div>
             </div>
@@ -376,7 +380,7 @@
 </div>
 
 
-<div style="display: none">
+{{-- <div style="display: none">
     @foreach ($track_all_expenses as $expense)
         <p id="track_expense" style="display: none">
             {{$expense->amount}}
@@ -388,13 +392,13 @@
             {{$income->amount}}
         </p>
     @endforeach
-</div>
+</div> --}}
 
 
 </body>
 </html>
 
-<script src="{{ asset('js/tracking.js') }}" ></script>
+{{-- <script src="{{ asset('js/tracking.js') }}" ></script> --}}
 
 <script>
     function setDeleteModal(id){

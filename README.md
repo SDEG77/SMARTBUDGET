@@ -2,12 +2,12 @@
 
 **This web application can help students manage and track their budget. We also have a mobile version for this application.** 
 
-|          MEMBERS          |
-|---------------------------|
-|1. **Sigrae Derf Gabriel** |
-|2. **John Ferry Santiago** |
-|3. **Jaira Braza**         |
-|4. **Daniel Zabat Moreno** |
+|                     MEMBERS                    |
+|------------------------------------------------|
+|1. **Sigrae Derf Gabriel - Backend Developer**  |
+|2. **John Ferry Santiago - Project Manager**    |
+|3. **Jaira Braza - Frontend Developer**         |
+|4. **Daniel Zabat Moreno - Quality Assurance**  |
 
 ---
 
@@ -55,7 +55,6 @@
 
 - [ ] Add paginate with limit of 10 in every page except Dashboard (+)
 
-- [ ] Replace placeholders with something better for Tracker & Ledger (+) 
 
 ## PLANNER
 - [ ] Do the color samples for each category (+)
@@ -65,11 +64,9 @@
 ## TRACKER
 - [ ] Delete all (+)
 
-- [ ] Make the grouped dates order correct so new is at top (+)
-
 - [ ] Make edit list dropdown immedietly adaptive for income (+)
   
-- [ ] Replace linechart with tally instead with total records. Example: (3,500.00 Total Income | 50 Records) (+)
+```Example: (3,500.00 Total Income | 50 Records)``` (+)
 
 ## DASHBOARD 
 - [ ] Make displays dynamic where it will show up only when there is data (+)
@@ -86,7 +83,7 @@
 - [ ] Do the forgot page (+)
 
 ## LEDGER 
-- [ ] Make the grouped dates order correct so new is at top (+) *(UNSURE IF THERE'S ISSUE HERE)*
+- [ ] Delete all (+)
 
 ---
 

@@ -190,31 +190,37 @@ color: inherit; /* Ensure color inherits from parent */
     display: flex;
     background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
     border-radius: 10px;
-    width: 70%;
+    flex: 1;
     height: 90%;
-
-    
+    justify-content: space-evenly;
 }
 /* Individual summary boxes with border */
 .tracker-summary {
-    flex: 1;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
     overflow: hidden; /* Prevent content from spilling out */
+    padding: 30px 40px;
+    flex: 1;
 }
 
 
 .tracker-summary h2 {
     font-size: 30px;
     color: white;
- margin-bottom: 0;
+    margin: 0;
+    text-align: center;
+    margin-bottom: -3px;
 }
 
 .tracker-summary p {
     font-size: 15px;
+    text-align: center;
     color: white;
     font-weight: bold;
-    margin-top: 0;
+    margin: 0;
 }
 
 /* Add vertical dividing lines between the tracker summary boxes */
