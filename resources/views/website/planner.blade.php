@@ -77,6 +77,8 @@
     </div>
 
     @php
+    $sum;
+
     if($allocation){
         $sum = $allocation->food
         +
@@ -125,14 +127,17 @@
     <form action="{{ route('planner.allocate') }}" method="POST" id="update-form">
     @csrf
     @method('POST')
-    <div class="budget-allocation">
-        <div class="chart-container">
-            <p2 class="chart-title">Budget Allocation</p2>
-            <div class="chart">
-                <!-- Pie chart goes here -->
-                <canvas id="allocationDonut"></canvas>
+    <div class="budget-allocation" style="{{$sum <= 0 ? 'justify-content:end' : null}}">
+        @if ($sum > 0)
+            <div class="chart-container">
+                <p2 class="chart-title">Budget Allocation</p2>
+                <div class="chart">
+                    <!-- Pie chart goes here -->
+                    <canvas id="allocationDonut"></canvas>
+                </div>
             </div>
-        </div>
+        @endif
+
         <div class="allocation-container">
             <!-- Update Button -->
             <button onclick="makeTableEditable(event)" type="button" id="update-button">Update Allocation</button>

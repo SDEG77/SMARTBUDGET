@@ -132,45 +132,48 @@ expense_cats.forEach(exp => {
     expense_data_category.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
 });
 
-var ctxBudget = document.getElementById('budgetChart').getContext('2d');
-var budgetChart = new Chart(ctxBudget, {
-    type: 'doughnut',
-    data: {
-        labels: expense_data_category,
-        datasets: [{
-            label: 'expenses',
-            data: expense_data,
-            backgroundColor: [
-            'green', // rent
-            'red', // debt/loan
-            'indigo', // mobile
-            'gray', // others
-            'blue', // rent
-            'yellow', // savings
-            'orange', // school
-            'purple', // shopping
-            'darkorange' // transportation
+if(document.getElementById('budgetChart')) {
+    var ctxBudget = document.getElementById('budgetChart').getContext('2d') || null;    
 
-            ]
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false,
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.label + ': ' + tooltipItem.raw;
+    var budgetChart = new Chart(ctxBudget, {
+        type: 'doughnut',
+        data: {
+            labels: expense_data_category,
+            datasets: [{
+                label: 'expenses',
+                data: expense_data,
+                backgroundColor: [
+                'green', // rent
+                'red', // debt/loan
+                'indigo', // mobile
+                'gray', // others
+                'blue', // rent
+                'yellow', // savings
+                'orange', // school
+                'purple', // shopping
+                'darkorange' // transportation
+    
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
+}
 
 // Income Donut Chart
 
@@ -188,33 +191,36 @@ income_cats.forEach(exp => {
     income_data_category.push(exp.innerHTML.replace(/,/g, '')) //regex remove comma
 });
 
-var ctxIncome = document.getElementById('incomeChart').getContext('2d');
-var incomeChart = new Chart(ctxIncome, {
-    type: 'doughnut',
-    data: {
-        labels: income_data_category,
-        datasets: [{
-            label: 'Income',
-            data: income_data,
-            backgroundColor: [
-                '#1D8B1D', '#1A7A1A', '#166C16', '#145C14', '#0F4A0F'
-            ]
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false,
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.label + ': ' + tooltipItem.raw;
+if(document.getElementById('incomeChart')) {
+    var ctxIncome = document.getElementById('incomeChart').getContext('2d');
+
+    var incomeChart = new Chart(ctxIncome, {
+        type: 'doughnut',
+        data: {
+            labels: income_data_category,
+            datasets: [{
+                label: 'Income',
+                data: income_data,
+                backgroundColor: [
+                    '#1D8B1D', '#1A7A1A', '#166C16', '#145C14', '#0F4A0F'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
+}

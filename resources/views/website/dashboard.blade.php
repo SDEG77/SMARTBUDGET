@@ -154,7 +154,7 @@
             </div>
 
             <div class="summary-frame">
-                @if ($expenses)                    
+                @if ($expenses->count() > 0)                    
                 <div class="budget-frame">
                     <p2 class="summary-title">Expenses Summary</p2>
                     <div class="summary-section">
@@ -169,22 +169,12 @@
                                     <span id="expenseTotal">{{number_format($sum->total)}}</span>
                                 </li>
                             @endforeach
-
-
-                            {{-- <li><span>Food</span><span>80,000.00</span></li>
-                            <li><span>Rent</span><span>40,000.00</span></li>
-                            <li><span>Transpo</span><span>40,000.00</span></li>
-                            <li><span>Debt/Loan</span><span>80,000.00</span></li>
-                            <li><span>Shopping</span><span>40,000.00</span></li>
-                            <li><span>Mobile</span><span>80,000.00</span></li>
-                            <li><span>Savings</span><span>40,000.00</span></li>
-                            <li><span>School</span><span>80,000.00</span></li>
-                            <li><span>Others</span><span>80,000.00</span></li> --}}
                         </ul>                        
                     </div>
                 </div>
                 @endif
 
+                @if ($incomes->count() > 0)
                 <div class="income-frame">
                     <p2 class="summary-title">Income Summary</p2>
                     <div class="summary-section">
@@ -198,16 +188,12 @@
                                     <span id="incomeTotal">{{number_format($sum->total)}}</span>
                                 </li>
                             @endforeach
-
-                            {{-- <li><span>Provider</span><span>80,000.00</span></li>
-                            <li><span>Earnings</span><span>40,000.00</span></li>
-                            <li><span>Grant</span><span>40,000.00</span></li>
-                            <li><span>Loan</span><span>80,000.00</span></li>
-                            <li><span>Others</span><span>70,753.00</span></li> --}}
                         </ul>
                     </div>
                 </div>
+                @endif
 
+                @if ($tracks->count() > 0)
                 <div class="recent-frame">
                     <p2 class="summary-title3"><span class="left">Recent Transactions</span>
                         <span class="right"><a href="{{ route('tracking') }}" class="see-more-link">See more > </a></span></p2>
@@ -253,20 +239,11 @@
                                         @endphp
                                     @endforeach
                                 @endif
-
-                                {{-- <tr>
-                                    <td colspan="6"><strong>Today - Tuesday, September 10, 2024</strong></td>
-                                </tr>
-                                <tr data-type="expenses">
-                                    <td>Outflow</td>
-                                    <td><strong>Food</strong></td>
-                                    <td>Coffee in Starbucks</td>
-                                    <td>250.00</td>
-                                </tr> --}}
                             </table>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

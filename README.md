@@ -12,7 +12,7 @@
 ---
 
 # TODOS (BRAZA):
--- ADMIN SIGNUP: ```'admin@secret.com' (email) and '23456789' (password)```q
+-- ADMIN SIGNUP: ```'admin@secret.com' (email) and '23456789' (password)```
 
 ## GIT CLONING
 -- gawin mo steps nato para makapag start kana
@@ -55,6 +55,7 @@
 
 - [ ] Add paginate with limit of 10 in every page except Dashboard (+)
 
+- [ ] Removed the "unset" default value and make it nullable instead in the migrations (++)
 
 ## PLANNER
 - [ ] Do the color samples for each category (+)
@@ -80,7 +81,7 @@
 <!-- -- Finished all todos yah00! -->
 
 ## FORGOT
-- [ ] Do the forgot page (+)
+- [ ] Do the forgot function (+++)
 
 ## LEDGER 
 - [ ] Delete all (+)
@@ -89,7 +90,7 @@
 
 ## ADMIN TODOS
 DB SEEDER:
-```
+```sql
 INSERT INTO users(full_name, email, password, is_admin) 
 VALUES ('admin', 'admin@secret.com','23456789', true);
 ```
