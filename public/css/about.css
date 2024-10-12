@@ -89,9 +89,6 @@ color: white;
 width: 30px;
 height: 20px;
 margin-right: 10px;
-}
-
-.sidebarli img {
 object-fit: contain;
 }
 
@@ -116,6 +113,21 @@ align-items: center;
 padding: 10px 0; /* Adjust padding as needed */
 text-decoration: none;
 color: inherit; /* Ensure color inherits from parent */
+}
+button[type="submit"] {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover { /* Removed the space before :hover */
+    background-color: #e7e3e355;
+    border-radius: 10px;
 }
 
 .logo {

@@ -98,12 +98,8 @@ color: white;
 width: 30px;
 height: 20px;
 margin-right: 10px;
-}
-
-.sidebarli img {
 object-fit: contain;
 }
-
 .sidebar li .label {
 font-size: 16px;
 color: white;
@@ -276,7 +272,7 @@ height: 85%;
     align-self: flex-end; /* Align button to the right */
 }
 #update-button:hover {
-    background-color: #3b5b63;
+ background-color: #218838;;
 }
 
 #add-income-form {
@@ -305,9 +301,8 @@ height: 85%;
     width: 100%;
     box-sizing: border-box;
 }
-/* Button styling */
 button[type="submit"] {
-    background-color: #45db82;
+    background-color: transparent;
     color: white;
     border: none;
     border-radius: 5px;
@@ -315,9 +310,27 @@ button[type="submit"] {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    align-self: flex-end; /* Align the button at the end */
 }
 
+button[type="submit"]:hover { /* Removed the space before :hover */
+    background-color: #e7e3e355;
+    border-radius: 10px;
+}
+
+form#add-income-form button.btn-add-income {
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form#add-income-form button.btn-add-income:hover {
+    background-color: #218838; /* Darker green on hover */
+}
 
 .head{
     color: #053A3D;;
@@ -353,6 +366,26 @@ table {
 .table td {
     color: #053A3D; /* Maintain black text color for clarity */
     justify-items: center;
+}
+
+button {
+    padding: 8px 8px; /* Adjust padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 15px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Specific styles for the Edit button */
+.editBtn {
+    background-color: #007bff; /* Blue background for Edit */
+    color: white; /* White text */
+}
+
+button.deleteBtn {
+    background-color: #dc3545; /* Red background for Delete */
+    color: white; /* White text */
 }
 .tables {
 

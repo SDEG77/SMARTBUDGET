@@ -218,7 +218,7 @@
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount" step="0.01" required>
     </div>
-    <button type="submit">Add Income</button>
+    <button type="submit" class="btn-add-income">Add Income</button>
 </form>
 <div class="table">
         <!-- Expected Income Table -->
@@ -271,7 +271,7 @@
                             </div>
 
                             <td>
-                                <button onclick="setDeleteModal({{ $expected->id }})" >
+                                <button type="button" class="deleteBtn" onclick="setDeleteModal({{ $expected->id }})" >
                                     DELETE
                                 </button>
 

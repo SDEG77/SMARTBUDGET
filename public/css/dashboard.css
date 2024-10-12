@@ -68,6 +68,7 @@ p5 {
 
 .control-button:last-child {
 margin-bottom: 0; /* Remove bottom margin from the last button */
+background-color: #216850;
 }
 
 .control-button:hover {
@@ -160,11 +161,9 @@ color: white;
 width: 30px;
 height: 20px;
 margin-right: 10px;
-}
-
-.side-nav li img {
 object-fit: contain;
 }
+
 
 .side-nav li .label {
 font-size: 16px;
@@ -179,6 +178,7 @@ border-radius: 10px;
 
 .down-sidebar {
 margin-top: auto; /* Push down-sidebar to the bottom */
+background-color: transparent;
 }
 
 .down-sidebar a {
@@ -189,6 +189,20 @@ text-decoration: none;
 color: inherit; /* Ensure color inherits from parent */
 }
 
+button[type="submit"] {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button[type="submit"]:hover {
+    background-color: #e7e3e355;
+border-radius: 10px;
+}
 .profile-sidebar-img {
     width: 30px;
     height: 30px;
@@ -232,39 +246,58 @@ color: inherit; /* Ensure color inherits from parent */
     border-radius: 8px;
     margin-bottom: 0.8em;
 }
-
 .result-frame {
-    height: 320px; /* Adjusted for bar charts */
+    height: 320px; /* Adjust as needed */
     display: flex;
     box-sizing: border-box;
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 0.8em;
-    justify-content: flex-end; /* Align the .result-frame to the right of its parent container */
+    justify-content: space-around; /* Distribute items across the frame */
 }
 
 .result-item {
-    display: flex;
+    line-height: 0.7;
     flex: 1;
+    align-items: center;
+    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
     margin-right: 0.8em;
     border-radius: 8px;
     padding: 10px;
     box-sizing: border-box;
+    color: white;
     display: flex;
-    flex-direction: column; /* Align content vertically */
-    align-items: center; /* Align content to the left */
-    background-color: white;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+.icon-number {
+    display: flex;
+    align-items: center; /* Align the icon and number horizontally */
+}
+
+.icon-number i {
+    margin-right: 10px; /* Add space between the icon and the number */
+    font-size: 30px; /* Adjust icon size */
+}
+
+.icon-number span {
+    font-size: 35px; /* Adjust font size as needed */
+    font-weight: bold; /* Make the value bold */
 }
 
 .result-item p3 {
     margin: 0;
-    font-size: 10px; /* Adjust font size as needed */
+    font-size: 15px; /* Adjust label size */
+    text-align: center;
+    margin-top: 10px;
 }
-
 .result-item p4 {
-    margin: 0;
+    display: flex;
+    align-items: center; /* Align the icon and number horizontally */
     font-size: 35px; /* Adjust font size as needed */
-    font-weight: bold; /* Make the value bold */
+    font-weight: bold; /* Bold the number */
+    margin: 0;
 }
 
 .flow-frame {
@@ -284,29 +317,7 @@ color: inherit; /* Ensure color inherits from parent */
     box-sizing: border-box;
 }
 
-.result-frame {
-    height: 80px;
-    display: flex;
-    box-sizing: border-box;
-    overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 0.8em;
-}
 
-.result-item {
-    line-height: 0.7;
-    flex: 1;
-    background-image: linear-gradient(180deg, #053A3D, #216850, #053A3D);
-    margin-right: 0.8em;
-    border-radius: 8px;
-    padding: 10px;
-    box-sizing: border-box;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-}
 
 .box-container {
     position: absolute;

@@ -22,12 +22,14 @@
                 <ul>
                     <h4>Menu</h4>
                     <a href="{{ route('dashboard') }}">
+                        
                         <li class="{{ 
                                 Request::is('SmartBudget/dashboard') || 
                                 Request::is('SmartBudget/dashboard/weekly') ||
                                 Request::is('SmartBudget/dashboard/monthly') ||
                                 Request::is('SmartBudget/dashboard/yearly')
                                 ? 'active' : '' }}">
+                              
                         <i class="fa-solid fa-house" alt="Home Icon"></i>
                             <span class="label">Home</span>
                         </li>
@@ -84,18 +86,24 @@
                 <div class="flow-frame">
                     <div class="result-frame">
                         <div class="result-item">
+                        <div class="icon-number">
                             <i class="fa-solid fa-money-bill-wave"></i>
                             <p4>{{number_format($total_expense)}}</p4>
+                            </div>
                             <p3>Total Expenses</p3>
                         </div>
                         <div class="result-item">
-                            <i class="fa-solid fa-hand-holding-usd"></i>
+                        <div class="icon-number">
+                        <i class="fa-solid fa-peso-sign"></i>
                             <p4>{{number_format($total_income)}}</p4>
+                            </div>
                             <p3>Total Income</p3>
                         </div>
                         <div class="result-item">
+                        <div class="icon-number">
                             <i class="fa-solid fa-wallet"></i>
                             <p4>{{number_format(abs($total_income - $total_expense))}}</p4>
+                            </div>
                             <p3>Remaining Funds</p3>
                         </div>
                     </div>
