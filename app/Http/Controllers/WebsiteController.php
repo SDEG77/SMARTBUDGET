@@ -129,6 +129,10 @@ class WebsiteController extends Controller
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+            'daily_expenses' => Tracking::where('user_id', auth()->user()->id)
+            ->whereDate('date', Carbon::today())
+            ->where('mode', 'outgoing')
+            ->average('amount'),
 
             // 'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
             // 'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
@@ -146,6 +150,10 @@ class WebsiteController extends Controller
             'state' => 'null',
             'total_expense' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->sum('amount'),
             'total_income' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->sum('amount'),
+            'daily_expenses' => Tracking::where('user_id', auth()->user()->id)
+            ->whereDate('date', Carbon::today())
+            ->where('mode', 'outgoing')
+            ->average('amount'),
 
             // 'track_all_expenses' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'outgoing')->get(),
             // 'track_all_incomes' => Tracking::where('user_id', auth()->user()->id)->where('mode', 'ingoing')->get(),
