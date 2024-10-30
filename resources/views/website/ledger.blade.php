@@ -218,7 +218,7 @@
                         @method('PUT')
                         
                         <!-- Edit Confirmation Modal -->
-                        <div id="editModal-{{$ledger->id}}" style="display: none" class="modal delete-modal">
+                        <div id="editModal-{{$ledger->id}}" style="display: none" class="modal edit-modal">
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <h2>Edit Record</h2>
@@ -243,8 +243,8 @@
                                 <input required type="number" step="0.01" name="amount" value="{{$ledger->amount}}" placeholder="₱120">
                                 
                                 <div class="modal-footer">
-                                    <button class="clear-btn" type="submit" onclick="alert('Record updated successfully!');">Save Changes</button>
-                                    <button type="button" class="save-btn" onclick="event.preventDefault(); closeEditModal('{{$ledger->id}}')">Close</button>
+                                    <button class="save-btn" type="submit" onclick="alert('Record updated successfully!');">Save Changes</button>
+                                    <button type="button" class="close-btn" onclick="event.preventDefault(); closeEditModal('{{$ledger->id}}')">Close</button>
                                 </div>
                             </div>
                             </div>

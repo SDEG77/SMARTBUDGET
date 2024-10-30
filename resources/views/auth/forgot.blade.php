@@ -11,7 +11,7 @@
 <body>
 
 <div id="forgot-password-form">
-    <form id="forgot-password" action="{{ route('forgot') }}" method="POST">
+    <form id="forgot-password" action="{{ route('forgot.page') }}" method="POST">
         @csrf
 
         <h2>FORGOT PASSWORD?</h2>

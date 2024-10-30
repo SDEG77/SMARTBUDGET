@@ -127,7 +127,7 @@ box-sizing: border-box;
   text-decoration: none;
   color: inherit; /* Ensure color inherits from parent */
   }
-  button[type="submit"] {
+  button {
     background-color: transparent;
     color: white;
     border: none;
@@ -138,9 +138,10 @@ box-sizing: border-box;
     transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover { /* Removed the space before :hover */
+button:hover { /* Removed the space before :hover */
     background-color: #e7e3e355;
     border-radius: 10px;
+    
 }
  
 .profile-sidebar-img {

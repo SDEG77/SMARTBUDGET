@@ -199,7 +199,7 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-button[type="submit"]:hover {
+button:hover {
     background-color: #e7e3e355;
 border-radius: 10px;
 }

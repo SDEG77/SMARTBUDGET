@@ -45,7 +45,7 @@ button {
     font-size: 16px;
 }
 
-a {
+ #forgot {
     text-decoration: none;
     color: black;
     font-size: 14px;
@@ -91,7 +91,7 @@ a {
     cursor: pointer;
 }
 
-.popup-content i {
+.popup-content i { 
     font-size: 48px;
     color: #4CAF50; /* Example color */
     display: block;
