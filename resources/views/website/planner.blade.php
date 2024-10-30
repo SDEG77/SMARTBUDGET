@@ -56,9 +56,9 @@
                 </a>
             </ul>
             <div class="down-sidebar">
-                <form action="{{route('account.logout')}}" method="POST">
+                <form style="background-color: transparent" action="{{route('account.logout')}}" method="POST">
                     @csrf
-                    <button type="submit" onclick="e.preventDefault(); this.closest('form').submit()">
+                    <button style="background-color: transparent" type="submit" id="logout" onclick="e.preventDefault(); this.closest('form').submit()">
                         <li class="{{ Request::is('SmartBudget/welcome') ? 'active' : '' }}">
                         <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
                         <span class="label">Log out</span>
@@ -218,7 +218,7 @@
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount" step="0.01" required>
     </div>
-    <button type="submit">Add Income</button>
+    <button type="submit" class="btn-add-income">Add Income</button>
 </form>
 <div class="table">
         <!-- Expected Income Table -->
@@ -271,7 +271,7 @@
                             </div>
 
                             <td>
-                                <button onclick="setDeleteModal({{ $expected->id }})" >
+                                <button type="button" class="deleteBtn" onclick="setDeleteModal({{ $expected->id }})" >
                                     DELETE
                                 </button>
 

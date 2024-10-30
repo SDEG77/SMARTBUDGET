@@ -168,9 +168,9 @@
 
                     @if (!$user->is_admin)
                     <!-- Delete Account Section -->
-                    <div class="section">
+                    <div class="delete-section">
                         <h2>DELETE ACCOUNT</h2>
-                        <div class="form-buttons">
+                        <div class="del-button">
                             <button type="button" class="delete-btn" style="width: fit-content" onclick="setDeleteModal()">DELETE ACCOUNT</button>
 
                             <div class="big-dark" style="display: none" id="big-bright">

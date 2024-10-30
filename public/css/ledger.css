@@ -99,12 +99,8 @@ color: white;
 width: 30px;
 height: 20px;
 margin-right: 10px;
-}
-
-.sidebarli img {
 object-fit: contain;
 }
-
 .sidebar li .label {
 font-size: 16px;
 color: white;
@@ -127,7 +123,20 @@ padding: 10px 0; /* Adjust padding as needed */
 text-decoration: none;
 color: inherit; /* Ensure color inherits from parent */
 }
-
+button[type="submit"] {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button[type="submit"]:hover{
+    background-color: #e7e3e355;
+    border-radius: 10px;
+}
 .logo {
     width: 100px;
     height: 100px;
@@ -228,6 +237,14 @@ color: inherit; /* Ensure color inherits from parent */
     border: none;
     cursor: pointer;
     color: red; /* Change color of the icon to red */
+}
+.edit-btn {
+   
+    color: green; /* White icon color */
+    border: none; /* Remove borders */
+    border:none; /* Rounded corners */
+    font-size: 16px; /* Icon size */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
 .normal {

@@ -102,12 +102,9 @@ box-sizing: border-box;
   width: 30px;
   height: 20px;
   margin-right: 10px;
-  }
-  
-  .sidebar li img {
   object-fit: contain;
   }
-  
+ 
   .sidebar li .label {
   font-size: 16px;
   color: white;
@@ -130,7 +127,22 @@ box-sizing: border-box;
   text-decoration: none;
   color: inherit; /* Ensure color inherits from parent */
   }
-  
+  button[type="submit"] {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover { /* Removed the space before :hover */
+    background-color: #e7e3e355;
+    border-radius: 10px;
+}
+ 
 .profile-sidebar-img {
   width: 30px;
   height: 30px;
@@ -238,7 +250,6 @@ margin-top: 0;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 .section {
   background-color: #f5f5f5;
   padding: 20px;
@@ -251,30 +262,57 @@ h2 {
   font-size: 24px;
   margin-bottom: 20px;
   color: #0f3b3b;
+  text-align: center;
 }
 
 .form-group {
   display: flex;
   justify-content: space-between;
+  gap: 20px; /* Adds space between input fields */
   margin-bottom: 20px;
 }
 
-.form-group label {
-  flex-basis: 100%;
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #555;
+.form-group div {
+  flex-basis: 48%; /* Ensures inputs take equal width */
 }
 
-.form-group input,
-.form-group select {
-  flex-basis: 45%;
+input, select {
+  width: 100%; /* Make inputs fill their containers */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
-  width: 95%;
+  box-sizing: border-box;
 }
+
+input[style*="border: solid 1px red"], select[style*="border: solid 1px red"] {
+  border-color: red; /* Red border for error inputs */
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.clear-btn, .update-btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.clear-btn {
+  background-color: #d9534f;
+  color: white;
+}
+
+button.update-btn {
+  background-color: #5cb85c;
+  color: white;
+}
+
+
 
 .form-buttons {
   display: flex;
@@ -304,11 +342,44 @@ h2 {
   color: white;
 }
 
-.delete-btn {
-  background-color: #FF5C5C;
-  color: white;
-  width: 100%;
+.delete-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center; /* Center the text */
 }
+
+.delete-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: inline-block; /* Ensure the heading aligns horizontally with the buttons */
+    vertical-align: middle; /* Aligns the heading with the middle of the buttons */
+}
+
+.del-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Add space between buttons */
+}
+
+.delete-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
 
 
 
@@ -335,8 +406,24 @@ h2 {
     font-size: 20px;
     padding: 8px;
   }
+
+  .form-group {
+    flex-direction: column;
 }
 
+.form-group div {
+    flex-basis: 100%;
+}
+
+.form-buttons {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.clear-btn, .update-btn {
+    width: 100%;
+}
+}
 
 @media (max-width: 480px) {
   .content {
@@ -400,3 +487,5 @@ h2 {
   width: 35%;
   border-radius: 30px;
 }
+
+
