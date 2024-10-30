@@ -382,10 +382,6 @@ button i {
    
 }
 
-
-
-
-
 /* Common Modal Styles */
 .modal {
     display: none;
@@ -481,10 +477,12 @@ button i {
 }
 
 .record-modal .modal-footer button {
-    padding: 10px 20px;
+    flex: 1; /* Ensures both buttons have equal width */
+    padding: 10px 0; /* Adjusts padding for consistent height */
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    
 }
 
 .record-modal .modal-footer .clear-btn {
@@ -493,7 +491,7 @@ button i {
 }
 
 .record-modal .modal-footer .save-btn {
-    background-color: #4db8ff;
+    background-color: #216850;
     color: white;
     margin-top: 10px;
 }

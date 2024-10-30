@@ -61,7 +61,7 @@
                     <button type="submit" onclick="e.preventDefault(); this.closest('form').submit()">
                         <li class="{{ Request::is('SmartBudget/welcome') ? 'active' : '' }}">
                         <i class="fa-solid fa-right-from-bracket" alt="Logout Icon"></i>
-                        <span class="label">Log out</span>
+                        <span id="logout" class="label">Log out</span>
                         </li>
                     </button>
                 </form>
