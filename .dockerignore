@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules
+vendor
+
+# Logs
+*.log
+storage/logs/*
+storage/debugbar/*
+
+# Cache
+bootstrap/cache/*.php
+
+# IDE
+.vscode
+.idea
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tests
+tests
+
+# Docker
+docker-compose.yml
+docker-compose.yaml
+
+# Misc
+npm-debug.log
+yarn-error.log
