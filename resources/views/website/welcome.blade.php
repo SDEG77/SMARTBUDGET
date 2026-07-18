@@ -24,7 +24,7 @@
       <div class="button-container">
         <div class="buttons">
             <a href="{{ route('login') }}"class="login-button">LOGIN</a>
-            <a href="{{ route('register') }}" class="register-button">REGISTER</a>
+            <a href="#demo-closed" class="register-button">REGISTER</a>
         </div>
       </div>
     </div>

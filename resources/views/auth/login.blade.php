@@ -24,7 +24,7 @@
         </form> 
 
         <div class="signup-link">
-            <p>Don't have an account? <a href="{{ route('register') }}">Sign Up</a></p>
+            <p>Don't have an account? <a href="#demo-closed">Sign Up</a></p>
         </div>
     </div> 
 
