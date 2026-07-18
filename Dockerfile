@@ -12,6 +12,9 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+# Make the entrypoint executable
+RUN chmod +x docker-entrypoint.sh
+
 EXPOSE 10000
 
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+ENTRYPOINT ["./docker-entrypoint.sh"]
