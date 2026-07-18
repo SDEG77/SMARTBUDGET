@@ -57,18 +57,6 @@
             <h1>Admin Dashboard</h1>
             
             <div class="result-frame">
-                        <div class="result-item">
-                            
-                            <p3>Total Average Users</p3>
-                        </div>
-                        <div class="result-item">
-                           
-                            <p3>Total Income</p3>
-                        </div>
-                        <div class="result-item">
-                           
-                            <p3>Remaining Funds</p3>
-                        </div>
                     </div>
                     </div>
                     </div>

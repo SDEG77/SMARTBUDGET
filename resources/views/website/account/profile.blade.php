@@ -98,7 +98,7 @@
 
                                 <div style="display:flex;flex-direction:column">
                                     <x-input-error :err="'email'" />
-                                    <input value="{{ $user->email }}" required type="email" name="email" id="email-address" placeholder="Email Address"
+                                    <input disabled value="{{ $user->email }}" required type="email" name="email" id="email-address" placeholder="Email Address"
                                     style="{{ $errors->has('email') ? 'border: solid 1px red' : '' }}">
                                 </div>
                             </div>

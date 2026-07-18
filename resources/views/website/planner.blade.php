@@ -139,6 +139,12 @@
         @endif
 
         <div class="allocation-container">
+            @if ($errors->any())
+                @foreach ($errors as $err)
+                    <span>{{ $err }}</span>
+                @endforeach
+            @endif
+
             <!-- Update Button -->
             <button onclick="makeTableEditable(event)" type="button" id="update-button">Update Allocation</button>
             <table id="budget-table">
@@ -388,7 +394,7 @@ function makeTableEditable(event) {
         if (!cell.querySelector('input')) {  // Avoid duplicating inputs
             cell.innerHTML = `
                 <x-input-error :err="'${categories[count]}'" />
-                <input type="number" id="editable" name="${categories[count]}" required  value="${currentValue}" />
+                <input type="number" onchange="warning(event) === 'warning!' && event.preventDefault()" id="editable" name="${categories[count]}" required  value="${currentValue}" />
             `; // Replace with input field
         }
 
@@ -405,5 +411,32 @@ function makeTableEditable(event) {
     document.getElementById('save-button').addEventListener('click', () => {
         document.getElementById('update-form').submit();
     });
+}
+
+function warning(event) {
+    const inputs = document.querySelectorAll("#editable");
+    const submitBtn = document.getElementById("save-button");
+
+
+    let contains = [];
+
+    inputs.forEach(inp => {
+        console.log(inp.value)
+
+        if(inp.value > 9500) {
+            contains.push("yep");
+            inp.style = `border: 3px solid red`;
+        }
+    })
+
+    if(contains.length > 0) {
+        alert("Excessive allocation! Please Distribute Evenly")
+
+        submitBtn.type = "button";
+        
+        return "warning!";
+        event.preventDefault();
+    }
+    
 }
 </script>

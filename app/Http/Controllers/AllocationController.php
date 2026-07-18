@@ -10,15 +10,15 @@ class AllocationController extends Controller
     public function allocate(Request $request){
         // dd($request);
         $validated = $request->validate([
-            'food' => 'required|numeric',
-            'rent' => 'required|numeric',
-            'transportation' => 'required|numeric',
-            'loan' => 'required|numeric',
-            'shopping' => 'required|numeric',
-            'mobile' => 'required|numeric',
-            'savings' => 'required|numeric',
-            'school' => 'required|numeric',
-            'others' => 'required|numeric',
+            'food' => 'required|numeric|max:6000',
+            'rent' => 'required|numeric|max:15000',
+            'transportation' => 'required|numeric|max:3000',
+            'loan' => 'required|numeric|max:20000',
+            'shopping' => 'required|numeric|max:3000',
+            'mobile' => 'required|numeric|max:1400',
+            'savings' => 'required|numeric|max:4000',
+            'school' => 'required|numeric|max:25000',
+            'others' => 'required|numeric|max:10000',
         ]); 
 
         // dd($validated);

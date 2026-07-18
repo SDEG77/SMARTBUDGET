@@ -33,7 +33,7 @@ else if (window.location.pathname === "/SmartBudget/dashboard/weekly"){
     track_expense.forEach(val => {
         track_expense_arr.push([`${val.className}`, `${val.innerHTML}`])
         track_expense_cats.push(val.className)
-        console.log([val.className, val.innerHTML]);
+        // console.log([val.className, val.innerHTML]);
     });
     
     track_income.forEach(val => {

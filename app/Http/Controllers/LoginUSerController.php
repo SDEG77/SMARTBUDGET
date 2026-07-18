@@ -100,7 +100,6 @@ class LoginUSerController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|min:3',
-            'email' => 'required|email|min:8|unique:users,email,' . auth()->user()->id,
             'school_name' => 'required|string|min:3',
             'course' => 'required|string|min:3',
         ]);
