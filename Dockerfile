@@ -14,6 +14,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN find /app/public -type f | sort
+
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
